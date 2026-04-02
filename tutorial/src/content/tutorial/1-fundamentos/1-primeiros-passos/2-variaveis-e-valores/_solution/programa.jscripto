@@ -1,0 +1,5 @@
+deixe nome = "Maria"
+const ano = 2026
+
+imprima(nome)
+imprima(ano)

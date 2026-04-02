@@ -1,0 +1,11 @@
+{
+  "name": "javascripto-runner",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node run.js programa.jscripto"
+  },
+  "dependencies": {
+    "ohm-js": "^17.1.0"
+  }
+}

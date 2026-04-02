@@ -1,0 +1,9 @@
+deixe nome = "JavaScripto"
+deixe versao = 1
+deixe legal = verdadeiro
+deixe bug = nulo
+
+imprima(nome)
+imprima(versao)
+imprima(legal)
+imprima(bug)
