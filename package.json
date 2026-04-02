@@ -1,0 +1,10 @@
+{
+  "name": "javascripto",
+  "private": true,
+  "description": "Plataforma de ensino de JavaScript para brasileiros",
+  "scripts": {
+    "dev": "NODE_ENV=development pnpm --filter javascripto-tutorial dev",
+    "build": "pnpm --filter javascripto-tutorial build",
+    "test": "pnpm --filter @javascripto/transpiler test"
+  }
+}
