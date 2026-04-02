@@ -1,0 +1,111 @@
+JavaScripto {
+  Program = Statement*
+
+  Statement = VariableDeclaration
+            | ExpressionStatement
+            | IfStatement
+            | WhileStatement
+            | ForStatement
+            | FunctionDeclaration
+            | ReturnStatement
+            | Block
+            | EmptyStatement
+
+  // Declarações de variáveis
+  VariableDeclaration = ("deixe" | "const") identifier "=" Expression ";"?
+
+  // Expressão como statement
+  ExpressionStatement = Expression ";"?
+
+  // Condicional
+  IfStatement = "se" "(" Expression ")" Block ("senao" Block)?
+
+  // Laços
+  WhileStatement = "enquanto" "(" Expression ")" Block
+
+  ForStatement = "para" "(" ForInit ";" Expression ";" ForUpdate ")" Block
+  ForInit = ("deixe" | "const") identifier "=" Expression  -- varDecl
+           | AssignmentExpression                           -- assign
+  ForUpdate = AssignmentExpression
+
+  // Funções
+  FunctionDeclaration = "funcao" identifier "(" Params ")" Block
+  Params = ListOf<identifier, ",">
+  ReturnStatement = "retorne" Expression? ";"?
+
+  // Blocos
+  Block = "{" Statement* "}"
+  EmptyStatement = ";"
+
+  // Expressões (precedência crescente de cima para baixo)
+  Expression = AssignmentExpression
+
+  AssignmentExpression = identifier "=" AssignmentExpression  -- assign
+                       | LogicalOrExpression
+
+  LogicalOrExpression = LogicalOrExpression "||" LogicalAndExpression  -- or
+                      | LogicalAndExpression
+
+  LogicalAndExpression = LogicalAndExpression "&&" EqualityExpression  -- and
+                       | EqualityExpression
+
+  EqualityExpression = EqualityExpression "===" ComparisonExpression  -- eq
+                     | EqualityExpression "!==" ComparisonExpression  -- neq
+                     | EqualityExpression "==" ComparisonExpression   -- looseEq
+                     | EqualityExpression "!=" ComparisonExpression   -- looseNeq
+                     | ComparisonExpression
+
+  ComparisonExpression = ComparisonExpression "<=" AddExpression  -- lte
+                       | ComparisonExpression ">=" AddExpression  -- gte
+                       | ComparisonExpression "<" AddExpression   -- lt
+                       | ComparisonExpression ">" AddExpression   -- gt
+                       | AddExpression
+
+  AddExpression = AddExpression "+" MulExpression  -- add
+                | AddExpression "-" MulExpression  -- sub
+                | MulExpression
+
+  MulExpression = MulExpression "*" UnaryExpression  -- mul
+                | MulExpression "/" UnaryExpression  -- div
+                | MulExpression "%" UnaryExpression  -- mod
+                | UnaryExpression
+
+  UnaryExpression = "!" UnaryExpression  -- not
+                  | "-" UnaryExpression  -- neg
+                  | CallExpression
+
+  CallExpression = CallExpression "(" Arguments ")"  -- call
+                 | CallExpression "." identifier      -- member
+                 | CallExpression "[" Expression "]"  -- index
+                 | PrimaryExpression
+
+  Arguments = ListOf<Expression, ",">
+
+  PrimaryExpression = "(" Expression ")"  -- paren
+                    | "verdadeiro"         -- true
+                    | "falso"              -- false
+                    | "nulo"               -- null
+                    | stringLiteral        -- string
+                    | numberLiteral        -- number
+                    | "imprima"            -- imprima
+                    | identifier           -- ident
+
+  // Tokens
+  stringLiteral = "\"" (~"\"" any)* "\""
+                | "'" (~"'" any)* "'"
+
+  numberLiteral = digit+ ("." digit+)?
+
+  identifier = ~keyword identStart identPart*
+  identStart = letter | "_" | "$"
+  identPart = identStart | digit
+
+  keyword = ("deixe" | "const" | "funcao" | "retorne"
+           | "se" | "senao" | "enquanto" | "para"
+           | "verdadeiro" | "falso" | "nulo" | "imprima") ~identPart
+
+  // Espaços e comentários
+  space += comment
+  comment = "//" (~"\n" any)* &("\n" | end)  -- singleLine
+          | "/*" (~"*/" any)* "*/"            -- multiLine
+}
