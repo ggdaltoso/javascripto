@@ -2,7 +2,7 @@
 
 Plataforma de ensino de JavaScript para brasileiros.
 
-O aluno aprende lógica de programação e JavaScript usando uma sintaxe em pt-BR. Palavras-chave como `se`, `senão`, `enquanto`, `função`, `retorne` são transpiladas para JavaScript válido antes de serem executada.
+O aluno aprende lógica de programação e JavaScript usando uma sintaxe em pt-BR. Palavras-chave como `se`, `senao`, `enquanto`, `funcao`, `retorne` são transpiladas para JavaScript válido antes de serem executada.
 
 ## Por que JavaScripto?
 
@@ -19,10 +19,10 @@ JavaScripto remove a terceira barreira. O aluno foca em **entender** o que está
 O aluno escreve código em pt-BR:
 
 ```
-função saudacao(nome) {
+funcao saudacao(nome) {
   se (nome) {
     retorne "Olá, " + nome + "!"
-  } senão {
+  } senao {
     retorne "Olá, mundo!"
   }
 }
