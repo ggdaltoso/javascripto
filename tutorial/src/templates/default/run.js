@@ -11,6 +11,8 @@ function run() {
   try {
     source = readFileSync(file, 'utf-8');
   } catch {
+    // arquivo ainda não existe, tenta novamente depois
+    lastContent = '';
     return;
   }
 
@@ -36,6 +38,10 @@ function check() {
   try {
     source = readFileSync(file, 'utf-8');
   } catch {
+    // arquivo pode ter sido removido durante troca de lição
+    if (lastContent !== '') {
+      lastContent = '';
+    }
     return;
   }
 
@@ -45,5 +51,18 @@ function check() {
   }
 }
 
-run();
+// executa imediatamente, mas tenta de novo se o arquivo ainda não existir
+function init() {
+  try {
+    readFileSync(file, 'utf-8');
+    run();
+  } catch {
+    // arquivo não existe ainda, espera o polling encontrá-lo
+  }
+}
+
+init();
 setInterval(check, 500);
+
+// mantém o processo vivo
+process.stdin.resume();
