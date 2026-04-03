@@ -15,7 +15,7 @@ Em JavaScripto, todo valor tem um **tipo**. Os tipos básicos são:
 
 Textos ficam entre aspas:
 
-```
+```jscripto
 deixe saudacao = "Olá!"
 deixe cidade = 'São Paulo'
 ```
@@ -24,7 +24,7 @@ deixe cidade = 'São Paulo'
 
 Números não precisam de aspas:
 
-```
+```jscripto
 deixe idade = 25
 deixe altura = 1.75
 ```
@@ -33,7 +33,7 @@ deixe altura = 1.75
 
 Valores lógicos — **verdadeiro** ou **falso**:
 
-```
+```jscripto
 deixe maiorDeIdade = verdadeiro
 deixe chovendo = falso
 ```
@@ -46,7 +46,7 @@ deixe chovendo = falso
 
 Representa "nenhum valor":
 
-```
+```jscripto
 deixe resposta = nulo
 ```
 

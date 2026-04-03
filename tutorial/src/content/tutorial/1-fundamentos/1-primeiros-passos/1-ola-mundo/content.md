@@ -13,7 +13,7 @@ Todo programador começa por aqui: fazer o computador dizer "Olá"!
 
 Em JavaScripto, usamos o comando `imprima` para mostrar algo na tela. É como pedir para o computador falar:
 
-```
+```jscripto
 imprima("Olá, mundo!")
 ```
 
