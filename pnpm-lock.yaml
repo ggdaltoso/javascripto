@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      coi-serviceworker:
+        specifier: ^0.1.7
+        version: 0.1.7
       gh-pages:
         specifier: ^6.3.0
         version: 6.3.0
@@ -1639,6 +1642,9 @@ packages:
 
   codemirror@6.0.2:
     resolution: {integrity: sha512-VhydHotNW5w1UGK0Qj96BwSk/Zqbp9WbnyK2W/eVMv4QyF41INRGpjUhFJY7/uDNuudSc33a/PKr4iDqRduvHw==}
+
+  coi-serviceworker@0.1.7:
+    resolution: {integrity: sha512-bjSUqEngCPOkErY2vbyWsaIGCNRODYzlNycaREVw5s12/C8SM+RnRUUeX6pZbTtov6C52ZLY/+tvHK+BDxuUuA==}
 
   collapse-white-space@2.1.0:
     resolution: {integrity: sha512-loKTxY1zCOuG4j9f6EPnuyyYkf58RnhhWTvRoZEokgB+WbdXehfjFviyOVYkqzEWz1Q5kRiZdBYS5SwxbQYwzw==}
@@ -5259,6 +5265,8 @@ snapshots:
       '@codemirror/search': 6.6.0
       '@codemirror/state': 6.6.0
       '@codemirror/view': 6.41.0
+
+  coi-serviceworker@0.1.7: {}
 
   collapse-white-space@2.1.0: {}
 
