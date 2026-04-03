@@ -12,7 +12,7 @@ const semantics = grammar.createSemantics();
 
 semantics.addOperation('toJS()', {
   Program(statements) {
-    return statements.children.map((s) => s.toJS()).join('\n');
+    return statements.children.map(s => s.toJS()).join('\n');
   },
 
   VariableDeclaration(kind, name, _eq, expr, _semi) {
@@ -207,7 +207,7 @@ semantics.addOperation('toJS()', {
     return `"${chars.sourceString}"`;
   },
 
-  numberLiteral(_) {
+  numberLiteral(_intPart, _dot, _decPart) {
     return this.sourceString;
   },
 
