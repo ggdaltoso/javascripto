@@ -1,0 +1,1 @@
+{"/programa.jscripto":"deixe nome = \"JavaScripto\"\ndeixe versao = 1\ndeixe legal = verdadeiro\ndeixe bug = nulo\n\nimprima(nome)\nimprima(versao)\nimprima(legal)\nimprima(bug)\n"}
