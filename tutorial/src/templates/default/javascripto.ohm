@@ -12,7 +12,7 @@ JavaScripto {
             | EmptyStatement
 
   // Declarações de variáveis
-  VariableDeclaration = ("deixe" | "const") identifier "=" Expression ";"?
+  VariableDeclaration = ("deixe" | "fixe") identifier "=" Expression ";"?
 
   // Expressão como statement
   ExpressionStatement = Expression ";"?
@@ -24,7 +24,7 @@ JavaScripto {
   WhileStatement = "enquanto" "(" Expression ")" Block
 
   ForStatement = "para" "(" ForInit ";" Expression ";" ForUpdate ")" Block
-  ForInit = ("deixe" | "const") identifier "=" Expression  -- varDecl
+  ForInit = ("deixe" | "fixe") identifier "=" Expression  -- varDecl
            | AssignmentExpression                           -- assign
   ForUpdate = AssignmentExpression
 
@@ -100,7 +100,7 @@ JavaScripto {
   identStart = letter | "_" | "$"
   identPart = identStart | digit
 
-  keyword = ("deixe" | "const" | "funcao" | "retorne"
+  keyword = ("deixe" | "fixe" | "funcao" | "retorne"
            | "se" | "senao" | "enquanto" | "para"
            | "verdadeiro" | "falso" | "nulo" | "imprima") ~identPart
 

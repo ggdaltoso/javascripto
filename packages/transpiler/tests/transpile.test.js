@@ -25,8 +25,8 @@ describe('transpile', () => {
       expect(transpile('deixe x = 10')).toBe('let x = 10;');
     });
 
-    it('transpila const (permanece const)', () => {
-      expect(transpile('const pi = 3.14')).toBe('const pi = 3.14;');
+    it('transpila fixe para const', () => {
+      expect(transpile('fixe pi = 3.14')).toBe('const pi = 3.14;');
     });
 
     it('transpila deixe com string', () => {
