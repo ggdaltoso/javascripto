@@ -1,5 +1,23 @@
-import { readFileSync } from 'node:fs';
-import { transpile } from './transpiler.js';
+import { readFileSync, existsSync } from 'node:fs';
+import { execSync } from 'node:child_process';
+
+// Quando o mainCommand é o mesmo entre lições, o TutorialKit reutiliza o processo
+// em vez de reiniciá-lo. Porém, ao trocar de lição, o pipe entre o processo e o
+// painel de output é desconectado. O processo continua rodando mas a saída não
+// aparece mais na tela.
+//
+// Para forçar o restart, cada lição define um mainCommand ligeiramente diferente
+// (ex: "node run.js programa.jscripto 1", "... 2", etc.) e sobrescreve
+// prepareCommands com [] para evitar re-executar npm install a cada troca.
+//
+// Como prepareCommands é vazio nas lições, garantimos as dependências aqui. Usamos
+// import() dinâmico (não estático) porque imports ESM são resolvidos antes de
+// qualquer código executar — o existsSync/execSync precisa rodar primeiro.
+if (!existsSync('node_modules/ohm-js')) {
+  execSync('npm install', { stdio: 'inherit' });
+}
+
+const { transpile } = await import('./transpiler.js');
 
 const file = process.argv[2] || 'programa.jscripto';
 let lastContent = '';
