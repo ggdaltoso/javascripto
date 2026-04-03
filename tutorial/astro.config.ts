@@ -1,46 +1,37 @@
 import tutorialkit from '@tutorialkit/astro';
 import { defineConfig } from 'astro/config';
-import { resolve } from 'node:path';
-import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
-const LANGUAGES_ID = '\0codemirror-languages-override';
+const langModulePath = fileURLToPath(new URL('./src/codemirror-lang-javascripto.js', import.meta.url));
 
-/**
- * Vite plugin that overrides TutorialKit's CodeMirror languages module
- * to add .jscripto support with a custom StreamLanguage tokenizer.
- */
-function jscriptoEditorPlugin() {
-  let originalPath = '';
-
-  return {
-    name: 'jscripto-editor-language',
-    resolveId(id, importer) {
-      if (
-        id === './languages.js' &&
-        importer &&
-        importer.includes('@tutorialkit/react') &&
-        importer.includes('CodeMirrorEditor')
-      ) {
-        originalPath = resolve(importer, '..', 'languages.js');
-        return LANGUAGES_ID;
-      }
-    },
-    load(id) {
-      if (id === LANGUAGES_ID) {
-        const originalSource = readFileSync(originalPath, 'utf-8');
-
-        const jscriptoEntry = `
+const jscriptoEntry = `
     LanguageDescription.of({
         name: 'JavaScripto',
         extensions: ['jscripto'],
         async load() {
-            const { javascriptoLanguage } = await import('/src/codemirror-lang-javascripto.js');
-            return new (await import('@codemirror/language')).LanguageSupport(javascriptoLanguage);
+            const { LanguageSupport } = await import('@codemirror/language');
+            const { javascriptoLanguage } = await import('${langModulePath}');
+            return new LanguageSupport(javascriptoLanguage);
         },
     }),`;
 
-        return originalSource.replace(
-          /^(export const supportedLanguages = \[)/m,
+/**
+ * Vite plugin that transforms TutorialKit's CodeMirror languages module
+ * to add .jscripto support with a custom StreamLanguage tokenizer.
+ *
+ * Works both in dev (Vite dep pre-bundling) and build (Rollup).
+ */
+function jscriptoEditorPlugin() {
+  return {
+    name: 'jscripto-editor-language',
+    transform(code: string, id: string) {
+      // Match both the original module and Vite's pre-bundled version
+      const isOriginal = id.includes('CodeMirrorEditor') && id.endsWith('languages.js');
+      const isPreBundled = id.includes('@tutorialkit_react') && code.includes('supportedLanguages');
+
+      if (isOriginal || isPreBundled) {
+        return code.replace(
+          /((?:export )?(?:const|var) supportedLanguages = \[)/,
           `$1${jscriptoEntry}`
         );
       }
@@ -53,5 +44,8 @@ export default defineConfig({
   integrations: [tutorialkit()],
   vite: {
     plugins: [jscriptoEditorPlugin()],
+    optimizeDeps: {
+      exclude: ['@tutorialkit/react'],
+    },
   },
 });
