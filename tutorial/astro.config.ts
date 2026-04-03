@@ -42,7 +42,13 @@ function jscriptoEditorPlugin() {
 export default defineConfig({
   site: 'https://javascripto.ggdaltoso.dev',
   devToolbar: { enabled: false },
-  integrations: [tutorialkit()],
+  integrations: [
+    tutorialkit({
+      components: {
+        HeadTags: './src/CustomHeadTags.astro',
+      },
+    }),
+  ],
   vite: {
     plugins: [jscriptoEditorPlugin()],
     optimizeDeps: {
