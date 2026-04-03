@@ -3,6 +3,8 @@ type: lesson
 title: Tipos de dados
 template: default
 focus: /programa.jscripto
+prepareCommands: []
+mainCommand: ["node run.js programa.jscripto 3", "JavaScripto"]
 ---
 
 # Tipos de dados

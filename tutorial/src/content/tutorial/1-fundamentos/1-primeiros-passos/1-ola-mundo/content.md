@@ -3,6 +3,8 @@ type: lesson
 title: Olá, Mundo!
 template: default
 focus: /programa.jscripto
+prepareCommands: []
+mainCommand: ["node run.js programa.jscripto 1", "JavaScripto"]
 ---
 
 # Olá, Mundo!
