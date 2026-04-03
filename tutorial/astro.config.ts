@@ -40,6 +40,7 @@ function jscriptoEditorPlugin() {
 }
 
 export default defineConfig({
+  site: 'https://javascripto.ggdaltoso.dev',
   devToolbar: { enabled: false },
   integrations: [tutorialkit()],
   vite: {
