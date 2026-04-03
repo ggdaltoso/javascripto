@@ -12,7 +12,7 @@ const semantics = grammar.createSemantics();
 
 semantics.addOperation('toJS()', {
   Program(statements) {
-    return statements.children.map(s => s.toJS()).join('\n');
+    return statements.children.map((s) => s.toJS()).join('\n');
   },
 
   VariableDeclaration(kind, name, _eq, expr, _semi) {
@@ -58,7 +58,10 @@ semantics.addOperation('toJS()', {
   },
 
   Params(list) {
-    return list.asIteration().children.map(p => p.toJS()).join(', ');
+    return list
+      .asIteration()
+      .children.map((p) => p.toJS())
+      .join(', ');
   },
 
   ReturnStatement(_retorne, expr, _semi) {
@@ -69,7 +72,7 @@ semantics.addOperation('toJS()', {
   },
 
   Block(_lb, statements, _rb) {
-    const body = statements.children.map(s => s.toJS()).join('\n');
+    const body = statements.children.map((s) => s.toJS()).join('\n');
     return `{\n${body}\n}`;
   },
 
@@ -162,7 +165,10 @@ semantics.addOperation('toJS()', {
   },
 
   Arguments(list) {
-    return list.asIteration().children.map(a => a.toJS()).join(', ');
+    return list
+      .asIteration()
+      .children.map((a) => a.toJS())
+      .join(', ');
   },
 
   PrimaryExpression_paren(_lp, expr, _rp) {
@@ -201,7 +207,7 @@ semantics.addOperation('toJS()', {
     return `"${chars.sourceString}"`;
   },
 
-  numberLiteral(intPart, _dot, decPart) {
+  numberLiteral(_) {
     return this.sourceString;
   },
 
