@@ -5,6 +5,10 @@
   "scripts": {
     "dev": "NODE_ENV=development pnpm --filter javascripto-tutorial dev",
     "build": "pnpm --filter javascripto-tutorial build",
+    "deploy": "pnpm build && gh-pages -d tutorial/dist",
     "test": "pnpm --filter @javascripto/transpiler test"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
