@@ -31,7 +31,7 @@ deixe altura = 1.75
 
 ## Booleano (Boolean)
 
-Valores lógicos — **verdadeiro** ou **falso**:
+Valores lógicos: **verdadeiro** ou **falso**:
 
 ```jscripto
 deixe maiorDeIdade = verdadeiro

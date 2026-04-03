@@ -18,8 +18,8 @@ fixe idade = 25
 
 ## `deixe` vs `fixe`
 
-- **`deixe`** — cria uma variável que pode mudar de valor depois (equivalente a `let`)
-- **`fixe`** — cria uma variável que **não muda** (equivalente a `const`)
+- **`deixe`**: cria uma variável que pode mudar de valor depois (equivalente a `let`)
+- **`fixe`**: cria uma variável que **não muda** (equivalente a `const`)
 
 ```jscripto
 deixe pontos = 0
