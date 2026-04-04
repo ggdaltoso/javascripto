@@ -1,0 +1,5 @@
+deixe frutas = ["maca", "banana", "uva"]
+
+imprima(frutas[0])
+imprima(frutas[2])
+imprima(frutas.length)
