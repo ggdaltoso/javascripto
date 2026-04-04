@@ -4,7 +4,7 @@ title: Variáveis e valores
 template: default
 focus: /programa.jscripto
 prepareCommands: []
-mainCommand: ["node run.js programa.jscripto 2", "JavaScripto"]
+mainCommand: ["node run.js programa.jscripto", "JavaScripto"]
 ---
 
 # Variáveis e valores

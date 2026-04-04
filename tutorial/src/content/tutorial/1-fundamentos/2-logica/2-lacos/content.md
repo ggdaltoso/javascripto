@@ -4,7 +4,7 @@ title: Laços
 template: default
 focus: /programa.jscripto
 prepareCommands: []
-mainCommand: ["node run.js programa.jscripto 5", "JavaScripto"]
+mainCommand: ["node run.js programa.jscripto", "JavaScripto"]
 ---
 
 # Laços

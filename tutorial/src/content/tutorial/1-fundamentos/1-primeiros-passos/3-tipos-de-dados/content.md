@@ -4,7 +4,7 @@ title: Tipos de dados
 template: default
 focus: /programa.jscripto
 prepareCommands: []
-mainCommand: ["node run.js programa.jscripto 3", "JavaScripto"]
+mainCommand: ["node run.js programa.jscripto", "JavaScripto"]
 ---
 
 # Tipos de dados

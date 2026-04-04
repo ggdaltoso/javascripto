@@ -4,7 +4,7 @@ title: Condições
 template: default
 focus: /programa.jscripto
 prepareCommands: []
-mainCommand: ["node run.js programa.jscripto 4", "JavaScripto"]
+mainCommand: ["node run.js programa.jscripto", "JavaScripto"]
 ---
 
 # Condições

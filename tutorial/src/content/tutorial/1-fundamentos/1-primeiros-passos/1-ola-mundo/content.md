@@ -4,7 +4,7 @@ title: Olá, Mundo!
 template: default
 focus: /programa.jscripto
 prepareCommands: []
-mainCommand: ["node run.js programa.jscripto 1", "JavaScripto"]
+mainCommand: ["node run.js programa.jscripto", "JavaScripto"]
 ---
 
 # Olá, Mundo!
