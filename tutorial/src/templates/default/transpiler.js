@@ -78,6 +78,24 @@ semantics.addOperation('toJS()', {
     return 'return;';
   },
 
+  // Classes
+  ClassDeclaration(_classe, name, body) {
+    return `class ${name.toJS()} ${body.toJS()}`;
+  },
+
+  ClassBody(_lb, methods, _rb) {
+    const body = methods.children.map((m) => m.toJS()).join('\n');
+    return `{\n${body}\n}`;
+  },
+
+  MethodDefinition_constructor(_construtor, _lp, params, _rp, block) {
+    return `constructor(${params.toJS()}) ${block.toJS()}`;
+  },
+
+  MethodDefinition_method(name, _lp, params, _rp, block) {
+    return `${name.toJS()}(${params.toJS()}) ${block.toJS()}`;
+  },
+
   Block(_lb, statements, _rb) {
     const body = statements.children.map((s) => s.toJS()).join('\n');
     return `{\n${body}\n}`;
@@ -151,6 +169,10 @@ semantics.addOperation('toJS()', {
     return `${left.toJS()} % ${right.toJS()}`;
   },
 
+  UnaryExpression_new(_novo, expr) {
+    return `new ${expr.toJS()}`;
+  },
+
   UnaryExpression_not(_op, expr) {
     return `!${expr.toJS()}`;
   },
@@ -194,6 +216,10 @@ semantics.addOperation('toJS()', {
 
   PrimaryExpression_null(_) {
     return 'null';
+  },
+
+  PrimaryExpression_this(_) {
+    return 'this';
   },
 
   PrimaryExpression_object(node) {
