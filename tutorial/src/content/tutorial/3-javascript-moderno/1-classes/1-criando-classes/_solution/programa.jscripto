@@ -1,0 +1,12 @@
+classe Carro {
+  construtor(marca, ano) {
+    isso.marca = marca
+    isso.ano = ano
+  }
+}
+
+deixe carro1 = novo Carro("Fiat", 2020)
+deixe carro2 = novo Carro("Honda", 2023)
+
+imprima(carro1.marca + " - " + carro1.ano)
+imprima(carro2.marca + " - " + carro2.ano)
