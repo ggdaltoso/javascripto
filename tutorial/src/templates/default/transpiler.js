@@ -10,6 +10,13 @@ const grammarSource = readFileSync(join(__dirname, 'javascripto.ohm'), 'utf-8');
 const grammar = ohm.grammar(grammarSource);
 const semantics = grammar.createSemantics();
 
+// Mapa de tradução: propriedades/métodos pt-BR → JavaScript
+const methodMap = {
+  tamanho: 'length',
+  adicione: 'push',
+  remova: 'pop',
+};
+
 semantics.addOperation('toJS()', {
   Program(statements) {
     return statements.children.map(s => s.toJS()).join('\n');
@@ -157,7 +164,9 @@ semantics.addOperation('toJS()', {
   },
 
   CallExpression_member(obj, _dot, prop) {
-    return `${obj.toJS()}.${prop.toJS()}`;
+    const propName = prop.sourceString;
+    const translated = methodMap[propName] || propName;
+    return `${obj.toJS()}.${translated}`;
   },
 
   CallExpression_index(obj, _lb, expr, _rb) {
