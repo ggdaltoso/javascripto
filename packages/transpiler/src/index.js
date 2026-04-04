@@ -83,8 +83,8 @@ semantics.addOperation('toJS()', {
   },
 
   // Expressões
-  AssignmentExpression_assign(name, _eq, expr) {
-    return `${name.toJS()} = ${expr.toJS()}`;
+  AssignmentExpression_assign(lhs, _eq, expr) {
+    return `${lhs.toJS()} = ${expr.toJS()}`;
   },
 
   LogicalOrExpression_or(left, _op, right) {
@@ -187,6 +187,14 @@ semantics.addOperation('toJS()', {
     return 'null';
   },
 
+  PrimaryExpression_object(node) {
+    return node.toJS();
+  },
+
+  PrimaryExpression_array(node) {
+    return node.toJS();
+  },
+
   PrimaryExpression_string(node) {
     return node.toJS();
   },
@@ -205,6 +213,20 @@ semantics.addOperation('toJS()', {
 
   stringLiteral(_open, chars, _close) {
     return `"${chars.sourceString}"`;
+  },
+
+  ArrayLiteral(_lb, elements, _rb) {
+    const items = elements.asIteration().children.map(e => e.toJS()).join(', ');
+    return `[${items}]`;
+  },
+
+  ObjectLiteral(_lb, props, _rb) {
+    const items = props.asIteration().children.map(p => p.toJS()).join(', ');
+    return `{${items}}`;
+  },
+
+  PropertyDef(key, _colon, value) {
+    return `${key.toJS()}: ${value.toJS()}`;
   },
 
   numberLiteral(intPart, _dot, decPart) {

@@ -40,7 +40,7 @@ JavaScripto {
   // Expressões (precedência crescente de cima para baixo)
   Expression = AssignmentExpression
 
-  AssignmentExpression = identifier "=" AssignmentExpression  -- assign
+  AssignmentExpression = CallExpression "=" AssignmentExpression  -- assign
                        | LogicalOrExpression
 
   LogicalOrExpression = LogicalOrExpression "||" LogicalAndExpression  -- or
@@ -85,10 +85,17 @@ JavaScripto {
                     | "verdadeiro"         -- true
                     | "falso"              -- false
                     | "nulo"               -- null
+                    | ObjectLiteral        -- object
+                    | ArrayLiteral         -- array
                     | stringLiteral        -- string
                     | numberLiteral        -- number
                     | "imprima"            -- imprima
                     | identifier           -- ident
+
+  // Literais compostos
+  ArrayLiteral = "[" ListOf<Expression, ","> "]"
+  ObjectLiteral = "{" ListOf<PropertyDef, ","> "}"
+  PropertyDef = (identifier | stringLiteral) ":" Expression
 
   // Tokens
   stringLiteral = "\"" (~"\"" any)* "\""
