@@ -1,0 +1,7 @@
+deixe temperatura = 35
+
+se (temperatura >= 30) {
+  imprima("Está quente!")
+} senao {
+  imprima("Está fresco!")
+}
