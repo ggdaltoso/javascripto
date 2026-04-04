@@ -1,0 +1,30 @@
+classe Tarefa {
+  construtor(titulo) {
+    isso.titulo = titulo
+    isso.feita = falso
+  }
+
+  concluir() {
+    isso.feita = verdadeiro
+  }
+
+  status() {
+    se (isso.feita) {
+      retorne isso.titulo + " - feita"
+    } senao {
+      retorne isso.titulo + " - pendente"
+    }
+  }
+}
+
+deixe tarefas = [
+  novo Tarefa("Estudar"),
+  novo Tarefa("Exercitar"),
+  novo Tarefa("Ler")
+]
+
+tarefas[0].concluir()
+
+para (deixe i = 0; i < tarefas.tamanho; i = i + 1) {
+  imprima(tarefas[i].status())
+}
