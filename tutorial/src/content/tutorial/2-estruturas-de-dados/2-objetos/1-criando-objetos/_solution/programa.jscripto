@@ -1,0 +1,5 @@
+deixe pessoa = { nome: "Ana", idade: 25, cidade: "Recife" }
+
+imprima(pessoa.nome)
+imprima(pessoa.idade)
+imprima(pessoa.cidade)
