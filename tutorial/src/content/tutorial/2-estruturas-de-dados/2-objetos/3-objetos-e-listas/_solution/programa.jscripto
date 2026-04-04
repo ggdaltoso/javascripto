@@ -1,0 +1,9 @@
+deixe produtos = [
+  { nome: "Caderno", preco: 15 },
+  { nome: "Caneta", preco: 3 },
+  { nome: "Mochila", preco: 80 }
+]
+
+para (deixe i = 0; i < produtos.length; i = i + 1) {
+  imprima(produtos[i].nome + ": R$" + produtos[i].preco)
+}
