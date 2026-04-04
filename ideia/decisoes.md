@@ -138,3 +138,35 @@ Tabela base de keywords. Será expandida conforme o currículo avançar.
 **Capítulo 2 — Classes**
 
 > O currículo será detalhado lição a lição conforme a implementação avançar.
+
+---
+
+## 6. Versões
+
+O JavaScripto está planejado em três versões:
+
+### v1 — Tutorial interativo (atual)
+
+Tutorial guiado usando TutorialKit com lições passo a passo. O aluno segue um currículo estruturado, escrevendo código em pt-BR diretamente no browser com feedback instantâneo.
+
+**Status:** em desenvolvimento ativo (6 lições implementadas)
+
+### v2 — Landing page
+
+Site institucional para apresentar o projeto, explicar a proposta e direcionar visitantes ao tutorial ou playground. Serve como porta de entrada para quem ainda não conhece o JavaScripto.
+
+**Escopo planejado:**
+- Explicação visual de como funciona (antes/depois do transpilador)
+- Exemplos interativos inline
+- Links para o tutorial e playground
+- Seção de contribuição e comunidade
+
+### v3 — Playground
+
+Ambiente livre para escrever e executar código pt-BR sem seguir um currículo. Funciona como um REPL no browser — o aluno escreve, transpila e vê o resultado instantaneamente.
+
+**Escopo planejado:**
+- Editor CodeMirror com syntax highlighting e autocomplete pt-BR
+- Painel lado a lado: código pt-BR → JavaScript transpilado → saída
+- Compartilhamento de código via URL
+- Exemplos prontos para explorar
