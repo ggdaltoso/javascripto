@@ -1,0 +1,4 @@
+deixe tarefas = ["estudar", "almocar"]
+tarefas.push("exercitar")
+tarefas[0] = "revisar"
+imprima(tarefas)
