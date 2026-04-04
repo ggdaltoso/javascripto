@@ -181,4 +181,52 @@ imprima(saudacao("Maria"))`;
       expect(transpile(input)).toBe('console.log("oi");');
     });
   });
+
+  describe('listas (arrays)', () => {
+    it('transpila array vazio', () => {
+      expect(transpile('deixe lista = []')).toBe('let lista = [];');
+    });
+
+    it('transpila array com elementos', () => {
+      expect(transpile('deixe nums = [1, 2, 3]')).toBe('let nums = [1, 2, 3];');
+    });
+
+    it('transpila array com strings', () => {
+      expect(transpile('deixe frutas = ["maça", "banana", "uva"]')).toBe('let frutas = ["maça", "banana", "uva"];');
+    });
+
+    it('transpila acesso por índice', () => {
+      expect(transpile('imprima(lista[0])')).toBe('console.log(lista[0]);');
+    });
+
+    it('transpila chamada de método em array', () => {
+      expect(transpile('lista.push(4)')).toBe('lista.push(4);');
+    });
+
+    it('transpila acesso a length', () => {
+      expect(transpile('imprima(lista.length)')).toBe('console.log(lista.length);');
+    });
+  });
+
+  describe('objetos', () => {
+    it('transpila objeto vazio', () => {
+      expect(transpile('deixe obj = {}')).toBe('let obj = {};');
+    });
+
+    it('transpila objeto com propriedades', () => {
+      expect(transpile('deixe pessoa = { nome: "Ana", idade: 25 }')).toBe('let pessoa = {nome: "Ana", idade: 25};');
+    });
+
+    it('transpila acesso por ponto', () => {
+      expect(transpile('imprima(pessoa.nome)')).toBe('console.log(pessoa.nome);');
+    });
+
+    it('transpila acesso por colchete com string', () => {
+      expect(transpile('imprima(pessoa["nome"])')).toBe('console.log(pessoa["nome"]);');
+    });
+
+    it('transpila objeto com chave string', () => {
+      expect(transpile('deixe cfg = { "chave": 1 }')).toBe('let cfg = {"chave": 1};');
+    });
+  });
 });
