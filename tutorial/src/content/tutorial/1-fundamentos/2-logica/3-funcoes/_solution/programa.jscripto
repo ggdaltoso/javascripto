@@ -1,0 +1,10 @@
+funcao maiorDeDois(a, b) {
+  se (a > b) {
+    retorne a
+  } senao {
+    retorne b
+  }
+}
+
+imprima(maiorDeDois(10, 20))
+imprima(maiorDeDois(42, 7))
