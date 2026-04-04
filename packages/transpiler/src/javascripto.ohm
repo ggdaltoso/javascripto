@@ -2,6 +2,7 @@ JavaScripto {
   Program = Statement*
 
   Statement = VariableDeclaration
+            | ClassDeclaration
             | ExpressionStatement
             | IfStatement
             | WhileStatement
@@ -32,6 +33,12 @@ JavaScripto {
   FunctionDeclaration = "funcao" identifier "(" Params ")" Block
   Params = ListOf<identifier, ",">
   ReturnStatement = "retorne" Expression? ";"?
+
+  // Classes
+  ClassDeclaration = "classe" identifier ClassBody
+  ClassBody = "{" MethodDefinition* "}"
+  MethodDefinition = "construtor" "(" Params ")" Block  -- constructor
+                   | identifier "(" Params ")" Block     -- method
 
   // Blocos
   Block = "{" Statement* "}"
@@ -70,8 +77,9 @@ JavaScripto {
                 | MulExpression "%" UnaryExpression  -- mod
                 | UnaryExpression
 
-  UnaryExpression = "!" UnaryExpression  -- not
-                  | "-" UnaryExpression  -- neg
+  UnaryExpression = "novo" CallExpression   -- new
+                  | "!" UnaryExpression    -- not
+                  | "-" UnaryExpression    -- neg
                   | CallExpression
 
   CallExpression = CallExpression "(" Arguments ")"  -- call
@@ -85,6 +93,7 @@ JavaScripto {
                     | "verdadeiro"         -- true
                     | "falso"              -- false
                     | "nulo"               -- null
+                    | "isso"               -- this
                     | ObjectLiteral        -- object
                     | ArrayLiteral         -- array
                     | stringLiteral        -- string
@@ -109,7 +118,8 @@ JavaScripto {
 
   keyword = ("deixe" | "fixe" | "funcao" | "retorne"
            | "se" | "senao" | "enquanto" | "para"
-           | "verdadeiro" | "falso" | "nulo" | "imprima") ~identPart
+           | "verdadeiro" | "falso" | "nulo" | "imprima"
+           | "classe" | "novo" | "isso") ~identPart
 
   // Espaços e comentários
   space += comment

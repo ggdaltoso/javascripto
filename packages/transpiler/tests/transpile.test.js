@@ -251,4 +251,60 @@ imprima(saudacao("Maria"))`;
       expect(transpile('deixe cfg = { "chave": 1 }')).toBe('let cfg = {"chave": 1};');
     });
   });
+
+  describe('classes (classe/novo/isso)', () => {
+    it('transpila classe vazia', () => {
+      const input = 'classe Animal {}';
+      const expected = 'class Animal {\n\n}';
+      expect(transpile(input)).toBe(expected);
+    });
+
+    it('transpila classe com construtor', () => {
+      const input = 'classe Animal { construtor(nome) { isso.nome = nome } }';
+      const result = transpile(input);
+      expect(result).toContain('class Animal');
+      expect(result).toContain('constructor(nome)');
+      expect(result).toContain('this.nome = nome;');
+    });
+
+    it('transpila classe com metodo', () => {
+      const input = 'classe Animal { falar() { imprima("oi") } }';
+      const result = transpile(input);
+      expect(result).toContain('class Animal');
+      expect(result).toContain('falar()');
+      expect(result).toContain('console.log("oi");');
+    });
+
+    it('transpila novo para new', () => {
+      expect(transpile('deixe a = novo Animal("Gato")')).toBe('let a = new Animal("Gato");');
+    });
+
+    it('transpila isso para this', () => {
+      expect(transpile('isso.nome = "Rex"')).toBe('this.nome = "Rex";');
+    });
+
+    it('transpila isso com acesso a propriedade', () => {
+      expect(transpile('imprima(isso.nome)')).toBe('console.log(this.nome);');
+    });
+
+    it('transpila classe completa', () => {
+      const input = `classe Animal {
+  construtor(nome) {
+    isso.nome = nome
+  }
+  falar() {
+    imprima(isso.nome + " faz um barulho.")
+  }
+}
+deixe a = novo Animal("Gato")
+a.falar()`;
+      const result = transpile(input);
+      expect(result).toContain('class Animal');
+      expect(result).toContain('constructor(nome)');
+      expect(result).toContain('this.nome = nome;');
+      expect(result).toContain('falar()');
+      expect(result).toContain('new Animal("Gato")');
+      expect(result).toContain('a.falar()');
+    });
+  });
 });
