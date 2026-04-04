@@ -2,12 +2,12 @@ import { StreamLanguage } from '@codemirror/language';
 
 const keywords = new Set([
   'se', 'senao', 'enquanto', 'para', 'retorne',
-  'deixe', 'fixe', 'funcao',
+  'deixe', 'fixe', 'funcao', 'classe', 'novo', 'construtor',
 ]);
 
 const builtins = new Set(['imprima']);
 
-const constants = new Set(['verdadeiro', 'falso', 'nulo']);
+const constants = new Set(['verdadeiro', 'falso', 'nulo', 'isso']);
 
 function tokenize(stream, state) {
   // Block comment continuation

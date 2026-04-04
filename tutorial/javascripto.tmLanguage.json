@@ -71,7 +71,15 @@
         },
         {
           "name": "storage.type.javascripto",
-          "match": "\\b(deixe|fixe|funcao)\\b"
+          "match": "\\b(deixe|fixe|funcao|classe)\\b"
+        },
+        {
+          "name": "keyword.operator.new.javascripto",
+          "match": "\\bnovo\\b"
+        },
+        {
+          "name": "storage.type.constructor.javascripto",
+          "match": "\\bconstrutor\\b"
         }
       ]
     },
@@ -84,6 +92,10 @@
         {
           "name": "constant.language.null.javascripto",
           "match": "\\bnulo\\b"
+        },
+        {
+          "name": "variable.language.this.javascripto",
+          "match": "\\bisso\\b"
         }
       ]
     },
@@ -117,6 +129,10 @@
     },
     "identifiers": {
       "patterns": [
+        {
+          "name": "entity.name.function.javascripto",
+          "match": "\\b([a-zA-Z_$][a-zA-Z0-9_$]*)(?=\\s*\\()"
+        },
         {
           "name": "variable.other.javascripto",
           "match": "\\b[a-zA-Z_$][a-zA-Z0-9_$]*\\b"
