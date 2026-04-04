@@ -200,11 +200,33 @@ imprima(saudacao("Maria"))`;
     });
 
     it('transpila chamada de método em array', () => {
-      expect(transpile('lista.push(4)')).toBe('lista.push(4);');
+      expect(transpile('lista.adicione(4)')).toBe('lista.push(4);');
     });
 
-    it('transpila acesso a length', () => {
-      expect(transpile('imprima(lista.length)')).toBe('console.log(lista.length);');
+    it('transpila acesso a tamanho', () => {
+      expect(transpile('imprima(lista.tamanho)')).toBe('console.log(lista.length);');
+    });
+
+    it('transpila remova', () => {
+      expect(transpile('lista.remova()')).toBe('lista.pop();');
+    });
+  });
+
+  describe('tradução de métodos pt-BR', () => {
+    it('traduz .tamanho para .length', () => {
+      expect(transpile('imprima(lista.tamanho)')).toBe('console.log(lista.length);');
+    });
+
+    it('traduz .adicione() para .push()', () => {
+      expect(transpile('lista.adicione("x")')).toBe('lista.push("x");');
+    });
+
+    it('traduz .remova() para .pop()', () => {
+      expect(transpile('deixe ultimo = lista.remova()')).toBe('let ultimo = lista.pop();');
+    });
+
+    it('mantém propriedade não-mapeada como está', () => {
+      expect(transpile('imprima(obj.nome)')).toBe('console.log(obj.nome);');
     });
   });
 
