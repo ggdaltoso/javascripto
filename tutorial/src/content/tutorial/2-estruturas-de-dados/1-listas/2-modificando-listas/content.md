@@ -23,21 +23,21 @@ imprima(cores)  // ["vermelho", "amarelo", "verde"]
 
 ## Adicionando itens
 
-Use `.push()` para adicionar um item **no final** da lista:
+Use `.adicione()` para adicionar um item **no final** da lista:
 
 ```jscripto
 deixe frutas = ["maca", "banana"]
-frutas.push("uva")
+frutas.adicione("uva")
 imprima(frutas)  // ["maca", "banana", "uva"]
 ```
 
 ## Removendo o último item
 
-Use `.pop()` para remover e retornar o **último** item:
+Use `.remova()` para remover e retornar o **último** item:
 
 ```jscripto
 deixe numeros = [1, 2, 3]
-deixe ultimo = numeros.pop()
+deixe ultimo = numeros.remova()
 imprima(ultimo)   // 3
 imprima(numeros)  // [1, 2]
 ```
@@ -45,10 +45,10 @@ imprima(numeros)  // [1, 2]
 ## Sua vez!
 
 1. Crie uma lista `tarefas` com duas tarefas (strings)
-2. Adicione uma terceira tarefa com `.push()`
+2. Adicione uma terceira tarefa com `.adicione()`
 3. Altere a primeira tarefa para algo diferente
 4. Imprima a lista final
 
 :::tip
-`.push()` e `.pop()` são métodos — funções que pertencem a lista. Eles vem do JavaScript e funcionam igualzinho no JavaScripto!
+`.adicione()` e `.remova()` são as versões pt-BR de `.push()` e `.pop()` do JavaScript. No JavaScripto, você usa português!
 :::

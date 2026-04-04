@@ -1,4 +1,4 @@
 deixe tarefas = ["estudar", "almocar"]
-tarefas.push("exercitar")
+tarefas.adicione("exercitar")
 tarefas[0] = "revisar"
 imprima(tarefas)

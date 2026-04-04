@@ -35,11 +35,11 @@ O primeiro item está na posição `0`, não `1`. Isso é uma convenção em qua
 
 ## Quantos itens tem?
 
-Use `.length` para saber o tamanho da lista:
+Use `.tamanho` para saber o tamanho da lista:
 
 ```jscripto
 deixe numeros = [10, 20, 30, 40]
-imprima(numeros.length)  // 4
+imprima(numeros.tamanho)  // 4
 ```
 
 ## Lista vazia
@@ -48,7 +48,7 @@ Voce pode criar uma lista vazia e adicionar itens depois:
 
 ```jscripto
 deixe lista = []
-imprima(lista.length)  // 0
+imprima(lista.tamanho)  // 0
 ```
 
 ## Sua vez!

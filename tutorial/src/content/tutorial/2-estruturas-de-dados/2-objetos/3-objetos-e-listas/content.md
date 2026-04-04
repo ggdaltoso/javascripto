@@ -37,7 +37,7 @@ deixe alunos = [
   { nome: "Sofia", nota: 7 }
 ]
 
-para (deixe i = 0; i < alunos.length; i = i + 1) {
+para (deixe i = 0; i < alunos.tamanho; i = i + 1) {
   se (alunos[i].nota >= 7) {
     imprima(alunos[i].nome + ": aprovado")
   } senao {
@@ -58,7 +58,7 @@ deixe turma = {
 
 imprima(turma.professor)
 imprima(turma.alunos[0])
-imprima(turma.alunos.length)
+imprima(turma.alunos.tamanho)
 ```
 
 ## Sua vez!

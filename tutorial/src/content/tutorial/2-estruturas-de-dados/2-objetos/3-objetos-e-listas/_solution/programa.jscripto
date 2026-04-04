@@ -4,6 +4,6 @@ deixe produtos = [
   { nome: "Mochila", preco: 80 }
 ]
 
-para (deixe i = 0; i < produtos.length; i = i + 1) {
+para (deixe i = 0; i < produtos.tamanho; i = i + 1) {
   imprima(produtos[i].nome + ": R$" + produtos[i].preco)
 }

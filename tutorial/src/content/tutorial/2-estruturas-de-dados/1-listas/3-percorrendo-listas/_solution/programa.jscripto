@@ -1,7 +1,7 @@
 deixe numeros = [10, 20, 30, 40, 50]
 deixe soma = 0
 
-para (deixe i = 0; i < numeros.length; i = i + 1) {
+para (deixe i = 0; i < numeros.tamanho; i = i + 1) {
   soma = soma + numeros[i]
 }
 

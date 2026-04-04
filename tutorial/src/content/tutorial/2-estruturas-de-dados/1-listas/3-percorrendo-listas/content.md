@@ -13,12 +13,12 @@ Uma das coisas mais úteis que você pode fazer com listas é **percorrer** todo
 
 ## Usando `para` com listas
 
-O laço `para` combina perfeitamente com listas. Use `.length` como limite:
+O laço `para` combina perfeitamente com listas. Use `.tamanho` como limite:
 
 ```jscripto
 deixe nomes = ["Ana", "Pedro", "Maria"]
 
-para (deixe i = 0; i < nomes.length; i = i + 1) {
+para (deixe i = 0; i < nomes.tamanho; i = i + 1) {
   imprima(nomes[i])
 }
 ```
@@ -33,7 +33,7 @@ Um padrão muito comum e percorrer uma lista de números para calcular algo:
 deixe notas = [8, 7, 9, 10]
 deixe soma = 0
 
-para (deixe i = 0; i < notas.length; i = i + 1) {
+para (deixe i = 0; i < notas.tamanho; i = i + 1) {
   soma = soma + notas[i]
 }
 
@@ -48,7 +48,7 @@ Voce também pode percorrer para encontrar algo:
 deixe frutas = ["maca", "banana", "uva", "manga"]
 deixe busca = "uva"
 
-para (deixe i = 0; i < frutas.length; i = i + 1) {
+para (deixe i = 0; i < frutas.tamanho; i = i + 1) {
   se (frutas[i] == busca) {
     imprima("Encontrei na posição " + i)
   }
@@ -60,5 +60,5 @@ para (deixe i = 0; i < frutas.length; i = i + 1) {
 Crie uma lista `numeros` com pelo menos 5 números. Depois, use um laço `para` para calcular e imprimir a **soma** de todos os números.
 
 :::tip
-O padrão `para (deixe i = 0; i < lista.length; i = i + 1)` é tão comum que vai virar automático com a prática!
+O padrão `para (deixe i = 0; i < lista.tamanho; i = i + 1)` é tão comum que vai virar automático com a prática!
 :::
