@@ -1,0 +1,19 @@
+classe ContaBancaria {
+  construtor(titular) {
+    isso.titular = titular
+    isso.saldo = 0
+  }
+
+  depositar(valor) {
+    isso.saldo = isso.saldo + valor
+  }
+
+  mostrarSaldo() {
+    imprima(isso.titular + ": R$" + isso.saldo)
+  }
+}
+
+deixe conta = novo ContaBancaria("Maria")
+conta.depositar(500)
+conta.depositar(250)
+conta.mostrarSaldo()
