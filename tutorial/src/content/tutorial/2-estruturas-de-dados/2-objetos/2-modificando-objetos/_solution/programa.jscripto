@@ -1,0 +1,11 @@
+deixe filme = { titulo: "Matrix", ano: 1999 }
+filme.nota = 9
+
+se (filme.nota >= 7) {
+  filme.recomendado = verdadeiro
+} senao {
+  filme.recomendado = falso
+}
+
+imprima(filme.titulo)
+imprima(filme.recomendado)
