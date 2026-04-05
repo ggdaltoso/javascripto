@@ -92,7 +92,7 @@ function tokenize(stream, state) {
     if (keywords.has(word)) return 'keyword';
     if (builtins.has(word)) return 'variableName.function';
     if (constants.has(word)) return 'atom';
-    if (stream.match(/^\s*\(/, false)) return 'typeName';
+    if (stream.match(/^\s*\(/, false)) return 'variableName.function';
     return 'variableName';
   }
 
