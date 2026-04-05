@@ -7,10 +7,12 @@ JavaScripto {
             | WhileStatement
             | ForStatement
             | SwitchStatement
+            | TryStatement
             | FunctionDeclaration
             | ReturnStatement
             | BreakStatement
             | ContinueStatement
+            | ThrowStatement
             | ExpressionStatement
             | Block
             | EmptyStatement
@@ -35,6 +37,12 @@ JavaScripto {
   // Controle de fluxo
   BreakStatement = "quebre" ";"?
   ContinueStatement = "continue" ";"?
+  ThrowStatement = "lance" Expression ";"?
+
+  // Tratamento de erros
+  TryStatement = "tente" Block CatchClause? FinallyClause?
+  CatchClause = "capture" "(" identifier ")" Block
+  FinallyClause = "finalmente" Block
 
   // Escolha (switch)
   SwitchStatement = "escolha" "(" Expression ")" "{" CaseClause* DefaultClause? "}"
@@ -132,7 +140,8 @@ JavaScripto {
            | "se" | "senao" | "enquanto" | "para"
            | "verdadeiro" | "falso" | "nulo" | "imprima"
            | "classe" | "novo" | "isso"
-           | "quebre" | "continue" | "escolha" | "caso" | "padrao") ~identPart
+           | "quebre" | "continue" | "escolha" | "caso" | "padrao"
+           | "tente" | "capture" | "finalmente" | "lance") ~identPart
 
   // Espaços e comentários
   space += comment

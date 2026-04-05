@@ -15,6 +15,12 @@ const methodMap = {
   tamanho: 'length',
   adicione: 'push',
   remova: 'pop',
+  mensagem: 'message',
+};
+
+// Mapa de tradução: identificadores pt-BR → JavaScript (builtins)
+const identifierMap = {
+  Erro: 'Error',
 };
 
 semantics.addOperation('toJS()', {
@@ -70,6 +76,30 @@ semantics.addOperation('toJS()', {
 
   ContinueStatement(_continue, _semi) {
     return 'continue;';
+  },
+
+  // Tratamento de erros
+  TryStatement(_tente, block, catchClause, finallyClause) {
+    let js = `try ${block.toJS()}`;
+    if (catchClause.children.length > 0) {
+      js += ` ${catchClause.children[0].toJS()}`;
+    }
+    if (finallyClause.children.length > 0) {
+      js += ` ${finallyClause.children[0].toJS()}`;
+    }
+    return js;
+  },
+
+  CatchClause(_capture, _lp, param, _rp, block) {
+    return `catch (${param.toJS()}) ${block.toJS()}`;
+  },
+
+  FinallyClause(_finalmente, block) {
+    return `finally ${block.toJS()}`;
+  },
+
+  ThrowStatement(_lance, expr, _semi) {
+    return `throw ${expr.toJS()};`;
   },
 
   // Escolha (switch)
@@ -295,7 +325,8 @@ semantics.addOperation('toJS()', {
   },
 
   identifier(_start, _rest) {
-    return this.sourceString;
+    const name = this.sourceString;
+    return identifierMap[name] || name;
   },
 
   _terminal() {
