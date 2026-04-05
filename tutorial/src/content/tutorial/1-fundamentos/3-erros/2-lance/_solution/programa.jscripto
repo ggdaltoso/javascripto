@@ -1,0 +1,13 @@
+funcao sacar(saldo, valor) {
+  se (valor > saldo) {
+    lance novo Erro("Saldo insuficiente!")
+  }
+  retorne saldo - valor
+}
+
+tente {
+  imprima(sacar(100, 30))
+  imprima(sacar(100, 200))
+} capture (e) {
+  imprima("Erro: " + e.mensagem)
+}
