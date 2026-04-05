@@ -63,6 +63,32 @@ semantics.addOperation('toJS()', {
     return expr.toJS();
   },
 
+  // Controle de fluxo
+  BreakStatement(_quebre, _semi) {
+    return 'break;';
+  },
+
+  ContinueStatement(_continue, _semi) {
+    return 'continue;';
+  },
+
+  // Escolha (switch)
+  SwitchStatement(_escolha, _lp, expr, _rp, _lb, cases, defaultClause, _rb) {
+    const casesJs = cases.children.map(c => c.toJS()).join('\n');
+    const defaultJs = defaultClause.children.length > 0 ? '\n' + defaultClause.children[0].toJS() : '';
+    return `switch (${expr.toJS()}) {\n${casesJs}${defaultJs}\n}`;
+  },
+
+  CaseClause(_caso, expr, _colon, statements) {
+    const stmts = statements.children.map(s => s.toJS()).join('\n');
+    return `case ${expr.toJS()}:\n${stmts}`;
+  },
+
+  DefaultClause(_padrao, _colon, statements) {
+    const stmts = statements.children.map(s => s.toJS()).join('\n');
+    return `default:\n${stmts}`;
+  },
+
   // Funções
   FunctionDeclaration(_funcao, name, _lp, params, _rp, block) {
     return `function ${name.toJS()}(${params.toJS()}) ${block.toJS()}`;
