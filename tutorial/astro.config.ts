@@ -10,8 +10,8 @@ const jscriptoEntry = `
         extensions: ['jscripto'],
         async load() {
             const { LanguageSupport } = await import('@codemirror/language');
-            const { javascriptoLanguage } = await import('${langModulePath}');
-            return new LanguageSupport(javascriptoLanguage);
+            const { javascriptoLanguage, javascriptoFunctionHighlight } = await import('${langModulePath}');
+            return new LanguageSupport(javascriptoLanguage, [javascriptoFunctionHighlight]);
         },
     }),`;
 
