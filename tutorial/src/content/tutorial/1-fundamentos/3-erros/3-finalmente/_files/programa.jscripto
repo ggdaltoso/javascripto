@@ -1,0 +1,10 @@
+funcao processar(valor) {
+  se (valor < 0) {
+    lance novo Erro("Valor negativo não permitido")
+  }
+  imprima("Processando: " + valor)
+}
+
+// Use tente/capture/finalmente aqui
+processar(10)
+processar(-5)

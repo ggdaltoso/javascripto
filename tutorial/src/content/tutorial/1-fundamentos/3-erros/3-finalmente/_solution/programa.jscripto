@@ -1,0 +1,15 @@
+funcao processar(valor) {
+  se (valor < 0) {
+    lance novo Erro("Valor negativo não permitido")
+  }
+  imprima("Processando: " + valor)
+}
+
+tente {
+  processar(10)
+  processar(-5)
+} capture (e) {
+  imprima("Erro: " + e.mensagem)
+} finalmente {
+  imprima("Processamento finalizado.")
+}
