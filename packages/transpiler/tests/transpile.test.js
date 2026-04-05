@@ -307,4 +307,56 @@ a.falar()`;
       expect(result).toContain('a.falar()');
     });
   });
+
+  describe('quebre e continue', () => {
+    it('transpila quebre para break', () => {
+      const input = 'enquanto (verdadeiro) { quebre }';
+      const expected = 'while (true) {\nbreak;\n}';
+      expect(transpile(input)).toBe(expected);
+    });
+
+    it('transpila continue para continue', () => {
+      const input = 'enquanto (verdadeiro) { continue }';
+      const expected = 'while (true) {\ncontinue;\n}';
+      expect(transpile(input)).toBe(expected);
+    });
+
+    it('transpila quebre dentro de para', () => {
+      const input = 'para (deixe i = 0; i < 10; i = i + 1) { se (i === 5) { quebre } }';
+      const expected = 'for (let i = 0; i < 10; i = i + 1) {\nif (i === 5) {\nbreak;\n}\n}';
+      expect(transpile(input)).toBe(expected);
+    });
+
+    it('transpila continue dentro de para', () => {
+      const input = 'para (deixe i = 0; i < 5; i = i + 1) { se (i === 2) { continue } imprima(i) }';
+      const expected = 'for (let i = 0; i < 5; i = i + 1) {\nif (i === 2) {\ncontinue;\n}\nconsole.log(i);\n}';
+      expect(transpile(input)).toBe(expected);
+    });
+  });
+
+  describe('escolha/caso/padrao (switch)', () => {
+    it('transpila escolha com um caso', () => {
+      const input = 'escolha (x) { caso 1: imprima("um") quebre }';
+      const expected = 'switch (x) {\ncase 1:\nconsole.log("um");\nbreak;\n}';
+      expect(transpile(input)).toBe(expected);
+    });
+
+    it('transpila escolha com múltiplos casos', () => {
+      const input = 'escolha (x) { caso 1: imprima("um") quebre caso 2: imprima("dois") quebre }';
+      const expected = 'switch (x) {\ncase 1:\nconsole.log("um");\nbreak;\ncase 2:\nconsole.log("dois");\nbreak;\n}';
+      expect(transpile(input)).toBe(expected);
+    });
+
+    it('transpila escolha com padrao', () => {
+      const input = 'escolha (x) { caso 1: imprima("um") quebre padrao: imprima("outro") }';
+      const expected = 'switch (x) {\ncase 1:\nconsole.log("um");\nbreak;\ndefault:\nconsole.log("outro");\n}';
+      expect(transpile(input)).toBe(expected);
+    });
+
+    it('transpila escolha com string', () => {
+      const input = 'escolha (cor) { caso "azul": imprima("céu") quebre padrao: imprima("desconhecido") }';
+      const expected = 'switch (cor) {\ncase "azul":\nconsole.log("céu");\nbreak;\ndefault:\nconsole.log("desconhecido");\n}';
+      expect(transpile(input)).toBe(expected);
+    });
+  });
 });
