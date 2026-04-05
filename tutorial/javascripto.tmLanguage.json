@@ -67,7 +67,7 @@
       "patterns": [
         {
           "name": "keyword.control.javascripto",
-          "match": "\\b(se|senao|enquanto|para|retorne)\\b"
+          "match": "\\b(se|senao|enquanto|para|retorne|quebre|continue|escolha|caso|padrao)\\b"
         },
         {
           "name": "storage.type.javascripto",

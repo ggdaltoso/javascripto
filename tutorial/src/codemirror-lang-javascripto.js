@@ -5,6 +5,7 @@ import { Prec } from '@codemirror/state';
 const keywords = new Set([
   'se', 'senao', 'enquanto', 'para', 'retorne',
   'deixe', 'fixe', 'funcao', 'classe', 'novo', 'construtor',
+  'quebre', 'continue', 'escolha', 'caso', 'padrao',
 ]);
 
 const builtins = new Set(['imprima']);
