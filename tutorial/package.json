@@ -19,6 +19,8 @@
     "@astrojs/check": "^0.7.0",
     "@astrojs/react": "^3.6.0",
     "@codemirror/language": "^6.12.3",
+    "@codemirror/state": "^6.6.0",
+    "@lezer/highlight": "^1.2.3",
     "@tutorialkit/astro": "1.6.0",
     "@tutorialkit/theme": "1.6.0",
     "@tutorialkit/types": "1.6.0",
