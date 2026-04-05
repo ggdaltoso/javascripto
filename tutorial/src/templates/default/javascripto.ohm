@@ -3,12 +3,15 @@ JavaScripto {
 
   Statement = VariableDeclaration
             | ClassDeclaration
-            | ExpressionStatement
             | IfStatement
             | WhileStatement
             | ForStatement
+            | SwitchStatement
             | FunctionDeclaration
             | ReturnStatement
+            | BreakStatement
+            | ContinueStatement
+            | ExpressionStatement
             | Block
             | EmptyStatement
 
@@ -28,6 +31,15 @@ JavaScripto {
   ForInit = ("deixe" | "fixe") identifier "=" Expression  -- varDecl
            | AssignmentExpression                           -- assign
   ForUpdate = AssignmentExpression
+
+  // Controle de fluxo
+  BreakStatement = "quebre" ";"?
+  ContinueStatement = "continue" ";"?
+
+  // Escolha (switch)
+  SwitchStatement = "escolha" "(" Expression ")" "{" CaseClause* DefaultClause? "}"
+  CaseClause = "caso" Expression ":" Statement*
+  DefaultClause = "padrao" ":" Statement*
 
   // Funções
   FunctionDeclaration = "funcao" identifier "(" Params ")" Block
@@ -119,7 +131,8 @@ JavaScripto {
   keyword = ("deixe" | "fixe" | "funcao" | "retorne"
            | "se" | "senao" | "enquanto" | "para"
            | "verdadeiro" | "falso" | "nulo" | "imprima"
-           | "classe" | "novo" | "isso") ~identPart
+           | "classe" | "novo" | "isso"
+           | "quebre" | "continue" | "escolha" | "caso" | "padrao") ~identPart
 
   // Espaços e comentários
   space += comment

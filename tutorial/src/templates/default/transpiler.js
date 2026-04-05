@@ -22,6 +22,7 @@ semantics.addOperation('toJS()', {
     return statements.children.map(s => s.toJS()).join('\n');
   },
 
+  // Declarações de variáveis
   VariableDeclaration(kind, name, _eq, expr, _semi) {
     const jsKind = kind.sourceString === 'deixe' ? 'let' : 'const';
     return `${jsKind} ${name.toJS()} = ${expr.toJS()};`;
@@ -31,6 +32,7 @@ semantics.addOperation('toJS()', {
     return `${expr.toJS()};`;
   },
 
+  // Condicional
   IfStatement(_se, _lp, cond, _rp, block, _senao, elseBlock) {
     let js = `if (${cond.toJS()}) ${block.toJS()}`;
     if (elseBlock.children.length > 0) {
@@ -39,6 +41,7 @@ semantics.addOperation('toJS()', {
     return js;
   },
 
+  // Laços
   WhileStatement(_enquanto, _lp, cond, _rp, block) {
     return `while (${cond.toJS()}) ${block.toJS()}`;
   },
@@ -60,15 +63,39 @@ semantics.addOperation('toJS()', {
     return expr.toJS();
   },
 
+  // Controle de fluxo
+  BreakStatement(_quebre, _semi) {
+    return 'break;';
+  },
+
+  ContinueStatement(_continue, _semi) {
+    return 'continue;';
+  },
+
+  // Escolha (switch)
+  SwitchStatement(_escolha, _lp, expr, _rp, _lb, cases, defaultClause, _rb) {
+    const casesJs = cases.children.map(c => c.toJS()).join('\n');
+    const defaultJs = defaultClause.children.length > 0 ? '\n' + defaultClause.children[0].toJS() : '';
+    return `switch (${expr.toJS()}) {\n${casesJs}${defaultJs}\n}`;
+  },
+
+  CaseClause(_caso, expr, _colon, statements) {
+    const stmts = statements.children.map(s => s.toJS()).join('\n');
+    return `case ${expr.toJS()}:\n${stmts}`;
+  },
+
+  DefaultClause(_padrao, _colon, statements) {
+    const stmts = statements.children.map(s => s.toJS()).join('\n');
+    return `default:\n${stmts}`;
+  },
+
+  // Funções
   FunctionDeclaration(_funcao, name, _lp, params, _rp, block) {
     return `function ${name.toJS()}(${params.toJS()}) ${block.toJS()}`;
   },
 
   Params(list) {
-    return list
-      .asIteration()
-      .children.map((p) => p.toJS())
-      .join(', ');
+    return list.asIteration().children.map(p => p.toJS()).join(', ');
   },
 
   ReturnStatement(_retorne, expr, _semi) {
@@ -84,7 +111,7 @@ semantics.addOperation('toJS()', {
   },
 
   ClassBody(_lb, methods, _rb) {
-    const body = methods.children.map((m) => m.toJS()).join('\n');
+    const body = methods.children.map(m => m.toJS()).join('\n');
     return `{\n${body}\n}`;
   },
 
@@ -96,8 +123,9 @@ semantics.addOperation('toJS()', {
     return `${name.toJS()}(${params.toJS()}) ${block.toJS()}`;
   },
 
+  // Blocos
   Block(_lb, statements, _rb) {
-    const body = statements.children.map((s) => s.toJS()).join('\n');
+    const body = statements.children.map(s => s.toJS()).join('\n');
     return `{\n${body}\n}`;
   },
 
@@ -105,6 +133,7 @@ semantics.addOperation('toJS()', {
     return ';';
   },
 
+  // Expressões
   AssignmentExpression_assign(lhs, _eq, expr) {
     return `${lhs.toJS()} = ${expr.toJS()}`;
   },
@@ -196,10 +225,7 @@ semantics.addOperation('toJS()', {
   },
 
   Arguments(list) {
-    return list
-      .asIteration()
-      .children.map((a) => a.toJS())
-      .join(', ');
+    return list.asIteration().children.map(a => a.toJS()).join(', ');
   },
 
   PrimaryExpression_paren(_lp, expr, _rp) {
@@ -251,12 +277,12 @@ semantics.addOperation('toJS()', {
   },
 
   ArrayLiteral(_lb, elements, _rb) {
-    const items = elements.asIteration().children.map((e) => e.toJS()).join(', ');
+    const items = elements.asIteration().children.map(e => e.toJS()).join(', ');
     return `[${items}]`;
   },
 
   ObjectLiteral(_lb, props, _rb) {
-    const items = props.asIteration().children.map((p) => p.toJS()).join(', ');
+    const items = props.asIteration().children.map(p => p.toJS()).join(', ');
     return `{${items}}`;
   },
 
@@ -264,7 +290,7 @@ semantics.addOperation('toJS()', {
     return `${key.toJS()}: ${value.toJS()}`;
   },
 
-  numberLiteral(_intPart, _dot, _decPart) {
+  numberLiteral(intPart, _dot, decPart) {
     return this.sourceString;
   },
 
@@ -277,12 +303,23 @@ semantics.addOperation('toJS()', {
   },
 });
 
+/**
+ * Transpila código JavaScripto (pt-BR) para JavaScript válido.
+ *
+ * @param {string} source — código em sintaxe pt-BR
+ * @returns {string} — código JavaScript equivalente
+ * @throws {Error} — erro de sintaxe com mensagem em português
+ */
 export function transpile(source) {
   const matchResult = grammar.match(source);
 
   if (matchResult.failed()) {
-    throw new Error(`Erro de sintaxe: ${matchResult.shortMessage}`);
+    const error = new Error(`Erro de sintaxe: ${matchResult.shortMessage}`);
+    error.name = 'ErroSintaxe';
+    throw error;
   }
 
   return semantics(matchResult).toJS();
 }
+
+export { grammar };
