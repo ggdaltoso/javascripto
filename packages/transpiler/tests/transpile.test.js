@@ -359,4 +359,64 @@ a.falar()`;
       expect(transpile(input)).toBe(expected);
     });
   });
+
+  describe('tratamento de erros (tente/capture/finalmente/lance)', () => {
+    it('transpila tente/capture', () => {
+      const input = 'tente { imprima("ok") } capture (e) { imprima(e) }';
+      const expected = 'try {\nconsole.log("ok");\n} catch (e) {\nconsole.log(e);\n}';
+      expect(transpile(input)).toBe(expected);
+    });
+
+    it('transpila tente/capture/finalmente', () => {
+      const input = 'tente { imprima("ok") } capture (e) { imprima(e) } finalmente { imprima("fim") }';
+      const expected = 'try {\nconsole.log("ok");\n} catch (e) {\nconsole.log(e);\n} finally {\nconsole.log("fim");\n}';
+      expect(transpile(input)).toBe(expected);
+    });
+
+    it('transpila tente/finalmente sem capture', () => {
+      const input = 'tente { imprima("ok") } finalmente { imprima("fim") }';
+      const expected = 'try {\nconsole.log("ok");\n} finally {\nconsole.log("fim");\n}';
+      expect(transpile(input)).toBe(expected);
+    });
+
+    it('transpila lance com novo Erro', () => {
+      const input = 'lance novo Erro("algo errado")';
+      const expected = 'throw new Error("algo errado");';
+      expect(transpile(input)).toBe(expected);
+    });
+
+    it('transpila lance com string', () => {
+      const input = 'lance "erro customizado"';
+      const expected = 'throw "erro customizado";';
+      expect(transpile(input)).toBe(expected);
+    });
+
+    it('traduz erro.mensagem para error.message', () => {
+      const input = 'imprima(e.mensagem)';
+      const expected = 'console.log(e.message);';
+      expect(transpile(input)).toBe(expected);
+    });
+
+    it('traduz Erro para Error', () => {
+      const input = 'deixe err = novo Erro("falha")';
+      const expected = 'let err = new Error("falha");';
+      expect(transpile(input)).toBe(expected);
+    });
+
+    it('transpila lance dentro de tente/capture', () => {
+      const input = `funcao dividir(a, b) {
+  se (b === 0) { lance novo Erro("divisão por zero") }
+  retorne a / b
+}
+tente {
+  imprima(dividir(10, 0))
+} capture (e) {
+  imprima(e.mensagem)
+}`;
+      const result = transpile(input);
+      expect(result).toContain('throw new Error("divisão por zero")');
+      expect(result).toContain('catch (e)');
+      expect(result).toContain('e.message');
+    });
+  });
 });
