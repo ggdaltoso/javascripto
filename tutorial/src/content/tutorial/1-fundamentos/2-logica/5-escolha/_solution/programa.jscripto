@@ -1,0 +1,17 @@
+deixe mes = 4
+
+escolha (mes) {
+  caso 1: imprima("Janeiro") quebre
+  caso 2: imprima("Fevereiro") quebre
+  caso 3: imprima("Março") quebre
+  caso 4: imprima("Abril") quebre
+  caso 5: imprima("Maio") quebre
+  caso 6: imprima("Junho") quebre
+  caso 7: imprima("Julho") quebre
+  caso 8: imprima("Agosto") quebre
+  caso 9: imprima("Setembro") quebre
+  caso 10: imprima("Outubro") quebre
+  caso 11: imprima("Novembro") quebre
+  caso 12: imprima("Dezembro") quebre
+  padrao: imprima("Mês inválido")
+}
