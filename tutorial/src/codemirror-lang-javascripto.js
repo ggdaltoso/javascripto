@@ -1,4 +1,6 @@
-import { StreamLanguage } from '@codemirror/language';
+import { StreamLanguage, HighlightStyle, syntaxHighlighting } from '@codemirror/language';
+import { tags } from '@lezer/highlight';
+import { Prec } from '@codemirror/state';
 
 const keywords = new Set([
   'se', 'senao', 'enquanto', 'para', 'retorne',
@@ -100,6 +102,20 @@ function tokenize(stream, state) {
   stream.next();
   return null;
 }
+
+// Fallback highlight for function/method names — applies in light mode where
+// defaultHighlightStyle has no rule for tags.function(tags.variableName).
+// In dark mode, vscodeDarkTheme takes precedence and overrides this with #dcdcaa.
+export const javascriptoFunctionHighlight = Prec.lowest(
+  syntaxHighlighting(
+    HighlightStyle.define([
+      {
+        tag: [tags.function(tags.variableName), tags.function(tags.propertyName)],
+        color: '#795E26',
+      },
+    ])
+  )
+);
 
 export const javascriptoLanguage = StreamLanguage.define({
   startState() {
