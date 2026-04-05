@@ -90,7 +90,7 @@ function tokenize(stream, state) {
     stream.match(/^[a-zA-Z0-9_$]*/);
     const word = stream.current();
     if (keywords.has(word)) return 'keyword';
-    if (builtins.has(word)) return 'variableName.standard';
+    if (builtins.has(word)) return 'variableName.function';
     if (constants.has(word)) return 'atom';
     if (stream.match(/^\s*\(/, false)) return 'typeName';
     return 'variableName';
