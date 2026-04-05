@@ -1,0 +1,3 @@
+// Capture o erro e imprima e.mensagem
+deixe usuario = nulo
+imprima(usuario.nome)

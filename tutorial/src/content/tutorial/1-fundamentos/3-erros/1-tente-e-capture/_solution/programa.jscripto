@@ -1,0 +1,7 @@
+deixe usuario = nulo
+
+tente {
+  imprima(usuario.nome)
+} capture (e) {
+  imprima(e.mensagem)
+}
