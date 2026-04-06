@@ -1,0 +1,5 @@
+// Declare titulo com o valor "JavaScripto"
+// Crie exibirTitulo() com uma função interna mostrar
+// mostrar deve imprimir "Bem-vindo ao " + titulo
+
+exibirTitulo()

@@ -1,0 +1,10 @@
+deixe titulo = "JavaScripto"
+
+funcao exibirTitulo() {
+  funcao mostrar() {
+    imprima("Bem-vindo ao " + titulo)
+  }
+  mostrar()
+}
+
+exibirTitulo()
