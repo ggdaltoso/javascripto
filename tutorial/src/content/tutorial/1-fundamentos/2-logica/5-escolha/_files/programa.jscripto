@@ -1,2 +1,5 @@
-// Imprima o nome do mês para o número recebido
 deixe mes = 4
+
+escolha (mes) {
+  // adicione os casos aqui
+}
