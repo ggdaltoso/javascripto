@@ -1,1 +1,7 @@
-// Modifique o objeto!
+deixe filme = { titulo: "Matrix", ano: 1999 }
+
+// Adicione nota (número de 0 a 10)
+// Adicione recomendado com se/senao (nota >= 7)
+
+imprima(filme.titulo)
+imprima(filme.recomendado)
