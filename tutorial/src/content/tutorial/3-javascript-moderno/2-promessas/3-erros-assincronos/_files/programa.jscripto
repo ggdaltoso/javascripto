@@ -1,0 +1,12 @@
+assincrono funcao autenticar(senha) {
+  se (senha !== "secreta") {
+    lance novo Erro("Senha incorreta")
+  }
+  retorne "Bem-vindo!"
+}
+
+assincrono funcao principal() {
+  // Use tente/capture para chamar autenticar("errada")
+}
+
+principal()

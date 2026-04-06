@@ -4,6 +4,8 @@ prepareCommands:
   - ["npm install", "Instalando dependências..."]
 previews: false
 openInStackBlitz: false
+editor: # Editor is visible
+  fileTree: false # File tree is hidden
 terminal:
   open: true
   panels:

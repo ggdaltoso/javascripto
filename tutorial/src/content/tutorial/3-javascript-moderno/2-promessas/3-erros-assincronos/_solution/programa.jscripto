@@ -1,0 +1,17 @@
+assincrono funcao autenticar(senha) {
+  se (senha !== "secreta") {
+    lance novo Erro("Senha incorreta")
+  }
+  retorne "Bem-vindo!"
+}
+
+assincrono funcao principal() {
+  tente {
+    deixe resultado = aguarde autenticar("errada")
+    imprima(resultado)
+  } capture (e) {
+    imprima(e.mensagem)
+  }
+}
+
+principal()
