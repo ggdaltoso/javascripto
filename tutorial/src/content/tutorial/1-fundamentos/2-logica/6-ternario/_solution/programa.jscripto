@@ -1,0 +1,3 @@
+deixe temperatura = 32
+deixe clima = temperatura > 30 ? "quente" : "agradavel"
+imprima(clima)

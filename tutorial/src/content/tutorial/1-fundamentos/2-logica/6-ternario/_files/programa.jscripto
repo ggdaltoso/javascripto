@@ -1,0 +1,2 @@
+deixe temperatura = 32
+// Use o ternário: se temperatura > 30, clima = "quente", senao "agradavel"
