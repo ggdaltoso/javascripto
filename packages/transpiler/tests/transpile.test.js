@@ -66,6 +66,28 @@ describe('transpile', () => {
     });
   });
 
+  describe('operador ternário', () => {
+    it('transpila ternário simples', () => {
+      expect(transpile('deixe x = verdadeiro ? 1 : 2')).toBe('let x = true ? 1 : 2;');
+    });
+
+    it('transpila ternário com expressões', () => {
+      expect(transpile('deixe r = 10 > 5 ? "maior" : "menor"')).toBe('let r = 10 > 5 ? "maior" : "menor";');
+    });
+
+    it('transpila ternário aninhado', () => {
+      const input = 'deixe s = x > 0 ? "positivo" : x === 0 ? "zero" : "negativo"';
+      const result = transpile(input);
+      expect(result).toContain('? "positivo"');
+      expect(result).toContain('? "zero"');
+      expect(result).toContain(': "negativo"');
+    });
+
+    it('transpila ternário em imprima', () => {
+      expect(transpile('imprima(ativo ? "sim" : "nao")')).toBe('console.log(ativo ? "sim" : "nao");');
+    });
+  });
+
   describe('condicional (se/senao)', () => {
     it('transpila se para if', () => {
       const input = 'se (verdadeiro) { imprima("sim") }';

@@ -177,6 +177,10 @@ semantics.addOperation('toJS()', {
     return `${lhs.toJS()} = ${expr.toJS()}`;
   },
 
+  TernaryExpression_ternary(cond, _q, thenExpr, _colon, elseExpr) {
+    return `${cond.toJS()} ? ${thenExpr.toJS()} : ${elseExpr.toJS()}`;
+  },
+
   LogicalOrExpression_or(left, _op, right) {
     return `${left.toJS()} || ${right.toJS()}`;
   },
