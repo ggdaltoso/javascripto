@@ -1,1 +1,6 @@
-// Crie a função maiorDeDois!
+funcao maiorDeDois(a, b) {
+  // retorne o maior entre a e b
+}
+
+imprima(maiorDeDois(10, 20))
+imprima(maiorDeDois(42, 7))
