@@ -1,1 +1,4 @@
-// Crie suas variáveis aqui!
+// Crie nome (deixe) e ano (fixe)
+
+imprima(nome)
+imprima(ano)
