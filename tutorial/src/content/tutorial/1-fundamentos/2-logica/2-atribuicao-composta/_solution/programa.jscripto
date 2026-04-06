@@ -1,0 +1,7 @@
+deixe saldo = 1000
+
+saldo += 300
+saldo += 150
+saldo -= 200
+
+imprima(saldo)

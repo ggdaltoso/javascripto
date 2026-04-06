@@ -1,0 +1,5 @@
+deixe saldo = 1000
+
+// Faça dois depósitos com += (300 e 150) e um saque com -= (200)
+
+imprima(saldo)
