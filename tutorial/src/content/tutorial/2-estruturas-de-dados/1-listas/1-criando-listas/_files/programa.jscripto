@@ -1,1 +1,3 @@
-// Crie sua primeira lista!
+deixe frutas = ["maca", "banana", "uva"]
+
+// Imprima a primeira fruta, a última e o tamanho da lista
