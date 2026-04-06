@@ -1,0 +1,12 @@
+funcao criarMultiplicador(fator) {
+  funcao multiplicar(n) {
+    retorne n * fator
+  }
+  retorne multiplicar
+}
+
+deixe duplicar = criarMultiplicador(2)
+deixe triplicar = criarMultiplicador(3)
+
+imprima(duplicar(4))
+imprima(triplicar(4))
