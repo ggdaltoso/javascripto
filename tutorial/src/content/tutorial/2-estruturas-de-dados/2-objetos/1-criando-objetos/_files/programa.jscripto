@@ -1,1 +1,5 @@
-// Crie seu primeiro objeto!
+deixe pessoa = { nome: "", idade: 0, cidade: "" }
+
+imprima(pessoa.nome)
+imprima(pessoa.idade)
+imprima(pessoa.cidade)
