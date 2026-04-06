@@ -1,0 +1,5 @@
+assincrono funcao buscarProduto() {
+  retorne "Notebook"
+}
+
+// Crie mostrarProduto() aqui e chame no final

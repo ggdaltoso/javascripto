@@ -1,0 +1,10 @@
+assincrono funcao buscarProduto() {
+  retorne "Notebook"
+}
+
+assincrono funcao mostrarProduto() {
+  deixe produto = aguarde buscarProduto()
+  imprima(produto)
+}
+
+mostrarProduto()
