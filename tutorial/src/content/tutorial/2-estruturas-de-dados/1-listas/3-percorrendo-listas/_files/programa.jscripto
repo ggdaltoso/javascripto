@@ -1,1 +1,8 @@
-// Percorra a lista!
+deixe numeros = [10, 20, 30, 40, 50]
+deixe soma = 0
+
+para (deixe i = 0; i < numeros.tamanho; i = i + 1) {
+  // some numeros[i] à soma
+}
+
+imprima("Soma: " + soma)
