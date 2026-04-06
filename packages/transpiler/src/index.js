@@ -21,6 +21,7 @@ const methodMap = {
 // Mapa de tradução: identificadores pt-BR → JavaScript (builtins)
 const identifierMap = {
   Erro: 'Error',
+  Promessa: 'Promise',
 };
 
 semantics.addOperation('toJS()', {
@@ -120,7 +121,11 @@ semantics.addOperation('toJS()', {
   },
 
   // Funções
-  FunctionDeclaration(_funcao, name, _lp, params, _rp, block) {
+  FunctionDeclaration_async(_assincrono, _funcao, name, _lp, params, _rp, block) {
+    return `async function ${name.toJS()}(${params.toJS()}) ${block.toJS()}`;
+  },
+
+  FunctionDeclaration_sync(_funcao, name, _lp, params, _rp, block) {
     return `function ${name.toJS()}(${params.toJS()}) ${block.toJS()}`;
   },
 
@@ -147,6 +152,10 @@ semantics.addOperation('toJS()', {
 
   MethodDefinition_constructor(_construtor, _lp, params, _rp, block) {
     return `constructor(${params.toJS()}) ${block.toJS()}`;
+  },
+
+  MethodDefinition_asyncMethod(_assincrono, name, _lp, params, _rp, block) {
+    return `async ${name.toJS()}(${params.toJS()}) ${block.toJS()}`;
   },
 
   MethodDefinition_method(name, _lp, params, _rp, block) {
@@ -226,6 +235,10 @@ semantics.addOperation('toJS()', {
 
   MulExpression_mod(left, _op, right) {
     return `${left.toJS()} % ${right.toJS()}`;
+  },
+
+  UnaryExpression_await(_aguarde, expr) {
+    return `await ${expr.toJS()}`;
   },
 
   UnaryExpression_new(_novo, expr) {

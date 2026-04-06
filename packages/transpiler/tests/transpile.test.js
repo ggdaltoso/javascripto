@@ -419,4 +419,72 @@ tente {
       expect(result).toContain('e.message');
     });
   });
+
+  describe('assincrono e aguarde (async/await)', () => {
+    it('transpila assincrono funcao para async function', () => {
+      const input = 'assincrono funcao buscar() { retorne 42 }';
+      const result = transpile(input);
+      expect(result).toContain('async function buscar()');
+    });
+
+    it('transpila funcao sincrona normalmente', () => {
+      const input = 'funcao somar(a, b) { retorne a + b }';
+      expect(transpile(input)).toContain('function somar(a, b)');
+      expect(transpile(input)).not.toContain('async');
+    });
+
+    it('transpila aguarde para await', () => {
+      const input = `assincrono funcao principal() {
+  deixe resultado = aguarde buscar()
+  imprima(resultado)
+}`;
+      const result = transpile(input);
+      expect(result).toContain('await buscar()');
+    });
+
+    it('transpila assincrono com tente/capture', () => {
+      const input = `assincrono funcao principal() {
+  tente {
+    deixe dados = aguarde buscarDados()
+    imprima(dados)
+  } capture (e) {
+    imprima(e.mensagem)
+  }
+}`;
+      const result = transpile(input);
+      expect(result).toContain('async function principal()');
+      expect(result).toContain('await buscarDados()');
+      expect(result).toContain('catch (e)');
+    });
+
+    it('transpila metodo assincrono em classe', () => {
+      const input = `classe Servico {
+  assincrono buscar() {
+    retorne "dados"
+  }
+}`;
+      const result = transpile(input);
+      expect(result).toContain('async buscar()');
+    });
+
+    it('transpila Promessa para Promise', () => {
+      expect(transpile('deixe p = Promessa')).toContain('Promise');
+    });
+
+    it('transpila programa completo com async/await', () => {
+      const input = `assincrono funcao buscarNome() {
+  retorne "Maria"
+}
+assincrono funcao saudar() {
+  deixe nome = aguarde buscarNome()
+  imprima("Ola, " + nome + "!")
+}
+saudar()`;
+      const result = transpile(input);
+      expect(result).toContain('async function buscarNome()');
+      expect(result).toContain('async function saudar()');
+      expect(result).toContain('await buscarNome()');
+      expect(result).toContain('console.log("Ola, " + nome + "!")');
+    });
+  });
 });

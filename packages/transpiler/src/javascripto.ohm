@@ -50,15 +50,17 @@ JavaScripto {
   DefaultClause = "padrao" ":" Statement*
 
   // Funções
-  FunctionDeclaration = "funcao" identifier "(" Params ")" Block
+  FunctionDeclaration = "assincrono" "funcao" identifier "(" Params ")" Block  -- async
+                      | "funcao" identifier "(" Params ")" Block               -- sync
   Params = ListOf<identifier, ",">
   ReturnStatement = "retorne" Expression? ";"?
 
   // Classes
   ClassDeclaration = "classe" identifier ClassBody
   ClassBody = "{" MethodDefinition* "}"
-  MethodDefinition = "construtor" "(" Params ")" Block  -- constructor
-                   | identifier "(" Params ")" Block     -- method
+  MethodDefinition = "construtor" "(" Params ")" Block               -- constructor
+                   | "assincrono" identifier "(" Params ")" Block   -- asyncMethod
+                   | identifier "(" Params ")" Block                -- method
 
   // Blocos
   Block = "{" Statement* "}"
@@ -97,9 +99,10 @@ JavaScripto {
                 | MulExpression "%" UnaryExpression  -- mod
                 | UnaryExpression
 
-  UnaryExpression = "novo" CallExpression   -- new
-                  | "!" UnaryExpression    -- not
-                  | "-" UnaryExpression    -- neg
+  UnaryExpression = "aguarde" UnaryExpression  -- await
+                  | "novo" CallExpression      -- new
+                  | "!" UnaryExpression        -- not
+                  | "-" UnaryExpression        -- neg
                   | CallExpression
 
   CallExpression = CallExpression "(" Arguments ")"  -- call
@@ -141,7 +144,8 @@ JavaScripto {
            | "verdadeiro" | "falso" | "nulo" | "imprima"
            | "classe" | "novo" | "isso"
            | "quebre" | "continue" | "escolha" | "caso" | "padrao"
-           | "tente" | "capture" | "finalmente" | "lance") ~identPart
+           | "tente" | "capture" | "finalmente" | "lance"
+           | "assincrono" | "aguarde") ~identPart
 
   // Espaços e comentários
   space += comment
