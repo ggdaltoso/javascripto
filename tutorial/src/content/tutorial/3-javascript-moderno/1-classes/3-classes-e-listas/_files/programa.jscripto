@@ -1,1 +1,26 @@
-// Combine classes e listas!
+classe Tarefa {
+  construtor(titulo) {
+    isso.titulo = titulo
+    isso.feita = falso
+  }
+
+  concluir() {
+    // mude feita para verdadeiro
+  }
+
+  status() {
+    // retorne titulo + " - feita" ou " - pendente"
+  }
+}
+
+deixe tarefas = [
+  novo Tarefa("Estudar"),
+  novo Tarefa("Exercitar"),
+  novo Tarefa("Ler")
+]
+
+tarefas[0].concluir()
+
+para (deixe i = 0; i < tarefas.tamanho; i = i + 1) {
+  imprima(tarefas[i].status())
+}
