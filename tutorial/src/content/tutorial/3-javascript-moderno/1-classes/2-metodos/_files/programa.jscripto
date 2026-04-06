@@ -1,1 +1,19 @@
-// Crie a classe ContaBancaria!
+classe ContaBancaria {
+  construtor(titular) {
+    isso.titular = titular
+    isso.saldo = 0
+  }
+
+  depositar(valor) {
+    // aumente o saldo
+  }
+
+  mostrarSaldo() {
+    // imprima titular e saldo
+  }
+}
+
+deixe conta = novo ContaBancaria("Maria")
+conta.depositar(500)
+conta.depositar(250)
+conta.mostrarSaldo()
