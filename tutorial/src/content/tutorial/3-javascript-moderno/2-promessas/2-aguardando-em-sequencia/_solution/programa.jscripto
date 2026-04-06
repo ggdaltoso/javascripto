@@ -1,0 +1,15 @@
+assincrono funcao buscarCliente() {
+  retorne "Ana"
+}
+
+assincrono funcao buscarItem() {
+  retorne "Pizza"
+}
+
+assincrono funcao prepararPedido() {
+  deixe cliente = aguarde buscarCliente()
+  deixe item = aguarde buscarItem()
+  imprima("Pedido de " + cliente + ": " + item)
+}
+
+prepararPedido()
