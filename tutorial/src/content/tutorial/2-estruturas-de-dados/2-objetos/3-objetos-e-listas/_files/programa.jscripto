@@ -1,1 +1,7 @@
-// Combine objetos e listas!
+deixe produtos = [
+  { nome: "Caderno", preco: 15 },
+  { nome: "Caneta", preco: 3 },
+  { nome: "Mochila", preco: 80 }
+]
+
+// Percorra e imprima nome e preço de cada produto
