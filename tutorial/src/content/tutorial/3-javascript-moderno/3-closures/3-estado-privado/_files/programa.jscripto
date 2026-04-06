@@ -1,0 +1,10 @@
+// Crie criarPlacar() que retorna uma função marcarPonto
+// Cada chamada incrementa e imprime a pontuação
+
+deixe placarTime1 = criarPlacar()
+deixe placarTime2 = criarPlacar()
+
+placarTime1()
+placarTime1()
+placarTime2()
+placarTime1()

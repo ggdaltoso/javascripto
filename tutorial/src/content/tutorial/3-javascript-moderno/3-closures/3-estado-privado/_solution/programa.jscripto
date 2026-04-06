@@ -1,0 +1,18 @@
+funcao criarPlacar() {
+  deixe pontos = 0
+
+  funcao marcarPonto() {
+    pontos = pontos + 1
+    imprima(pontos)
+  }
+
+  retorne marcarPonto
+}
+
+deixe placarTime1 = criarPlacar()
+deixe placarTime2 = criarPlacar()
+
+placarTime1()
+placarTime1()
+placarTime2()
+placarTime1()
