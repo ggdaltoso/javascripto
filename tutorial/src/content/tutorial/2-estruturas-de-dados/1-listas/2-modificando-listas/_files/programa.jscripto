@@ -1,1 +1,3 @@
-// Modifique a lista!
+deixe tarefas = ["estudar", "almocar"]
+
+// Adicione uma tarefa, altere a primeira e imprima a lista
