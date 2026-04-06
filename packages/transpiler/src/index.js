@@ -173,6 +173,22 @@ semantics.addOperation('toJS()', {
   },
 
   // Expressões
+  AssignmentExpression_addAssign(lhs, _op, expr) {
+    return `${lhs.toJS()} += ${expr.toJS()}`;
+  },
+
+  AssignmentExpression_subAssign(lhs, _op, expr) {
+    return `${lhs.toJS()} -= ${expr.toJS()}`;
+  },
+
+  AssignmentExpression_mulAssign(lhs, _op, expr) {
+    return `${lhs.toJS()} *= ${expr.toJS()}`;
+  },
+
+  AssignmentExpression_divAssign(lhs, _op, expr) {
+    return `${lhs.toJS()} /= ${expr.toJS()}`;
+  },
+
   AssignmentExpression_assign(lhs, _eq, expr) {
     return `${lhs.toJS()} = ${expr.toJS()}`;
   },

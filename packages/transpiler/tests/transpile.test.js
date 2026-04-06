@@ -66,6 +66,34 @@ describe('transpile', () => {
     });
   });
 
+  describe('atribuição composta', () => {
+    it('transpila += ', () => {
+      expect(transpile('soma += 5')).toBe('soma += 5;');
+    });
+
+    it('transpila -= ', () => {
+      expect(transpile('saldo -= 10')).toBe('saldo -= 10;');
+    });
+
+    it('transpila *= ', () => {
+      expect(transpile('preco *= 2')).toBe('preco *= 2;');
+    });
+
+    it('transpila /= ', () => {
+      expect(transpile('valor /= 3')).toBe('valor /= 3;');
+    });
+
+    it('transpila += em laço', () => {
+      const input = `deixe soma = 0
+para (deixe i = 1; i <= 5; i += 1) {
+  soma += i
+}`;
+      const result = transpile(input);
+      expect(result).toContain('i += 1');
+      expect(result).toContain('soma += i');
+    });
+  });
+
   describe('operador ternário', () => {
     it('transpila ternário simples', () => {
       expect(transpile('deixe x = verdadeiro ? 1 : 2')).toBe('let x = true ? 1 : 2;');

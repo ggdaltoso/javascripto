@@ -69,7 +69,11 @@ JavaScripto {
   // Expressões (precedência crescente de cima para baixo)
   Expression = AssignmentExpression
 
-  AssignmentExpression = CallExpression "=" AssignmentExpression  -- assign
+  AssignmentExpression = CallExpression "+=" AssignmentExpression  -- addAssign
+                       | CallExpression "-=" AssignmentExpression  -- subAssign
+                       | CallExpression "*=" AssignmentExpression  -- mulAssign
+                       | CallExpression "/=" AssignmentExpression  -- divAssign
+                       | CallExpression "=" AssignmentExpression   -- assign
                        | TernaryExpression
 
   TernaryExpression = LogicalOrExpression "?" Expression ":" TernaryExpression  -- ternary
