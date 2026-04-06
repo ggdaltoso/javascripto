@@ -70,7 +70,10 @@ JavaScripto {
   Expression = AssignmentExpression
 
   AssignmentExpression = CallExpression "=" AssignmentExpression  -- assign
-                       | LogicalOrExpression
+                       | TernaryExpression
+
+  TernaryExpression = LogicalOrExpression "?" Expression ":" TernaryExpression  -- ternary
+                    | LogicalOrExpression
 
   LogicalOrExpression = LogicalOrExpression "||" LogicalAndExpression  -- or
                       | LogicalAndExpression
