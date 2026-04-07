@@ -1,0 +1,8 @@
+funcao dobrar(n) {
+  retorne n * 2
+}
+
+exporte padrao dobrar
+
+imprima(dobrar(7))
+imprima(dobrar(15))

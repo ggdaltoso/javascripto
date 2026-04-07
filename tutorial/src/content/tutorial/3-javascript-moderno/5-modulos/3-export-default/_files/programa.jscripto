@@ -1,0 +1,6 @@
+funcao dobrar(n) {
+  retorne n * 2
+}
+
+// Exporte dobrar como export default
+// Em seguida, imprima dobrar(7) e dobrar(15)
