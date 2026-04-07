@@ -385,6 +385,29 @@ semantics.addOperation('toJS()', {
     return node.toJS();
   },
 
+  PrimaryExpression_template(node) {
+    return node.toJS();
+  },
+
+  templateLiteral(_open, parts, _close) {
+    return `\`${parts.children.map(p => p.toJS()).join('')}\``;
+  },
+
+  templatePart_interp(_open, expr, _close) {
+    const src = expr.sourceString;
+    const match = grammar.match(src, 'Expression');
+    if (match.failed()) return `\${${src}}`;
+    return `\${${semantics(match).toJS()}}`;
+  },
+
+  templatePart_chars(chars) {
+    return chars.sourceString;
+  },
+
+  templateExpr(_chars) {
+    return this.sourceString;
+  },
+
   stringLiteral(_open, chars, _close) {
     return `"${chars.sourceString}"`;
   },

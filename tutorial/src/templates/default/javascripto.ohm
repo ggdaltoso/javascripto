@@ -139,10 +139,17 @@ JavaScripto {
                     | "isso"               -- this
                     | ObjectLiteral        -- object
                     | ArrayLiteral         -- array
+                    | templateLiteral      -- template
                     | stringLiteral        -- string
                     | numberLiteral        -- number
                     | "imprima"            -- imprima
                     | identifier           -- ident
+
+  templateLiteral = "`" templatePart* "`"
+  templatePart = "${" templateExpr "}"  -- interp
+               | templateChar+          -- chars
+  templateExpr = (~"}" any)*
+  templateChar = ~("`" | "${") any
 
   // Literais compostos
   ArrayLiteral = "[" ListOf<SpreadOrExpr, ","> "]"
