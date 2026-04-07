@@ -35,6 +35,65 @@ semantics.addOperation('toJS()', {
     return statements.children.map(s => s.toJS()).join('\n');
   },
 
+  // Módulos
+  ImportStatement_withClause(_importe, clause, _de, path, _semi) {
+    return `import ${clause.toJS()} from ${path.toJS()};`;
+  },
+
+  ImportStatement_sideEffect(_importe, path, _semi) {
+    return `import ${path.toJS()};`;
+  },
+
+  ImportClause_namespace(_star, _como, name) {
+    return `* as ${name.toJS()}`;
+  },
+
+  ImportClause_named(_lb, specs, _rb) {
+    const items = specs.asIteration().children.map(s => s.toJS()).join(', ');
+    return `{ ${items} }`;
+  },
+
+  ImportClause_default(name) {
+    return name.toJS();
+  },
+
+  ImportSpecifier_renamed(local, _como, remote) {
+    return `${local.toJS()} as ${remote.toJS()}`;
+  },
+
+  ImportSpecifier_simple(name) {
+    return name.toJS();
+  },
+
+  ExportStatement_default(_exporte, _padrao, expr, _semi) {
+    return `export default ${expr.toJS()};`;
+  },
+
+  ExportStatement_named(_exporte, _lb, specs, _rb, _semi) {
+    const items = specs.asIteration().children.map(s => s.toJS()).join(', ');
+    return `export { ${items} };`;
+  },
+
+  ExportStatement_func(_exporte, decl) {
+    return `export ${decl.toJS()}`;
+  },
+
+  ExportStatement_var(_exporte, decl) {
+    return `export ${decl.toJS()}`;
+  },
+
+  ExportStatement_class(_exporte, decl) {
+    return `export ${decl.toJS()}`;
+  },
+
+  ExportSpecifier_renamed(local, _como, remote) {
+    return `${local.toJS()} as ${remote.toJS()}`;
+  },
+
+  ExportSpecifier_simple(name) {
+    return name.toJS();
+  },
+
   // Declarações de variáveis
   VariableDeclaration_destructObject(kind, pattern, _eq, expr, _semi) {
     const jsKind = kind.sourceString === 'deixe' ? 'let' : 'const';

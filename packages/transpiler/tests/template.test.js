@@ -41,6 +41,8 @@ describe('arquivos de lição (_solution)', () => {
     (_label, filePath) => {
       const source = readFileSync(filePath, 'utf-8');
       const js = transpile(source);
+      // Módulos ESM (import/export) não podem ser validados com new Function
+      if (/^(import|export)\b/m.test(js)) return;
       // Verifica que o JS gerado é sintaticamente válido
       expect(() => new Function(js)).not.toThrow();
     },

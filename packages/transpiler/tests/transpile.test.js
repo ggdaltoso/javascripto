@@ -693,6 +693,80 @@ saudar()`;
     });
   });
 
+  describe('módulos (importe/exporte)', () => {
+    it('transpila importe default', () => {
+      expect(transpile('importe Utils de "./utils"')).toBe('import Utils from "./utils";');
+    });
+
+    it('transpila importe nomeado simples', () => {
+      expect(transpile('importe { soma } de "./math"')).toBe('import { soma } from "./math";');
+    });
+
+    it('transpila importe nomeado múltiplo', () => {
+      expect(transpile('importe { soma, subtrai } de "./math"')).toBe('import { soma, subtrai } from "./math";');
+    });
+
+    it('transpila importe namespace', () => {
+      expect(transpile('importe * como Math de "./math"')).toBe('import * as Math from "./math";');
+    });
+
+    it('transpila importe side effect', () => {
+      expect(transpile('importe "./polyfill"')).toBe('import "./polyfill";');
+    });
+
+    it('transpila importe nomeado com renomeação', () => {
+      expect(transpile('importe { soma como adicionar } de "./math"')).toBe('import { soma as adicionar } from "./math";');
+    });
+
+    it('transpila exporte de variável', () => {
+      expect(transpile('exporte deixe x = 1')).toBe('export let x = 1;');
+    });
+
+    it('transpila exporte de constante', () => {
+      expect(transpile('exporte fixe PI = 3.14')).toBe('export const PI = 3.14;');
+    });
+
+    it('transpila exporte de função', () => {
+      expect(transpile('exporte funcao soma(a, b) { retorne a + b }')).toBe(
+        'export function soma(a, b) {\nreturn a + b;\n}'
+      );
+    });
+
+    it('transpila exporte de classe', () => {
+      expect(transpile('exporte classe Animal { construtor(nome) { isso.nome = nome } }')).toBe(
+        'export class Animal {\nconstructor(nome) {\nthis.nome = nome;\n}\n}'
+      );
+    });
+
+    it('transpila exporte default de expressão', () => {
+      expect(transpile('exporte padrao 42')).toBe('export default 42;');
+    });
+
+    it('transpila exporte default de identificador', () => {
+      expect(transpile('exporte padrao soma')).toBe('export default soma;');
+    });
+
+    it('transpila exporte nomeado de lista', () => {
+      expect(transpile('exporte { soma, subtrai }')).toBe('export { soma, subtrai };');
+    });
+
+    it('transpila exporte nomeado com renomeação', () => {
+      expect(transpile('exporte { soma como adicionar }')).toBe('export { soma as adicionar };');
+    });
+
+    it('transpila múltiplos importe e exporte', () => {
+      const input = [
+        'importe { readFile } de "fs"',
+        'exporte funcao lerArquivo(caminho) { retorne readFile(caminho) }',
+      ].join('\n');
+      const expected = [
+        'import { readFile } from "fs";',
+        'export function lerArquivo(caminho) {\nreturn readFile(caminho);\n}',
+      ].join('\n');
+      expect(transpile(input)).toBe(expected);
+    });
+  });
+
   describe('palavras reservadas rejeitadas como identificadores', () => {
     const keywords = [
       'deixe', 'fixe', 'funcao', 'retorne',
@@ -702,6 +776,7 @@ saudar()`;
       'quebre', 'continue', 'escolha', 'caso', 'padrao',
       'tente', 'capture', 'finalmente', 'lance',
       'assincrono', 'aguarde',
+      'importe', 'exporte', 'de', 'como',
     ];
 
     it.each(keywords.map(k => [k]))(
