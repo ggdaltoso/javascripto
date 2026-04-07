@@ -67,6 +67,12 @@ describe('template runner', () => {
     expect(statSync(transpilerPath).isFile()).toBe(true);
   });
 
+  it('transpiler.js do template é idêntico ao index.js do pacote', () => {
+    const packageTranspiler = readFileSync(join(__dirname, '..', 'src', 'index.js'), 'utf-8');
+    const templateTranspiler = readFileSync(join(templateRoot, 'transpiler.js'), 'utf-8');
+    expect(templateTranspiler).toBe(packageTranspiler);
+  });
+
   it('javascripto.ohm existe no template', () => {
     const grammarPath = join(templateRoot, 'javascripto.ohm');
     expect(statSync(grammarPath).isFile()).toBe(true);
