@@ -66,82 +66,128 @@ Isso mantém o projeto acessível para brasileiros enquanto segue convenções p
 
 ## 5. Mapeamento de sintaxe pt-BR → JavaScript
 
-Tabela base de keywords. Será expandida conforme o currículo avançar.
+### Keywords implementadas
 
 | pt-BR | JavaScript | Categoria |
 |---|---|---|
+| `deixe` | `let` | Declaração |
+| `fixe` | `const` | Declaração |
 | `funcao` | `function` | Declaração |
-| `retorne` | `return` | Controle de fluxo |
+| `retorne` | `return` | Controle |
 | `se` | `if` | Condicional |
 | `senao` | `else` | Condicional |
 | `enquanto` | `while` | Laço |
 | `para` | `for` | Laço |
+| `quebre` | `break` | Controle de laço |
+| `continue` | `continue` | Controle de laço |
+| `escolha` | `switch` | Seleção |
+| `caso` | `case` | Seleção |
+| `padrao` | `default` | Seleção |
+| `tente` | `try` | Erros |
+| `capture` | `catch` | Erros |
+| `finalmente` | `finally` | Erros |
+| `lance` | `throw` | Erros |
+| `classe` | `class` | Classe |
+| `construtor` | `constructor` | Classe |
+| `novo` | `new` | Instância |
+| `isso` | `this` | Referência |
+| `assincrono` | `async` | Assíncrono |
+| `aguarde` | `await` | Assíncrono |
 | `verdadeiro` | `true` | Literal |
 | `falso` | `false` | Literal |
 | `nulo` | `null` | Literal |
-| `deixe` | `let` | Declaração |
-| `const` | `const` | Declaração |
 | `imprima` | `console.log` | Saída |
-| `tente` | `try` | Erro |
-| `capture` | `catch` | Erro |
-| `classe` | `class` | OOP |
-| `novo` | `new` | OOP |
-| `isso` | `this` | OOP |
+
+### Métodos de lista implementados
+
+| pt-BR | JavaScript |
+|---|---|
+| `.tamanho` | `.length` |
+| `.adicione()` | `.push()` |
+| `.remova()` | `.pop()` |
+| `.mapa()` | `.map()` |
+| `.filtre()` | `.filter()` |
+| `.paraCada()` | `.forEach()` |
+| `.reduza()` | `.reduce()` |
+| `.encontre()` | `.find()` |
+| `.inclui()` | `.includes()` |
+
+### Funcionalidades além de keywords
+
+| Funcionalidade | Sintaxe |
+|---|---|
+| Funções flecha | `x => x * 2`, `(a, b) => a + b` |
+| Desestruturação de objeto | `deixe {nome, idade} = pessoa` |
+| Desestruturação de lista | `deixe [a, b] = lista` |
+| Espalhamento em lista | `[...lista, 4, 5]` |
+| Espalhamento em objeto | `{...objeto, chave: valor}` |
+| Template strings | `` `Olá, ${nome}!` `` |
 
 ### Keywords a considerar no futuro
 
 | pt-BR | JavaScript | Notas |
 |---|---|---|
-| `indefinido` | `undefined` | Literal |
-| `quebre` | `break` | Controle de laço |
-| `continue` | `continue` | Igual em pt-BR? Ou `prossiga`? |
-| `caso` | `case` | Switch |
-| `escolha` | `switch` | Switch |
-| `padrao` | `default` | Switch |
-| `de` | `of` | `para...de` → `for...of` |
-| `em` | `in` | `para...em` → `for...in` |
-| `assincrona` | `async` | Assíncrono |
-| `espere` | `await` | Assíncrono |
-| `exporte` | `export` | Módulos |
 | `importe` | `import` | Módulos |
-| `lance` | `throw` | Erro |
-| `finalmente` | `finally` | Erro |
+| `exporte` | `export` | Módulos |
 | `tipo_de` | `typeof` | Operador |
 | `instancia_de` | `instanceof` | Operador |
+| `indefinido` | `undefined` | Literal |
 
 ---
 
-## 5. Currículo
+## 6. Currículo
 
-### Parte 1 — Fundamentos
+### Parte 1 — Fundamentos (13 lições)
 
-**Capítulo 1 — Primeiros passos**
-- Lição 1: Olá, Mundo!
-- Lição 2: Variáveis e valores
-- Lição 3: Tipos de dados
+**Capítulo 1 — Primeiros passos:** Olá Mundo, Variáveis e valores, Tipos de dados
 
-**Capítulo 2 — Lógica**
-- Lição 1: Condicionais (`se`/`senao`)
-- Lição 2: Laços (`enquanto`/`para`)
-- Lição 3: Funções
+**Capítulo 2 — Lógica:** Condicionais, Atribuição composta, Laços, Funções, Controlando laços, Escolha, Ternário
 
-### Parte 2 — Estruturas de dados
+**Capítulo 3 — Erros:** Tente e capture, Lance, Finalmente
 
-**Capítulo 1 — Listas**
+### Parte 2 — Estruturas de dados (7 lições)
 
-**Capítulo 2 — Objetos**
+**Capítulo 1 — Listas:** Criando listas, Modificando listas, Percorrendo listas, Métodos de lista
 
-### Parte 3 — JavaScript moderno
+**Capítulo 2 — Objetos:** Criando objetos, Modificando objetos, Objetos e listas
 
-**Capítulo 1 — Promessas e assíncrono**
+### Parte 3 — JavaScript moderno (10 lições)
 
-**Capítulo 2 — Classes**
+**Capítulo 1 — Classes:** Criando classes, Métodos, Classes e listas
 
-> O currículo será detalhado lição a lição conforme a implementação avançar.
+**Capítulo 2 — Promessas:** Funções assíncronas, Aguardando em sequência, Erros assíncronos
+
+**Capítulo 3 — Closures:** O que é closure, Funções que retornam funções, Estado privado
+
+**Capítulo 4 — Sintaxe moderna:** Funções flecha, Desestruturação, Espalhamento, Template strings
 
 ---
 
-## 6. Versões
+## 7. Decisões técnicas do transpilador
+
+### Ordenação de keywords no PEG
+
+Em gramáticas PEG (como Ohm.js), alternativas são tentadas em ordem e a primeira que combinar vence — sem backtracking. Isso cria um problema quando uma keyword é prefixo de outra.
+
+**Exemplo:** `"se" | "senao"`. Ao tentar fazer o match de `senao`, o parser tenta `"se"` primeiro, combina os dois primeiros caracteres, mas então `~identPart` falha porque `n` segue. O parser já commitou com `"se"` e não tenta `"senao"`. Resultado: `senao` escapa da guarda de keyword e pode ser usado como identificador.
+
+**Regra:** sempre colocar a keyword mais longa antes da mais curta. `"senao"` deve vir antes de `"se"`.
+
+### Template strings: abordagem de dois passes
+
+Template strings (`` `Olá, ${nome}!` ``) apresentam um problema em Ohm.js: as partes de texto devem ser capturadas lexicamente (sem pular espaços), mas as expressões dentro de `${}` precisam de uma regra sintática (`Expression`) — e regras lexicais não podem chamar regras sintáticas.
+
+**Solução adotada:** dois passes.
+1. A gramática captura tudo dentro de `${}` como texto bruto via regra lexical (`templateExpr = (~"}" any)*`)
+2. Na semântica, o texto bruto é re-parseado com `grammar.match(src, 'Expression')` e transpilado normalmente
+
+Isso permite que keywords pt-BR dentro de interpolações (ex: `${verdadeiro}`) sejam corretamente traduzidas para `${true}`.
+
+**Limitação conhecida:** expressões com `}` literal dentro de strings (ex: `${ obj.metodo("}") }`) quebram o parser da interpolação. Aceitável para o escopo do projeto.
+
+---
+
+## 8. Versões
 
 O JavaScripto está planejado em três versões:
 
@@ -149,7 +195,7 @@ O JavaScripto está planejado em três versões:
 
 Tutorial guiado usando TutorialKit com lições passo a passo. O aluno segue um currículo estruturado, escrevendo código em pt-BR diretamente no browser com feedback instantâneo.
 
-**Status:** em desenvolvimento ativo (6 lições implementadas)
+**Status:** em desenvolvimento ativo (30 lições implementadas)
 
 ### v2 — Landing page
 
