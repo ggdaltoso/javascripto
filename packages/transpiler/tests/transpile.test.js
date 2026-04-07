@@ -661,6 +661,38 @@ saudar()`;
     });
   });
 
+  describe('template strings', () => {
+    it('transpila template string simples sem interpolação', () => {
+      expect(transpile('imprima(`Olá, mundo!`)')).toBe('console.log(`Olá, mundo!`);');
+    });
+
+    it('transpila template string com variável', () => {
+      expect(transpile('imprima(`Olá, ${nome}!`)')).toBe('console.log(`Olá, ${nome}!`);');
+    });
+
+    it('transpila template string com expressão aritmética', () => {
+      expect(transpile('imprima(`Resultado: ${a + b}`)')).toBe('console.log(`Resultado: ${a + b}`);');
+    });
+
+    it('transpila template string com múltiplas interpolações', () => {
+      expect(transpile('imprima(`${a} + ${b} = ${a + b}`)')).toBe('console.log(`${a} + ${b} = ${a + b}`);');
+    });
+
+    it('transpila keyword pt-BR dentro de interpolação', () => {
+      expect(transpile('imprima(`ativo: ${verdadeiro}`)')).toBe('console.log(`ativo: ${true}`);');
+    });
+
+    it('transpila template string atribuída a variável', () => {
+      expect(transpile('deixe msg = `Olá, ${nome}!`')).toBe('let msg = `Olá, ${nome}!`;');
+    });
+
+    it('transpila template string com ternário na interpolação', () => {
+      expect(transpile('imprima(`${x > 0 ? "positivo" : "negativo"}`)')).toBe(
+        'console.log(`${x > 0 ? "positivo" : "negativo"}`);'
+      );
+    });
+  });
+
   describe('palavras reservadas rejeitadas como identificadores', () => {
     const keywords = [
       'deixe', 'fixe', 'funcao', 'retorne',
