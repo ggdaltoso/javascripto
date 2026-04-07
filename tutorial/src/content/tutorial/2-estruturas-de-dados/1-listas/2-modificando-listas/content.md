@@ -9,7 +9,7 @@ mainCommand: ['node run.js programa.jscripto', 'JavaScripto']
 
 # Modificando listas
 
-Listas não são estaticas — você pode **adicionar**, **remover** e **alterar** itens.
+Listas não são estáticas: você pode **adicionar**, **remover** e **alterar** itens.
 
 ## Alterando um item
 
