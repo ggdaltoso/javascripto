@@ -660,4 +660,23 @@ saudar()`;
       expect(transpile('deixe e = {...config, cor: "vermelho"}')).toBe('let e = {...config, cor: "vermelho"};');
     });
   });
+
+  describe('palavras reservadas rejeitadas como identificadores', () => {
+    const keywords = [
+      'deixe', 'fixe', 'funcao', 'retorne',
+      'se', 'senao', 'enquanto', 'para',
+      'verdadeiro', 'falso', 'nulo', 'imprima',
+      'classe', 'novo', 'isso', 'construtor',
+      'quebre', 'continue', 'escolha', 'caso', 'padrao',
+      'tente', 'capture', 'finalmente', 'lance',
+      'assincrono', 'aguarde',
+    ];
+
+    it.each(keywords.map(k => [k]))(
+      '"%s" não pode ser usado como nome de variável',
+      (keyword) => {
+        expect(() => transpile(`deixe ${keyword} = 1`)).toThrow();
+      }
+    );
+  });
 });

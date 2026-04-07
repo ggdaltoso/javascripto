@@ -165,9 +165,9 @@ JavaScripto {
   identPart = identStart | digit
 
   keyword = ("deixe" | "fixe" | "funcao" | "retorne"
-           | "se" | "senao" | "enquanto" | "para"
+           | "senao" | "se" | "enquanto" | "para"
            | "verdadeiro" | "falso" | "nulo" | "imprima"
-           | "classe" | "novo" | "isso"
+           | "classe" | "novo" | "isso" | "construtor"
            | "quebre" | "continue" | "escolha" | "caso" | "padrao"
            | "tente" | "capture" | "finalmente" | "lance"
            | "assincrono" | "aguarde") ~identPart
