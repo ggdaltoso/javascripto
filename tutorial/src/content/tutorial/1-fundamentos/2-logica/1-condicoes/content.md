@@ -46,10 +46,54 @@ se (nota >= 7) {
 }
 ```
 
+## Combinando condições
+
+Use `&&` (e) e `||` (ou) para combinar duas ou mais condições:
+
+```jscripto
+deixe idade = 20
+deixe temCarteira = verdadeiro
+
+se (idade >= 18 && temCarteira) {
+  imprima("Pode dirigir")
+} senao {
+  imprima("Não pode dirigir")
+}
+```
+
+```jscripto
+deixe chovendo = falso
+deixe fimDeSemana = verdadeiro
+
+se (chovendo || fimDeSemana) {
+  imprima("Boa hora para assistir um filme")
+}
+```
+
+## Encadeando condições
+
+Use `senao se` para verificar múltiplas condições em sequência:
+
+```jscripto
+deixe nota = 75
+
+se (nota >= 90) {
+  imprima("Excelente")
+} senao se (nota >= 70) {
+  imprima("Aprovado")
+} senao se (nota >= 50) {
+  imprima("Recuperação")
+} senao {
+  imprima("Reprovado")
+}
+```
+
+Apenas o primeiro bloco cuja condição for verdadeira é executado.
+
 ## Sua vez!
 
-Crie uma variável `temperatura` com um valor numérico. Se a temperatura for maior ou igual a 30, imprima **"Está quente!"**. Senão, imprima **"Está fresco!"**.
+Crie uma variável `hora` com um valor entre 0 e 23. Use `senao se` para imprimir:
 
-:::tip
-`se` equivale a `if` e `senao` equivale a `else` em JavaScript. A lógica é a mesma!
-:::
+- `"Bom dia!"` se hora for menor que 12
+- `"Boa tarde!"` se hora for entre 12 e 17 (inclusive)
+- `"Boa noite!"` caso contrário

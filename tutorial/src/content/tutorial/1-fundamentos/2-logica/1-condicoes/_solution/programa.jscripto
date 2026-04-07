@@ -1,7 +1,9 @@
-deixe temperatura = 35
+deixe hora = 10
 
-se (temperatura >= 30) {
-  imprima("Está quente!")
+se (hora < 12) {
+  imprima("Bom dia!")
+} senao se (hora <= 17) {
+  imprima("Boa tarde!")
 } senao {
-  imprima("Está fresco!")
+  imprima("Boa noite!")
 }

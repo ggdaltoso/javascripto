@@ -1,3 +1,3 @@
-deixe temperatura = 35
+deixe hora = 10
 
-// Use se/senao para verificar a temperatura
+// Use senao se para imprimir a saudação correta
