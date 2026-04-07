@@ -1,0 +1,4 @@
+deixe nome = "Ana"
+deixe idade = 25
+deixe cidade = "Recife"
+// Use uma template string para montar e imprimir a frase completa

@@ -1,0 +1,4 @@
+deixe nome = "Ana"
+deixe idade = 25
+deixe cidade = "Recife"
+imprima(`${nome} tem ${idade} anos e mora em ${cidade}.`)
