@@ -1,0 +1,6 @@
+exporte funcao quadrado(n) {
+  retorne n * n
+}
+
+imprima(quadrado(5))
+imprima(quadrado(8))
