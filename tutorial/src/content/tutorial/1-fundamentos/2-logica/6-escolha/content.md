@@ -26,7 +26,7 @@ escolha (dia) {
 - `quebre` impede que o código "caia" no próximo caso
 - `padrao` é executado quando nenhum caso combina (equivale a `default`)
 
-## Efeito cascata — casos sem quebre
+## Efeito cascata: casos sem quebre
 
 Omitir `quebre` faz o código continuar executando os casos seguintes. Isso é útil para agrupar opções:
 

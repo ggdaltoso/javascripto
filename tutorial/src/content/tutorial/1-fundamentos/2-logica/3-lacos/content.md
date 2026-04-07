@@ -41,9 +41,9 @@ para (deixe i = 0; i < 5; i = i + 1) {
 ```
 
 O `para` tem três partes separadas por `;`:
-1. **Início**: `deixe i = 0` — cria a variável do laço
-2. **Condição**: `i < 5` — repete enquanto for verdadeira
-3. **Passo**: `i = i + 1` — executa após cada repetição
+1. **Início**: `deixe i = 0`, cria a variável do laço
+2. **Condição**: `i < 5`, repete enquanto for verdadeira
+3. **Passo**: `i = i + 1`, executa após cada repetição
 
 ## Sua vez!
 
