@@ -66,5 +66,5 @@ imprima(turma.alunos.tamanho)
 Crie uma lista `produtos` com 3 objetos. Cada objeto deve ter `nome` e `preco`. Depois, use um laco `para` para imprimir o nome e preço de cada produto.
 
 :::tip
-Listas de objetos sao a base de quase toda aplicacao real — listas de usuários, produtos, mensagens, posts... Saber trabalhar com elas e essencial!
+Listas de objetos sao a base de quase toda aplicacao real: listas de usuários, produtos, mensagens, posts... Saber trabalhar com elas e essencial!
 :::
