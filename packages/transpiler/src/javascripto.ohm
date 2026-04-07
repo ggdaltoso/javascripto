@@ -146,7 +146,9 @@ JavaScripto {
 
   // Literais compostos
   ArrayLiteral = "[" ListOf<SpreadOrExpr, ","> "]"
-  ObjectLiteral = "{" ListOf<PropertyDef, ","> "}"
+  ObjectLiteral = "{" ListOf<PropertyOrSpread, ","> "}"
+  PropertyOrSpread = "..." Expression  -- spread
+                   | PropertyDef       -- prop
   PropertyDef = (identifier | stringLiteral) ":" Expression
 
   SpreadOrExpr = "..." Expression  -- spread

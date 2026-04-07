@@ -407,6 +407,14 @@ semantics.addOperation('toJS()', {
     return `{${items}}`;
   },
 
+  PropertyOrSpread_spread(_dots, expr) {
+    return `...${expr.toJS()}`;
+  },
+
+  PropertyOrSpread_prop(prop) {
+    return prop.toJS();
+  },
+
   PropertyDef(key, _colon, value) {
     return `${key.toJS()}: ${value.toJS()}`;
   },

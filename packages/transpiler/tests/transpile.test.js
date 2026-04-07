@@ -647,5 +647,17 @@ saudar()`;
     it('transpila spread no início do array', () => {
       expect(transpile('deixe lista = [...base, "extra"]')).toBe('let lista = [...base, "extra"];');
     });
+
+    it('transpila spread de objetos', () => {
+      expect(transpile('deixe c = {...a, ...b}')).toBe('let c = {...a, ...b};');
+    });
+
+    it('transpila spread de objeto com propriedade extra', () => {
+      expect(transpile('deixe d = {...base, nome: "Ana"}')).toBe('let d = {...base, nome: "Ana"};');
+    });
+
+    it('transpila spread de objeto sobrescrevendo propriedade', () => {
+      expect(transpile('deixe e = {...config, cor: "vermelho"}')).toBe('let e = {...config, cor: "vermelho"};');
+    });
   });
 });
