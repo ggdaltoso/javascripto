@@ -18,7 +18,12 @@ JavaScripto {
             | EmptyStatement
 
   // Declarações de variáveis
-  VariableDeclaration = ("deixe" | "fixe") identifier "=" Expression ";"?
+  VariableDeclaration = ("deixe" | "fixe") ObjectPattern "=" Expression ";"?  -- destructObject
+                      | ("deixe" | "fixe") ArrayPattern "=" Expression ";"?   -- destructArray
+                      | ("deixe" | "fixe") identifier "=" Expression ";"?     -- simple
+
+  ObjectPattern = "{" ListOf<identifier, ","> "}"
+  ArrayPattern = "[" ListOf<identifier, ","> "]"
 
   // Expressão como statement
   ExpressionStatement = Expression ";"?
@@ -69,12 +74,20 @@ JavaScripto {
   // Expressões (precedência crescente de cima para baixo)
   Expression = AssignmentExpression
 
-  AssignmentExpression = CallExpression "+=" AssignmentExpression  -- addAssign
+  AssignmentExpression = "assincrono" ArrowParams "=>" ArrowBody  -- asyncArrow
+                       | ArrowParams "=>" ArrowBody               -- arrow
+                       | CallExpression "+=" AssignmentExpression  -- addAssign
                        | CallExpression "-=" AssignmentExpression  -- subAssign
                        | CallExpression "*=" AssignmentExpression  -- mulAssign
                        | CallExpression "/=" AssignmentExpression  -- divAssign
                        | CallExpression "=" AssignmentExpression   -- assign
                        | TernaryExpression
+
+  ArrowParams = "(" Params ")"  -- parens
+              | identifier      -- ident
+
+  ArrowBody = Block              -- block
+            | AssignmentExpression  -- expr
 
   TernaryExpression = LogicalOrExpression "?" Expression ":" TernaryExpression  -- ternary
                     | LogicalOrExpression
@@ -117,7 +130,7 @@ JavaScripto {
                  | CallExpression "[" Expression "]"  -- index
                  | PrimaryExpression
 
-  Arguments = ListOf<Expression, ",">
+  Arguments = ListOf<SpreadOrExpr, ",">
 
   PrimaryExpression = "(" Expression ")"  -- paren
                     | "verdadeiro"         -- true
@@ -132,9 +145,12 @@ JavaScripto {
                     | identifier           -- ident
 
   // Literais compostos
-  ArrayLiteral = "[" ListOf<Expression, ","> "]"
+  ArrayLiteral = "[" ListOf<SpreadOrExpr, ","> "]"
   ObjectLiteral = "{" ListOf<PropertyDef, ","> "}"
   PropertyDef = (identifier | stringLiteral) ":" Expression
+
+  SpreadOrExpr = "..." Expression  -- spread
+               | Expression        -- expr
 
   // Tokens
   stringLiteral = "\"" (~"\"" any)* "\""

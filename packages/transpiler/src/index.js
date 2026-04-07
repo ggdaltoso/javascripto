@@ -30,9 +30,29 @@ semantics.addOperation('toJS()', {
   },
 
   // Declarações de variáveis
-  VariableDeclaration(kind, name, _eq, expr, _semi) {
+  VariableDeclaration_destructObject(kind, pattern, _eq, expr, _semi) {
+    const jsKind = kind.sourceString === 'deixe' ? 'let' : 'const';
+    return `${jsKind} ${pattern.toJS()} = ${expr.toJS()};`;
+  },
+
+  VariableDeclaration_destructArray(kind, pattern, _eq, expr, _semi) {
+    const jsKind = kind.sourceString === 'deixe' ? 'let' : 'const';
+    return `${jsKind} ${pattern.toJS()} = ${expr.toJS()};`;
+  },
+
+  VariableDeclaration_simple(kind, name, _eq, expr, _semi) {
     const jsKind = kind.sourceString === 'deixe' ? 'let' : 'const';
     return `${jsKind} ${name.toJS()} = ${expr.toJS()};`;
+  },
+
+  ObjectPattern(_lb, names, _rb) {
+    const items = names.asIteration().children.map(n => n.toJS()).join(', ');
+    return `{${items}}`;
+  },
+
+  ArrayPattern(_lb, names, _rb) {
+    const items = names.asIteration().children.map(n => n.toJS()).join(', ');
+    return `[${items}]`;
   },
 
   ExpressionStatement(expr, _semi) {
@@ -173,6 +193,30 @@ semantics.addOperation('toJS()', {
   },
 
   // Expressões
+  AssignmentExpression_asyncArrow(_assincrono, params, _arrow, body) {
+    return `async ${params.toJS()} => ${body.toJS()}`;
+  },
+
+  AssignmentExpression_arrow(params, _arrow, body) {
+    return `${params.toJS()} => ${body.toJS()}`;
+  },
+
+  ArrowParams_parens(_lp, params, _rp) {
+    return `(${params.toJS()})`;
+  },
+
+  ArrowParams_ident(name) {
+    return name.toJS();
+  },
+
+  ArrowBody_block(block) {
+    return block.toJS();
+  },
+
+  ArrowBody_expr(expr) {
+    return expr.toJS();
+  },
+
   AssignmentExpression_addAssign(lhs, _op, expr) {
     return `${lhs.toJS()} += ${expr.toJS()}`;
   },
@@ -337,6 +381,14 @@ semantics.addOperation('toJS()', {
 
   stringLiteral(_open, chars, _close) {
     return `"${chars.sourceString}"`;
+  },
+
+  SpreadOrExpr_spread(_dots, expr) {
+    return `...${expr.toJS()}`;
+  },
+
+  SpreadOrExpr_expr(expr) {
+    return expr.toJS();
   },
 
   ArrayLiteral(_lb, elements, _rb) {

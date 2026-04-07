@@ -537,4 +537,91 @@ saudar()`;
       expect(result).toContain('console.log("Ola, " + nome + "!")');
     });
   });
+
+  describe('funções flecha (=>)', () => {
+    it('transpila arrow function com um parâmetro sem parênteses', () => {
+      expect(transpile('deixe dobrar = x => x * 2')).toBe('let dobrar = x => x * 2;');
+    });
+
+    it('transpila arrow function com parênteses e um parâmetro', () => {
+      expect(transpile('deixe dobrar = (x) => x * 2')).toBe('let dobrar = (x) => x * 2;');
+    });
+
+    it('transpila arrow function sem parâmetros', () => {
+      expect(transpile('deixe ola = () => "Olá"')).toBe('let ola = () => "Olá";');
+    });
+
+    it('transpila arrow function com múltiplos parâmetros', () => {
+      expect(transpile('deixe soma = (a, b) => a + b')).toBe('let soma = (a, b) => a + b;');
+    });
+
+    it('transpila arrow function com bloco', () => {
+      const input = 'deixe dobrar = (x) => { retorne x * 2 }';
+      expect(transpile(input)).toBe('let dobrar = (x) => {\nreturn x * 2;\n};');
+    });
+
+    it('transpila arrow function como argumento de método', () => {
+      expect(transpile('numeros.filtre(x => x > 0)')).toBe('numeros.filtre(x => x > 0);');
+    });
+
+    it('transpila arrow function assíncrona com parênteses', () => {
+      expect(transpile('deixe buscar = assincrono (url) => aguarde buscarDados(url)')).toBe(
+        'let buscar = async (url) => await buscarDados(url);'
+      );
+    });
+
+    it('transpila arrow function como valor em objeto', () => {
+      expect(transpile('deixe obj = { calcular: (x) => x * 2 }')).toBe(
+        'let obj = {calcular: (x) => x * 2};'
+      );
+    });
+  });
+
+  describe('desestruturação', () => {
+    it('transpila desestruturação de objeto com deixe', () => {
+      expect(transpile('deixe {nome, idade} = pessoa')).toBe('let {nome, idade} = pessoa;');
+    });
+
+    it('transpila desestruturação de objeto com fixe', () => {
+      expect(transpile('fixe {x, y} = ponto')).toBe('const {x, y} = ponto;');
+    });
+
+    it('transpila desestruturação de objeto com um campo', () => {
+      expect(transpile('deixe {nome} = usuario')).toBe('let {nome} = usuario;');
+    });
+
+    it('transpila desestruturação de array com deixe', () => {
+      expect(transpile('deixe [primeiro, segundo] = lista')).toBe('let [primeiro, segundo] = lista;');
+    });
+
+    it('transpila desestruturação de array com fixe', () => {
+      expect(transpile('fixe [a, b, c] = coordenadas')).toBe('const [a, b, c] = coordenadas;');
+    });
+
+    it('transpila desestruturação de objeto em resultado de chamada', () => {
+      expect(transpile('deixe {dados} = obterResposta()')).toBe('let {dados} = obterResposta();');
+    });
+  });
+
+  describe('espalhamento (...)', () => {
+    it('transpila spread de array em literal de array', () => {
+      expect(transpile('deixe novaLista = [...lista, 4, 5]')).toBe('let novaLista = [...lista, 4, 5];');
+    });
+
+    it('transpila spread de dois arrays', () => {
+      expect(transpile('deixe c = [...a, ...b]')).toBe('let c = [...a, ...b];');
+    });
+
+    it('transpila spread em chamada de função', () => {
+      expect(transpile('imprima(...args)')).toBe('console.log(...args);');
+    });
+
+    it('transpila spread misto com argumentos normais', () => {
+      expect(transpile('chamar(1, ...resto)')).toBe('chamar(1, ...resto);');
+    });
+
+    it('transpila spread no início do array', () => {
+      expect(transpile('deixe lista = [...base, "extra"]')).toBe('let lista = [...base, "extra"];');
+    });
+  });
 });
