@@ -1,0 +1,2 @@
+deixe produto = { nome: "Notebook", preco: 2500, estoque: 10 }
+// Use desestruturação para extrair nome e preco

@@ -1,0 +1,4 @@
+deixe produto = { nome: "Notebook", preco: 2500, estoque: 10 }
+deixe {nome, preco} = produto
+imprima(nome)
+imprima(preco)
