@@ -278,6 +278,30 @@ imprima(saudacao("Maria"))`;
     it('mantém propriedade não-mapeada como está', () => {
       expect(transpile('imprima(obj.nome)')).toBe('console.log(obj.nome);');
     });
+
+    it('traduz .mapa() para .map()', () => {
+      expect(transpile('lista.mapa(x => x * 2)')).toBe('lista.map(x => x * 2);');
+    });
+
+    it('traduz .filtre() para .filter()', () => {
+      expect(transpile('lista.filtre(x => x > 0)')).toBe('lista.filter(x => x > 0);');
+    });
+
+    it('traduz .paraCada() para .forEach()', () => {
+      expect(transpile('lista.paraCada(x => imprima(x))')).toBe('lista.forEach(x => console.log(x));');
+    });
+
+    it('traduz .reduza() para .reduce()', () => {
+      expect(transpile('lista.reduza((acc, x) => acc + x, 0)')).toBe('lista.reduce((acc, x) => acc + x, 0);');
+    });
+
+    it('traduz .encontre() para .find()', () => {
+      expect(transpile('lista.encontre(x => x > 3)')).toBe('lista.find(x => x > 3);');
+    });
+
+    it('traduz .inclui() para .includes()', () => {
+      expect(transpile('lista.inclui(5)')).toBe('lista.includes(5);');
+    });
   });
 
   describe('objetos', () => {
@@ -561,7 +585,7 @@ saudar()`;
     });
 
     it('transpila arrow function como argumento de método', () => {
-      expect(transpile('numeros.filtre(x => x > 0)')).toBe('numeros.filtre(x => x > 0);');
+      expect(transpile('numeros.filtre(x => x > 0)')).toBe('numeros.filter(x => x > 0);');
     });
 
     it('transpila arrow function assíncrona com parênteses', () => {
