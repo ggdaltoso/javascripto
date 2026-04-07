@@ -51,7 +51,9 @@ JavaScripto {
   ExpressionStatement = Expression ";"?
 
   // Condicional
-  IfStatement = "se" "(" Expression ")" Block ("senao" Block)?
+  IfStatement = "se" "(" Expression ")" Block ElseClause?
+  ElseClause = "senao" IfStatement  -- elseIf
+             | "senao" Block        -- else
 
   // Laços
   WhileStatement = "enquanto" "(" Expression ")" Block
@@ -143,8 +145,12 @@ JavaScripto {
 
   UnaryExpression = "aguarde" UnaryExpression  -- await
                   | "novo" CallExpression      -- new
+                  | "++" UnaryExpression       -- preInc
+                  | "--" UnaryExpression       -- preDec
                   | "!" UnaryExpression        -- not
                   | "-" UnaryExpression        -- neg
+                  | CallExpression "++"        -- postInc
+                  | CallExpression "--"        -- postDec
                   | CallExpression
 
   CallExpression = CallExpression "(" Arguments ")"  -- call

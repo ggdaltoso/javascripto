@@ -126,12 +126,20 @@ semantics.addOperation('toJS()', {
   },
 
   // Condicional
-  IfStatement(_se, _lp, cond, _rp, block, _senao, elseBlock) {
+  IfStatement(_se, _lp, cond, _rp, block, elseClause) {
     let js = `if (${cond.toJS()}) ${block.toJS()}`;
-    if (elseBlock.children.length > 0) {
-      js += ` else ${elseBlock.children[0].toJS()}`;
+    if (elseClause.children.length > 0) {
+      js += ` ${elseClause.children[0].toJS()}`;
     }
     return js;
+  },
+
+  ElseClause_elseIf(_senao, ifStmt) {
+    return `else ${ifStmt.toJS()}`;
+  },
+
+  ElseClause_else(_senao, block) {
+    return `else ${block.toJS()}`;
   },
 
   // Laços
@@ -375,12 +383,28 @@ semantics.addOperation('toJS()', {
     return `new ${expr.toJS()}`;
   },
 
+  UnaryExpression_preInc(_op, expr) {
+    return `++${expr.toJS()}`;
+  },
+
+  UnaryExpression_preDec(_op, expr) {
+    return `--${expr.toJS()}`;
+  },
+
   UnaryExpression_not(_op, expr) {
     return `!${expr.toJS()}`;
   },
 
   UnaryExpression_neg(_op, expr) {
     return `-${expr.toJS()}`;
+  },
+
+  UnaryExpression_postInc(expr, _op) {
+    return `${expr.toJS()}++`;
+  },
+
+  UnaryExpression_postDec(expr, _op) {
+    return `${expr.toJS()}--`;
   },
 
   CallExpression_call(callee, _lp, args, _rp) {

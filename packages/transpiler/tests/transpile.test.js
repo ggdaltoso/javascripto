@@ -128,6 +128,12 @@ para (deixe i = 1; i <= 5; i += 1) {
       const expected = 'if (false) {\nconsole.log("a");\n} else {\nconsole.log("b");\n}';
       expect(transpile(input)).toBe(expected);
     });
+
+    it('transpila se/senao se/senao para if/else if/else', () => {
+      const input = 'se (x === 1) { imprima("um") } senao se (x === 2) { imprima("dois") } senao { imprima("outro") }';
+      const expected = 'if (x === 1) {\nconsole.log("um");\n} else if (x === 2) {\nconsole.log("dois");\n} else {\nconsole.log("outro");\n}';
+      expect(transpile(input)).toBe(expected);
+    });
   });
 
   describe('laços', () => {
@@ -141,6 +147,36 @@ para (deixe i = 1; i <= 5; i += 1) {
       const input = 'para (deixe i = 0; i < 10; i = i + 1) { imprima(i) }';
       const expected = 'for (let i = 0; i < 10; i = i + 1) {\nconsole.log(i);\n}';
       expect(transpile(input)).toBe(expected);
+    });
+
+    it('transpila para com i++', () => {
+      const input = 'para (deixe i = 0; i < 3; i++) { imprima(i) }';
+      const expected = 'for (let i = 0; i < 3; i++) {\nconsole.log(i);\n}';
+      expect(transpile(input)).toBe(expected);
+    });
+
+    it('transpila para com i--', () => {
+      const input = 'para (deixe i = 3; i > 0; i--) { imprima(i) }';
+      const expected = 'for (let i = 3; i > 0; i--) {\nconsole.log(i);\n}';
+      expect(transpile(input)).toBe(expected);
+    });
+  });
+
+  describe('++ e --', () => {
+    it('transpila sufixo i++', () => {
+      expect(transpile('deixe i = 0\ni++')).toBe('let i = 0;\ni++;');
+    });
+
+    it('transpila sufixo i--', () => {
+      expect(transpile('deixe i = 5\ni--')).toBe('let i = 5;\ni--;');
+    });
+
+    it('transpila prefixo ++i', () => {
+      expect(transpile('deixe i = 0; ++i')).toBe('let i = 0;\n++i;');
+    });
+
+    it('transpila prefixo --i', () => {
+      expect(transpile('deixe i = 5; --i')).toBe('let i = 5;\n--i;');
     });
   });
 
