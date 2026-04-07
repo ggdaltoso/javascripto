@@ -1,0 +1,4 @@
+deixe quadrado = n => n * n
+deixe numeros = [1, 2, 3, 4, 5]
+deixe quadrados = numeros.mapa(quadrado)
+imprima(quadrados)

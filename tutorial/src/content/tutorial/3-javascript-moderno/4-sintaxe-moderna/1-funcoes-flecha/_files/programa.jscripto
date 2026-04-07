@@ -1,0 +1,4 @@
+// Crie uma função flecha quadrado que retorna n * n
+// Depois use .mapa() para aplicar em cada número da lista
+
+deixe numeros = [1, 2, 3, 4, 5]
