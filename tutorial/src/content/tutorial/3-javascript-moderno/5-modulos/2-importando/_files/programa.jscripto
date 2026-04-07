@@ -1,0 +1,4 @@
+// Importe as funções soma e multiplica de './matematica.jscripto'
+
+imprima(soma(10, 5))
+imprima(multiplica(4, 3))

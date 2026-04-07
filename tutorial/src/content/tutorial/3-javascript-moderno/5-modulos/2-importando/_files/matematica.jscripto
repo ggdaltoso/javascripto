@@ -1,0 +1,11 @@
+exporte funcao soma(a, b) {
+  retorne a + b
+}
+
+exporte funcao subtrai(a, b) {
+  retorne a - b
+}
+
+exporte funcao multiplica(a, b) {
+  retorne a * b
+}
