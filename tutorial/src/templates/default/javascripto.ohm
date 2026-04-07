@@ -1,7 +1,9 @@
 JavaScripto {
   Program = Statement*
 
-  Statement = VariableDeclaration
+  Statement = ImportStatement
+            | ExportStatement
+            | VariableDeclaration
             | ClassDeclaration
             | IfStatement
             | WhileStatement
@@ -16,6 +18,26 @@ JavaScripto {
             | ExpressionStatement
             | Block
             | EmptyStatement
+
+  // Módulos
+  ImportStatement = "importe" ImportClause "de" stringLiteral ";"?  -- withClause
+                  | "importe" stringLiteral ";"?                     -- sideEffect
+
+  ImportClause = "*" "como" identifier                          -- namespace
+               | "{" ListOf<ImportSpecifier, ","> "}"           -- named
+               | identifier                                     -- default
+
+  ImportSpecifier = identifier "como" identifier  -- renamed
+                  | identifier                    -- simple
+
+  ExportStatement = "exporte" "padrao" Expression ";"?                          -- default
+                  | "exporte" "{" ListOf<ExportSpecifier, ","> "}" ";"?         -- named
+                  | "exporte" FunctionDeclaration                                -- func
+                  | "exporte" VariableDeclaration                                -- var
+                  | "exporte" ClassDeclaration                                   -- class
+
+  ExportSpecifier = identifier "como" identifier  -- renamed
+                  | identifier                    -- simple
 
   // Declarações de variáveis
   VariableDeclaration = ("deixe" | "fixe") ObjectPattern "=" Expression ";"?  -- destructObject
@@ -177,7 +199,8 @@ JavaScripto {
            | "classe" | "novo" | "isso" | "construtor"
            | "quebre" | "continue" | "escolha" | "caso" | "padrao"
            | "tente" | "capture" | "finalmente" | "lance"
-           | "assincrono" | "aguarde") ~identPart
+           | "assincrono" | "aguarde"
+           | "importe" | "exporte" | "de" | "como") ~identPart
 
   // Espaços e comentários
   space += comment

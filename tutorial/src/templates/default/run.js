@@ -1,4 +1,4 @@
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 
 // Todas as lições usam o mesmo mainCommand para que o TutorialKit reutilize
@@ -20,13 +20,36 @@ const file = process.argv[2] || 'programa.jscripto';
 let lastContent = '';
 let debounceTimer;
 
+function transpileOthers() {
+  for (const name of readdirSync('.')) {
+    if (!name.endsWith('.jscripto') || name === file) continue;
+    try {
+      const src = readFileSync(name, 'utf-8');
+      writeFileSync(name.replace('.jscripto', '.js'), transpile(src));
+    } catch {
+      // ignora erros em outros arquivos
+    }
+  }
+}
+
 function execute(source) {
   console.clear();
 
   try {
+    transpileOthers();
     const js = transpile(source);
-    const fn = new Function(js);
-    fn();
+
+    if (/^(import|export)\b/m.test(js)) {
+      writeFileSync('_programa.mjs', js);
+      try {
+        execSync('node _programa.mjs', { stdio: 'inherit' });
+      } catch {
+        // erros já foram impressos via stdio: 'inherit'
+      }
+    } else {
+      const fn = new Function(js);
+      fn();
+    }
   } catch (error) {
     console.error(error.message);
   }
