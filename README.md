@@ -1,4 +1,4 @@
-# JavaScripto
+<img src="tutorial/public/logo.svg" alt="JavaScripto" width="220" />
 
 Plataforma de ensino de JavaScript para brasileiros.
 
@@ -21,7 +21,7 @@ O aluno escreve código em pt-BR:
 ```
 funcao saudacao(nome) {
   se (nome) {
-    retorne "Olá, " + nome + "!"
+    retorne `Olá, ${nome}!`
   } senao {
     retorne "Olá, mundo!"
   }
@@ -35,7 +35,7 @@ O transpilador converte para JavaScript válido:
 ```js
 function saudacao(nome) {
   if (nome) {
-    return 'Olá, ' + nome + '!';
+    return `Olá, ${nome}!`;
   } else {
     return 'Olá, mundo!';
   }
@@ -84,8 +84,8 @@ javascripto/
 │       │   ├── index.js        # API: transpile() + semânticas toJS()
 │       │   └── javascripto.ohm # Gramática Ohm.js (fonte canônica)
 │       └── tests/
-│           ├── transpile.test.js  # Testes unitários (30 casos)
-│           └── template.test.js   # Testes de integração
+│           ├── transpile.test.js  # Testes unitários
+│           └── template.test.js   # Testes de integração (lições + template)
 ├── tutorial/                   # App Astro + TutorialKit
 │   ├── src/
 │   │   ├── templates/default/  # Template do runner (WebContainer)
@@ -93,18 +93,31 @@ javascripto/
 │   │   │   ├── transpiler.js   # Cópia standalone do transpilador
 │   │   │   └── javascripto.ohm # Cópia da gramática
 │   │   └── content/tutorial/   # Conteúdo das lições
-│   │       └── 1-fundamentos/
-│   │           ├── 1-primeiros-passos/  # Olá Mundo, Variáveis, Tipos
-│   │           └── 2-logica/            # Condições, Laços, Funções
+│   │       ├── 1-fundamentos/
+│   │       │   ├── 1-primeiros-passos/  # Olá Mundo, Variáveis, Tipos
+│   │       │   ├── 2-logica/            # Condições, Atribuição composta, Laços,
+│   │       │   │                        # Funções, Controlando laços, Escolha, Ternário
+│   │       │   └── 3-erros/             # Tente/capture, Lance, Finalmente
+│   │       ├── 2-estruturas-de-dados/
+│   │       │   ├── 1-listas/            # Criando, Modificando, Percorrendo, Métodos
+│   │       │   └── 2-objetos/           # Criando, Modificando, Objetos e listas
+│   │       └── 3-javascript-moderno/
+│   │           ├── 1-classes/           # Criando, Métodos, Classes e listas
+│   │           ├── 2-promessas/         # Funções assíncronas, Sequência, Erros
+│   │           ├── 3-closures/          # O que é, Funções que retornam funções, Estado privado
+│   │           └── 4-sintaxe-moderna/   # Funções flecha, Desestruturação,
+│   │                                    # Espalhamento, Template strings
 │   └── javascripto.tmLanguage.json  # Syntax highlighting
 ├── ideia/
 │   └── decisoes.md             # Registro de decisões técnicas
 └── package.json                # Scripts: dev, build, test, deploy
 ```
 
-> O transpilador existe em duas cópias: a canônica em `packages/transpiler/` (usada para testes) e uma standalone em `tutorial/src/templates/default/` (que roda no WebContainer). Os testes de integração garantem que ambas ficam sincronizadas.
+> O transpilador existe em duas cópias: a canônica em `packages/transpiler/` (usada para testes) e uma standalone em `tutorial/src/templates/default/` (que roda no WebContainer). Os testes de integração garantem que ambas ficam sincronizadas automaticamente.
 
 ## Mapeamento pt-BR → JavaScript
+
+### Palavras-chave
 
 | pt-BR | JavaScript | Categoria |
 |---|---|---|
@@ -116,10 +129,50 @@ javascripto/
 | `senao` | `else` | Condicional |
 | `enquanto` | `while` | Laço |
 | `para` | `for` | Laço |
+| `quebre` | `break` | Controle de laço |
+| `continue` | `continue` | Controle de laço |
+| `escolha` | `switch` | Seleção |
+| `caso` | `case` | Seleção |
+| `padrao` | `default` | Seleção |
+| `tente` | `try` | Erros |
+| `capture` | `catch` | Erros |
+| `finalmente` | `finally` | Erros |
+| `lance` | `throw` | Erros |
+| `classe` | `class` | Classe |
+| `construtor` | `constructor` | Classe |
+| `novo` | `new` | Instância |
+| `isso` | `this` | Referência |
+| `assincrono` | `async` | Assíncrono |
+| `aguarde` | `await` | Assíncrono |
 | `verdadeiro` | `true` | Literal |
 | `falso` | `false` | Literal |
 | `nulo` | `null` | Literal |
 | `imprima` | `console.log` | Saída |
+
+### Métodos de lista
+
+| pt-BR | JavaScript |
+|---|---|
+| `.tamanho` | `.length` |
+| `.adicione()` | `.push()` |
+| `.remova()` | `.pop()` |
+| `.mapa()` | `.map()` |
+| `.filtre()` | `.filter()` |
+| `.paraCada()` | `.forEach()` |
+| `.reduza()` | `.reduce()` |
+| `.encontre()` | `.find()` |
+| `.inclui()` | `.includes()` |
+
+### Funcionalidades modernas
+
+| Funcionalidade | Sintaxe |
+|---|---|
+| Funções flecha | `x => x * 2`, `(a, b) => a + b` |
+| Desestruturação de objeto | `deixe {nome, idade} = pessoa` |
+| Desestruturação de lista | `deixe [a, b] = lista` |
+| Espalhamento em lista | `[...lista, 4, 5]` |
+| Espalhamento em objeto | `{...objeto, chave: valor}` |
+| Template strings | `` `Olá, ${nome}!` `` |
 
 > Keywords não usam acentos nem cedilha (`funcao` em vez de `função`) para facilitar a digitação.
 
@@ -144,7 +197,7 @@ pnpm test
 
 ## Contribuindo
 
-O projeto está em fase inicial. Veja `ideia/decisoes.md` para entender as decisões técnicas tomadas até agora.
+O projeto está em desenvolvimento ativo. Veja `ideia/decisoes.md` para entender as decisões técnicas tomadas até agora.
 
 ## Licença
 
