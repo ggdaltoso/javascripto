@@ -16,6 +16,12 @@ const methodMap = {
   adicione: 'push',
   remova: 'pop',
   mensagem: 'message',
+  mapa: 'map',
+  filtre: 'filter',
+  paraCada: 'forEach',
+  reduza: 'reduce',
+  encontre: 'find',
+  inclui: 'includes',
 };
 
 // Mapa de tradução: identificadores pt-BR → JavaScript (builtins)
