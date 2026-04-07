@@ -698,6 +698,12 @@ saudar()`;
       expect(transpile('importe Utils de "./utils"')).toBe('import Utils from "./utils";');
     });
 
+    it('converte extensão .jscripto para .js no caminho de importe', () => {
+      expect(transpile("importe { soma } de './matematica.jscripto'")).toBe(
+        'import { soma } from "./matematica.js";'
+      );
+    });
+
     it('transpila importe nomeado simples', () => {
       expect(transpile('importe { soma } de "./math"')).toBe('import { soma } from "./math";');
     });

@@ -37,7 +37,8 @@ semantics.addOperation('toJS()', {
 
   // Módulos
   ImportStatement_withClause(_importe, clause, _de, path, _semi) {
-    return `import ${clause.toJS()} from ${path.toJS()};`;
+    const jsPath = path.toJS().replace(/\.jscripto"$/, '.js"');
+    return `import ${clause.toJS()} from ${jsPath};`;
   },
 
   ImportStatement_sideEffect(_importe, path, _semi) {
