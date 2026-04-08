@@ -1,0 +1,10 @@
+fixe alunos = [
+  { nome: "Ana", nota: 8 },
+  { nome: "Bruno", nota: 5 },
+  { nome: "Carla", nota: 7 },
+  { nome: "Diego", nota: 4 },
+  { nome: "Elena", nota: 9 },
+  { nome: "Fabio", nota: 6 }
+]
+
+// Imprima o nome e a nota dos alunos aprovados (nota >= 6)
