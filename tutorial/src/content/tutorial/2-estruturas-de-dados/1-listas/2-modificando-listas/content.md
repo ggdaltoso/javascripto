@@ -50,5 +50,5 @@ imprima(numeros)  // [1, 2]
 4. Imprima a lista final
 
 :::tip
-`.adicione()` e `.remova()` são as versões pt-BR de `.push()` e `.pop()` do JavaScript. No JavaScripto, você usa português!
+`.adicione()` e `.remova()` são as versões pt-BR de `.push()` e `.pop()` do JavaScript.
 :::

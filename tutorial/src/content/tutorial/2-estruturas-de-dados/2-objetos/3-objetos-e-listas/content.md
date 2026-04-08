@@ -9,7 +9,7 @@ mainCommand: ['node run.js programa.jscripto', 'JavaScripto']
 
 # Objetos e listas
 
-O verdadeiro poder aparece quando voce **combina objetos e listas**. Isso é como a maioria dos dados reais é organizada.
+Quando você combina objetos e listas, começa a trabalhar com dados do jeito que a maioria das aplicações reais organiza.
 
 ## Lista de objetos
 
@@ -48,7 +48,7 @@ para (deixe i = 0; i < alunos.tamanho; i = i + 1) {
 
 ## Objeto com lista
 
-Um objeto tambem pode ter uma lista como propriedade:
+Um objeto também pode ter uma lista como propriedade:
 
 ```jscripto
 deixe turma = {
@@ -63,8 +63,8 @@ imprima(turma.alunos.tamanho)
 
 ## Sua vez!
 
-Crie uma lista `produtos` com 3 objetos. Cada objeto deve ter `nome` e `preco`. Depois, use um laco `para` para imprimir o nome e preço de cada produto.
+Crie uma lista `produtos` com 3 objetos. Cada objeto deve ter `nome` e `preco`. Depois, use um laço `para` para imprimir o nome e preço de cada produto.
 
 :::tip
-Listas de objetos sao a base de quase toda aplicacao real: listas de usuários, produtos, mensagens, posts... Saber trabalhar com elas e essencial!
+Listas de objetos são a base de quase toda aplicação real: listas de usuários, produtos, mensagens, posts. Vale dominar esse padrão.
 :::

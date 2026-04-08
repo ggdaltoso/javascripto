@@ -11,7 +11,7 @@ mainCommand: ['node run.js programa.jscripto', 'JavaScripto']
 
 Listas são ótimas para guardar valores em sequência. Mas e quando você quer associar **nomes** a valores? Para isso existem os **objetos**.
 
-Um objeto e criado com chaves `{}`:
+Um objeto é criado com chaves `{}`:
 
 ```jscripto
 deixe pessoa = { nome: "Ana", idade: 25, cidade: "Recife" }
@@ -32,7 +32,7 @@ imprima(carro.ano)     // 2020
 
 ## Acesso com colchetes
 
-Voce também pode usar colchetes com uma string:
+Você também pode usar colchetes com uma string:
 
 ```jscripto
 deixe fruta = { nome: "banana", cor: "amarelo" }
@@ -40,7 +40,7 @@ imprima(fruta["nome"])  // "banana"
 imprima(fruta["cor"])   // "amarelo"
 ```
 
-Isso e útil quando o nome da propriedade está em uma variável:
+Isso é útil quando o nome da propriedade está em uma variável:
 
 ```jscripto
 deixe campo = "cor"
@@ -52,7 +52,5 @@ imprima(fruta[campo])  // "amarelo"
 Crie um objeto `pessoa` com as propriedades `nome`, `idade` e `cidade`. Depois, imprima cada propriedade em uma linha separada.
 
 :::tip
-Objetos em JavaScripto funcionam igual aos objetos em JavaScript `{ chave: valor }`
-
-Não precisa de nada novo!
+Objetos em JavaScripto funcionam igual aos objetos em JavaScript `{ chave: valor }`. A sintaxe é a mesma.
 :::

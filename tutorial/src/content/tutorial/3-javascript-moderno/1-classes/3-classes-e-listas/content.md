@@ -9,7 +9,7 @@ mainCommand: ['node run.js programa.jscripto', 'JavaScripto']
 
 # Classes e listas
 
-Classes ficam ainda mais poderosas quando combinadas com listas. Esse padrão é a base de aplicações reais.
+Classes ficam mais úteis quando você as usa junto com listas. É assim que a maioria das aplicações reais organiza os dados.
 
 ## Criando vários objetos
 
@@ -73,7 +73,7 @@ para (deixe i = 0; i < turma.tamanho; i = i + 1) {
 
 ## Sua vez!
 
-Crie uma classe `Tarefa` com `titulo` e `feita` (comecando como `falso`). Adicione um método `concluir()` que muda `feita` para `verdadeiro` e um método `status()` que retorna o título seguido de "- feita" ou "- pendente".
+Crie uma classe `Tarefa` com `titulo` e `feita` (começando como `falso`). Adicione um método `concluir()` que muda `feita` para `verdadeiro` e um método `status()` que retorna o título seguido de "- feita" ou "- pendente".
 
 Crie uma lista com 3 tarefas, conclua uma delas, e imprima o status de todas.
 

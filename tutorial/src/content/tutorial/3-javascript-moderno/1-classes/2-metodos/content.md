@@ -29,7 +29,7 @@ gato.falar()  // "Gato faz miau!"
 
 ## Métodos com parâmetros
 
-Métodos podem receber parâmetros, como fuções normais:
+Métodos podem receber parâmetros, como funções normais:
 
 ```jscripto
 classe Calculadora {
@@ -82,5 +82,5 @@ Crie uma classe `ContaBancaria` com:
 Crie uma conta, faça dois depósitos e mostre o saldo.
 
 :::tip
-Métodoss são como funções, mas sem a palavra `funcao`. Dentro de uma classe, basta escrever `nome() { ... }`
+Métodos são como funções, mas sem a palavra `funcao`. Dentro de uma classe, basta escrever `nome() { ... }`
 :::

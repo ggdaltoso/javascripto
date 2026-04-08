@@ -42,5 +42,5 @@ O `continue` pula o resto do bloco e vai direto para a próxima repetição. Iss
 Use `quebre` para encontrar e imprimir o primeiro número divisível por 7 entre 1 e 100.
 
 :::tip
-`quebre` equivale a `break` e `continue` equivale a `continue` em JavaScript.
+`quebre` equivale a `break` em JavaScript. `continue` tem o mesmo nome nos dois.
 :::

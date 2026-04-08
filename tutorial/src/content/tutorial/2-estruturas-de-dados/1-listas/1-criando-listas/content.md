@@ -9,9 +9,9 @@ mainCommand: ['node run.js programa.jscripto', 'JavaScripto']
 
 # Criando listas
 
-Ate agora, cada variável guardava um único valor. Mas e se voce quiser guardar **vários valores juntos**? Para isso existem as **listas** (ou arrays).
+Até agora, cada variável guardava um único valor. Mas e se você quiser guardar **vários valores juntos**? Para isso existem as **listas** (ou arrays).
 
-Uma lista e criada com colchetes `[]`:
+Uma lista é criada com colchetes `[]`:
 
 ```jscripto
 deixe frutas = ["maca", "banana", "uva"]
@@ -44,7 +44,7 @@ imprima(numeros.tamanho)  // 4
 
 ## Lista vazia
 
-Voce pode criar uma lista vazia e adicionar itens depois:
+Você pode criar uma lista vazia e adicionar itens depois:
 
 ```jscripto
 deixe lista = []
@@ -56,5 +56,5 @@ imprima(lista.tamanho)  // 0
 Crie uma lista chamada `frutas` com pelo menos 3 frutas. Depois, imprima:
 
 1. A primeira fruta
-2. A ultima fruta
+2. A última fruta
 3. O total de frutas na lista

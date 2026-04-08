@@ -23,7 +23,7 @@ imprima(usuario.pontos)  // 25
 
 ## Adicionando propriedades
 
-Voce pode adicionar novas propriedades a qualquer momento:
+Você pode adicionar novas propriedades a qualquer momento:
 
 ```jscripto
 deixe produto = { nome: "Caderno" }
@@ -34,7 +34,7 @@ imprima(produto)
 
 ## Combinando com condicionais
 
-Objetos ficam ainda mais uteis quando combinados com lógica:
+Objetos ficam ainda mais úteis quando combinados com lógica:
 
 ```jscripto
 deixe aluno = { nome: "Julia", nota: 8 }

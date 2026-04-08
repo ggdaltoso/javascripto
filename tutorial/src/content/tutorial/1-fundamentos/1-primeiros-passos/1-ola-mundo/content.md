@@ -22,5 +22,5 @@ imprima("Olá, mundo!")
 No editor ao lado, escreva um programa que imprima a mensagem **"Olá, mundo!"** na tela.
 
 :::tip
-`imprima` é o equivalente a `console.log` do JavaScript. Quando você estiver confortável com os conceitos, a transição será natural!
+`imprima` é o `console.log` do JavaScripto. Quando quiser escrever JavaScript puro, é só trocar.
 :::

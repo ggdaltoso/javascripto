@@ -9,7 +9,7 @@ mainCommand: ['node run.js programa.jscripto', 'JavaScripto']
 
 # Percorrendo listas
 
-Uma das coisas mais úteis que você pode fazer com listas é **percorrer** todos os itens, um por um.
+Com listas, passar por todos os itens um por um é uma das coisas que você vai fazer o tempo todo.
 
 ## Usando `para` com listas
 
@@ -27,7 +27,7 @@ Isso imprime cada nome, um por linha.
 
 ## Somando valores
 
-Um padrão muito comum e percorrer uma lista de números para calcular algo:
+Um padrão muito comum é percorrer uma lista de números para calcular algo:
 
 ```jscripto
 deixe notas = [8, 7, 9, 10]
@@ -42,7 +42,7 @@ imprima("Total: " + soma)
 
 ## Buscando um item
 
-Voce também pode percorrer para encontrar algo:
+Você também pode percorrer para encontrar algo:
 
 ```jscripto
 deixe frutas = ["maca", "banana", "uva", "manga"]
