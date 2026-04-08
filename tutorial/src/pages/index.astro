@@ -1,0 +1,533 @@
+---
+const title = 'JavaScripto — Programe em português, pense em JavaScript';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content="Aprenda JavaScript escrevendo em português. Um tutorial interativo que transpila código JavaScripto para JavaScript real." />
+    <link rel="icon" href="/favicon.svg" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --bg:       #0d0d16;
+        --bg-card:  #12121e;
+        --border:   #1e1e30;
+        --accent:   #f7df1e;
+        --accent-dim: rgba(247,223,30,0.12);
+        --text:     #e2e2f0;
+        --muted:    #7878a0;
+        --code-bg:  #080810;
+        --radius:   10px;
+        --font-mono: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+      }
+
+      html, body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: system-ui, -apple-system, sans-serif;
+        line-height: 1.6;
+        min-height: 100%;
+        overflow-x: hidden;
+      }
+
+      /* ── Canvas ────────────────────────────── */
+      #bg-canvas {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* ── Layout ────────────────────────────── */
+      .page { position: relative; z-index: 1; }
+
+      /* ── Nav ───────────────────────────────── */
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 2rem;
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        background: rgba(13,13,22,0.85);
+        backdrop-filter: blur(12px);
+        z-index: 10;
+      }
+
+      nav img { height: 28px; }
+
+      .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover { color: var(--text); }
+
+      /* ── Buttons ───────────────────────────── */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.65rem 1.4rem;
+        border-radius: var(--radius);
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: transform 0.15s, opacity 0.15s;
+      }
+      .btn:hover { transform: translateY(-1px); opacity: 0.9; }
+      .btn-primary { background: var(--accent); color: #111; }
+      .btn-secondary {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+      .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+      /* ── Hero ──────────────────────────────── */
+      .hero {
+        min-height: calc(100vh - 65px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 4rem 2rem;
+        gap: 2rem;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--accent-dim);
+        border: 1px solid rgba(247,223,30,0.25);
+        color: var(--accent);
+        padding: 0.3rem 0.9rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.2rem, 5vw, 3.8rem);
+        font-weight: 800;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        max-width: 720px;
+      }
+
+      .hero h1 em {
+        font-style: normal;
+        color: var(--accent);
+      }
+
+      .hero p {
+        color: var(--muted);
+        font-size: 1.1rem;
+        max-width: 480px;
+      }
+
+      .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+      /* ── Sections ──────────────────────────── */
+      section {
+        padding: 5rem 2rem;
+        max-width: 1080px;
+        margin: 0 auto;
+      }
+
+      .section-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+      }
+
+      .section-title {
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      .section-desc {
+        color: var(--muted);
+        font-size: 1rem;
+        max-width: 520px;
+        margin-bottom: 3rem;
+      }
+
+      /* ── Why cards ─────────────────────────── */
+      .why-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.25rem;
+      }
+
+      .why-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.75rem;
+        transition: border-color 0.2s;
+      }
+      .why-card:hover { border-color: rgba(247,223,30,0.3); }
+
+      .why-icon {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+      }
+
+      .why-card h3 {
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .why-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.65; }
+
+      /* ── Code examples ─────────────────────── */
+      .examples-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        background: var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        border: 1px solid var(--border);
+      }
+
+      .code-pane {
+        background: var(--code-bg);
+        padding: 0;
+      }
+
+      .code-pane-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.6rem 1rem;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      .lang-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      .code-pane pre {
+        padding: 1.5rem;
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        line-height: 1.7;
+        overflow-x: auto;
+        color: var(--text);
+      }
+
+      .kw   { color: #c792ea; }  /* keyword */
+      .fn   { color: #82aaff; }  /* function name */
+      .str  { color: #c3e88d; }  /* string */
+      .num  { color: #f78c6c; }  /* number */
+      .cmt  { color: #546e7a; font-style: italic; }
+      .pt   { color: var(--accent); }  /* portuguese keyword highlight */
+
+      /* ── Topics ────────────────────────────── */
+      .topics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+      }
+
+      .topic-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        transition: border-color 0.2s, transform 0.15s;
+      }
+      .topic-card:hover { border-color: rgba(247,223,30,0.3); transform: translateY(-2px); }
+
+      .topic-number {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 0.5rem;
+      }
+
+      .topic-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+
+      .topic-items {
+        list-style: none;
+        color: var(--muted);
+        font-size: 0.85rem;
+        line-height: 1.8;
+      }
+
+      /* ── Footer ────────────────────────────── */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 2rem;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      @media (max-width: 640px) {
+        .examples-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="page">
+      <nav>
+        <a href="/"><img src="/logo-dark.svg" alt="JavaScripto" /></a>
+        <div class="nav-links">
+          <a href="/tutorial">Tutorial</a>
+          <a href="/playground">Playground</a>
+          <a href="https://github.com/ggdaltoso/javascripto" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </nav>
+
+      <main>
+        <!-- Hero -->
+        <section class="hero">
+          <div class="hero-badge">✦ Tutorial interativo</div>
+
+          <h1>Programe em <em>português</em>,<br />pense em JavaScript</h1>
+
+          <p>Aprenda JavaScript escrevendo código em português. Cada instrução JavaScripto gera JavaScript real que você pode entender e usar no mercado.</p>
+
+          <div class="hero-ctas">
+            <a href="/tutorial" class="btn btn-primary">
+              Começar tutorial →
+            </a>
+            <a href="/playground" class="btn btn-secondary">
+              Playground
+            </a>
+          </div>
+        </section>
+
+        <!-- Por que JavaScripto? -->
+        <section>
+          <div class="section-label">Motivação</div>
+          <h2 class="section-title">Por que JavaScripto?</h2>
+          <p class="section-desc">Aprender a programar já é desafiador. Fazer isso em outro idioma é uma barreira a mais.</p>
+
+          <div class="why-grid">
+            <div class="why-card">
+              <div class="why-icon">🧠</div>
+              <h3>Aprenda na sua língua</h3>
+              <p>Escrever código em português reduz a carga cognitiva e permite que você foque no que importa: a lógica de programação.</p>
+            </div>
+            <div class="why-card">
+              <div class="why-icon">🔗</div>
+              <h3>JavaScript de verdade</h3>
+              <p>Cada linha em JavaScripto é transpilada para JavaScript real. Você aprende os dois ao mesmo tempo, sem atalhos.</p>
+            </div>
+            <div class="why-card">
+              <div class="why-icon">🚀</div>
+              <h3>Do zero ao mercado</h3>
+              <p>Comece com variáveis e funções, chegue até classes, promessas e módulos. O conteúdo cobre JavaScript moderno de ponta a ponta.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Exemplos de código -->
+        <section>
+          <div class="section-label">Sintaxe</div>
+          <h2 class="section-title">Exemplos de código</h2>
+          <p class="section-desc">JavaScripto usa palavras-chave em português. O restante da sintaxe é idêntico ao JavaScript.</p>
+
+          <div class="examples-grid">
+            <div class="code-pane">
+              <div class="code-pane-header">
+                <span class="lang-dot"></span>
+                JavaScripto
+              </div>
+              <pre><span class="kw pt">funcao</span> <span class="fn">saudacao</span>(nome) &#123;
+  <span class="kw pt">retorne</span> <span class="str">"Olá, "</span> + nome
+&#125;
+
+<span class="kw pt">deixe</span> resultado = saudacao(<span class="str">"mundo"</span>)
+<span class="kw pt">imprima</span>(resultado)
+
+<span class="kw pt">se</span> (resultado.tamanho > <span class="num">5</span>) &#123;
+  <span class="kw pt">imprima</span>(<span class="str">"mensagem longa"</span>)
+&#125; <span class="kw pt">senao</span> &#123;
+  <span class="kw pt">imprima</span>(<span class="str">"mensagem curta"</span>)
+&#125;</pre>
+            </div>
+            <div class="code-pane">
+              <div class="code-pane-header">
+                <span class="lang-dot" style="background:#f7df1e88"></span>
+                JavaScript gerado
+              </div>
+              <pre><span class="kw">function</span> <span class="fn">saudacao</span>(nome) &#123;
+  <span class="kw">return</span> <span class="str">"Olá, "</span> + nome
+&#125;
+
+<span class="kw">let</span> resultado = saudacao(<span class="str">"mundo"</span>)
+console.<span class="fn">log</span>(resultado)
+
+<span class="kw">if</span> (resultado.length > <span class="num">5</span>) &#123;
+  console.<span class="fn">log</span>(<span class="str">"mensagem longa"</span>)
+&#125; <span class="kw">else</span> &#123;
+  console.<span class="fn">log</span>(<span class="str">"mensagem curta"</span>)
+&#125;</pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- O que você vai aprender -->
+        <section>
+          <div class="section-label">Conteúdo</div>
+          <h2 class="section-title">O que você vai aprender</h2>
+          <p class="section-desc">O tutorial cobre JavaScript moderno do início ao fim, em português.</p>
+
+          <div class="topics-grid">
+            <div class="topic-card">
+              <div class="topic-number">Parte 1</div>
+              <h3>Fundamentos</h3>
+              <ul class="topic-items">
+                <li>Variáveis e valores</li>
+                <li>Condições e laços</li>
+                <li>Funções</li>
+                <li>Erros e exceções</li>
+              </ul>
+            </div>
+            <div class="topic-card">
+              <div class="topic-number">Parte 2</div>
+              <h3>Estruturas de dados</h3>
+              <ul class="topic-items">
+                <li>Listas e métodos</li>
+                <li>Objetos</li>
+                <li>Desestruturação</li>
+              </ul>
+            </div>
+            <div class="topic-card">
+              <div class="topic-number">Parte 3</div>
+              <h3>JavaScript moderno</h3>
+              <ul class="topic-items">
+                <li>Classes</li>
+                <li>Promessas e async/await</li>
+                <li>Closures</li>
+                <li>Módulos (import/export)</li>
+              </ul>
+            </div>
+            <div class="topic-card">
+              <div class="topic-number">Parte 4</div>
+              <h3>Prática</h3>
+              <ul class="topic-items">
+                <li>FizzBuzz</li>
+                <li>Palíndromo</li>
+                <li>Filtro de aprovados</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>Feito com ♥ para quem aprende em português.</p>
+      </footer>
+    </div>
+
+    <script>
+      const canvas = document.getElementById('bg-canvas') as HTMLCanvasElement;
+      const ctx = canvas.getContext('2d')!;
+
+      const SNIPPETS = [
+        'funcao', 'deixe', 'fixe', 'retorne', 'se', 'senao',
+        'para', 'enquanto', 'classe', 'novo', 'isso',
+        'assincrono', 'aguarde', 'imprima', 'tente', 'capture',
+        'exporte', 'importe', 'verdadeiro', 'falso', 'nulo',
+        'deixe x = 42', 'imprima("Olá!")',
+        'retorne verdadeiro', 'se (i > 0)',
+        'funcao soma(a, b)', 'classe Pessoa',
+        'aguarde buscar(url)', '[...lista, item]',
+        'novo Carro("Tesla")', 'fixe PI = 3.14',
+        'importe { mapa }', 'exporte funcao',
+        'enquanto (n > 0)', 'tente { ... }',
+        'para (deixe i = 0; i < 10; i++)',
+        'deixe { nome, idade } = pessoa',
+      ];
+
+      interface Particle {
+        text: string;
+        x: number;
+        y: number;
+        vx: number;
+        vy: number;
+        opacity: number;
+        size: number;
+      }
+
+      let particles: Particle[] = [];
+
+      function makeParticle(initial = false): Particle {
+        return {
+          text: SNIPPETS[Math.floor(Math.random() * SNIPPETS.length)],
+          x: Math.random() * canvas.width,
+          y: initial ? Math.random() * canvas.height : canvas.height + 30,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: -(Math.random() * 0.35 + 0.12),
+          opacity: Math.random() * 0.07 + 0.03,
+          size: Math.floor(Math.random() * 4 + 11),
+        };
+      }
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const count = Math.floor((canvas.width * canvas.height) / 22000);
+        particles = Array.from({ length: count }, () => makeParticle(true));
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.textBaseline = 'top';
+
+        for (const p of particles) {
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.y < -30) Object.assign(p, makeParticle(false));
+
+          ctx.font = `${p.size}px 'Fira Code', monospace`;
+          ctx.fillStyle = `rgba(247,223,30,${p.opacity})`;
+          ctx.fillText(p.text, p.x, p.y);
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      window.addEventListener('resize', resize, { passive: true });
+      resize();
+      animate();
+    </script>
+  </body>
+</html>
