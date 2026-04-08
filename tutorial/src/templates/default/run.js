@@ -8,8 +8,9 @@ import { execSync } from 'node:child_process';
 // O polling (setInterval) detecta mudanças no arquivo — seja por edição do
 // aluno ou por troca de lição (quando o TutorialKit sobrescreve o arquivo).
 //
-// prepareCommands é [] nas lições para evitar re-executar npm install a cada
-// troca. Garantimos as dependências aqui com import() dinâmico.
+// O TutorialKit roda o prepareCommand ("npm install") do meta.md raiz uma vez
+// no boot e não re-executa ao trocar de lição (desde que os comandos sejam
+// idênticos). Esta verificação serve apenas como fallback de segurança.
 if (!existsSync('node_modules/ohm-js')) {
   execSync('npm install', { stdio: 'inherit' });
 }
@@ -35,20 +36,55 @@ function transpileOthers() {
 function execute(source) {
   console.clear();
 
+  const expected = existsSync('_expected.txt')
+    ? readFileSync('_expected.txt', 'utf-8').trim()
+    : null;
+
   try {
     transpileOthers();
     const js = transpile(source);
+    let actual = null;
 
     if (/^(import|export)\b/m.test(js)) {
       writeFileSync('_programa.mjs', js);
       try {
-        execSync('node _programa.mjs', { stdio: 'inherit' });
-      } catch {
-        // erros já foram impressos via stdio: 'inherit'
+        if (expected !== null) {
+          const output = execSync('node _programa.mjs', { encoding: 'utf-8' });
+          process.stdout.write(output);
+          actual = output.trim();
+        } else {
+          execSync('node _programa.mjs', { stdio: 'inherit' });
+        }
+      } catch (e) {
+        if (e.stdout) process.stdout.write(e.stdout);
+        if (e.stderr) process.stderr.write(e.stderr);
       }
     } else {
-      const fn = new Function(js);
-      fn();
+      if (expected !== null) {
+        const lines = [];
+        const origLog = console.log;
+        console.log = (...args) => {
+          const line = args.map(String).join(' ');
+          lines.push(line);
+          origLog(...args);
+        };
+        try {
+          new Function(js)();
+        } finally {
+          console.log = origLog;
+        }
+        actual = lines.join('\n');
+      } else {
+        new Function(js)();
+      }
+    }
+
+    if (expected !== null && actual !== null) {
+      console.log(
+        actual === expected
+          ? '\n\x1b[1;32m✓\x1b[0m Correto!'
+          : '\n\x1b[1;31m⨯\x1b[0m Saída incorreta. Tente novamente.',
+      );
     }
   } catch (error) {
     console.error(error.message);
