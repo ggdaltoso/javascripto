@@ -1,0 +1,5 @@
+// Escreva a função palindromo(palavra) e teste com os três casos abaixo
+
+imprima(palindromo("arara"))   // true
+imprima(palindromo("banana"))  // false
+imprima(palindromo("civic"))   // true
