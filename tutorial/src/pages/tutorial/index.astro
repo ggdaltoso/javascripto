@@ -1,0 +1,6 @@
+---
+// Redireciona para a primeira lição do tutorial
+const first = '/tutorial/1-fundamentos/1-primeiros-passos/1-ola-mundo';
+---
+<meta http-equiv="refresh" content={`0;url=${first}`} />
+<script define:vars={{ first }}>window.location.replace(first);</script>
