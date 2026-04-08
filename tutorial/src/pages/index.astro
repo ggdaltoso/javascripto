@@ -8,28 +8,41 @@ const title = 'JavaScripto — Programe em português, pense em JavaScript';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
-    <meta name="description" content="Aprenda JavaScript escrevendo em português. Um tutorial interativo que transpila código JavaScripto para JavaScript real." />
+    <meta
+      name="description"
+      content="Aprenda JavaScript escrevendo em português."
+    />
     <link rel="icon" href="/favicon.svg" />
     <style>
-      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
       :root {
-        --bg:       #0d0d16;
-        --bg-card:  #12121e;
-        --border:   #1e1e30;
-        --accent:   #f7df1e;
-        --accent-dim: rgba(247,223,30,0.12);
-        --text:     #e2e2f0;
-        --muted:    #7878a0;
-        --code-bg:  #080810;
-        --radius:   10px;
+        --bg: #0d0d16;
+        --bg-card: #12121e;
+        --border: #1e1e30;
+        --accent: #f7df1e;
+        --accent-dim: rgba(247, 223, 30, 0.12);
+        --text: #e2e2f0;
+        --muted: #7878a0;
+        --code-bg: #080810;
+        --radius: 10px;
         --font-mono: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
       }
 
-      html, body {
+      html,
+      body {
         background: var(--bg);
         color: var(--text);
-        font-family: system-ui, -apple-system, sans-serif;
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
         line-height: 1.6;
         min-height: 100%;
         overflow-x: hidden;
@@ -46,7 +59,10 @@ const title = 'JavaScripto — Programe em português, pense em JavaScript';
       }
 
       /* ── Layout ────────────────────────────── */
-      .page { position: relative; z-index: 1; }
+      .page {
+        position: relative;
+        z-index: 1;
+      }
 
       /* ── Nav ───────────────────────────────── */
       nav {
@@ -57,21 +73,29 @@ const title = 'JavaScripto — Programe em português, pense em JavaScript';
         border-bottom: 1px solid var(--border);
         position: sticky;
         top: 0;
-        background: rgba(13,13,22,0.85);
+        background: rgba(13, 13, 22, 0.85);
         backdrop-filter: blur(12px);
         z-index: 10;
       }
 
-      nav img { height: 28px; }
+      nav img {
+        height: 28px;
+      }
 
-      .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+      .nav-links {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+      }
       .nav-links a {
         color: var(--muted);
         text-decoration: none;
         font-size: 0.9rem;
         transition: color 0.2s;
       }
-      .nav-links a:hover { color: var(--text); }
+      .nav-links a:hover {
+        color: var(--text);
+      }
 
       /* ── Buttons ───────────────────────────── */
       .btn {
@@ -84,16 +108,27 @@ const title = 'JavaScripto — Programe em português, pense em JavaScript';
         font-weight: 600;
         text-decoration: none;
         cursor: pointer;
-        transition: transform 0.15s, opacity 0.15s;
+        transition:
+          transform 0.15s,
+          opacity 0.15s;
       }
-      .btn:hover { transform: translateY(-1px); opacity: 0.9; }
-      .btn-primary { background: var(--accent); color: #111; }
+      .btn:hover {
+        transform: translateY(-1px);
+        opacity: 0.9;
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: #111;
+      }
       .btn-secondary {
         background: transparent;
         color: var(--text);
         border: 1px solid var(--border);
       }
-      .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+      .btn-secondary:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
 
       /* ── Hero ──────────────────────────────── */
       .hero {
@@ -112,7 +147,7 @@ const title = 'JavaScripto — Programe em português, pense em JavaScript';
         align-items: center;
         gap: 0.5rem;
         background: var(--accent-dim);
-        border: 1px solid rgba(247,223,30,0.25);
+        border: 1px solid rgba(247, 223, 30, 0.25);
         color: var(--accent);
         padding: 0.3rem 0.9rem;
         border-radius: 999px;
@@ -141,7 +176,12 @@ const title = 'JavaScripto — Programe em português, pense em JavaScript';
         max-width: 480px;
       }
 
-      .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+      .hero-ctas {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
 
       /* ── Sections ──────────────────────────── */
       section {
@@ -186,7 +226,9 @@ const title = 'JavaScripto — Programe em português, pense em JavaScript';
         padding: 1.75rem;
         transition: border-color 0.2s;
       }
-      .why-card:hover { border-color: rgba(247,223,30,0.3); }
+      .why-card:hover {
+        border-color: rgba(247, 223, 30, 0.3);
+      }
 
       .why-icon {
         font-size: 1.75rem;
@@ -199,7 +241,11 @@ const title = 'JavaScripto — Programe em português, pense em JavaScript';
         margin-bottom: 0.5rem;
       }
 
-      .why-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.65; }
+      .why-card p {
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.65;
+      }
 
       /* ── Code examples ─────────────────────── */
       .examples-grid {
@@ -244,12 +290,25 @@ const title = 'JavaScripto — Programe em português, pense em JavaScript';
         color: var(--text);
       }
 
-      .kw   { color: #c792ea; }  /* keyword */
-      .fn   { color: #82aaff; }  /* function name */
-      .str  { color: #c3e88d; }  /* string */
-      .num  { color: #f78c6c; }  /* number */
-      .cmt  { color: #546e7a; font-style: italic; }
-      .pt   { color: var(--accent); }  /* portuguese keyword highlight */
+      .kw {
+        color: #c792ea;
+      } /* keyword */
+      .fn {
+        color: #82aaff;
+      } /* function name */
+      .str {
+        color: #c3e88d;
+      } /* string */
+      .num {
+        color: #f78c6c;
+      } /* number */
+      .cmt {
+        color: #546e7a;
+        font-style: italic;
+      }
+      .pt {
+        color: var(--accent);
+      } /* portuguese keyword highlight */
 
       /* ── Topics ────────────────────────────── */
       .topics-grid {
@@ -263,9 +322,14 @@ const title = 'JavaScripto — Programe em português, pense em JavaScript';
         border: 1px solid var(--border);
         border-radius: var(--radius);
         padding: 1.5rem;
-        transition: border-color 0.2s, transform 0.15s;
+        transition:
+          border-color 0.2s,
+          transform 0.15s;
       }
-      .topic-card:hover { border-color: rgba(247,223,30,0.3); transform: translateY(-2px); }
+      .topic-card:hover {
+        border-color: rgba(247, 223, 30, 0.3);
+        transform: translateY(-2px);
+      }
 
       .topic-number {
         font-size: 0.7rem;
@@ -276,7 +340,11 @@ const title = 'JavaScripto — Programe em português, pense em JavaScript';
         margin-bottom: 0.5rem;
       }
 
-      .topic-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+      .topic-card h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
 
       .topic-items {
         list-style: none;
@@ -295,7 +363,9 @@ const title = 'JavaScripto — Programe em português, pense em JavaScript';
       }
 
       @media (max-width: 640px) {
-        .examples-grid { grid-template-columns: 1fr; }
+        .examples-grid {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
@@ -308,7 +378,11 @@ const title = 'JavaScripto — Programe em português, pense em JavaScript';
         <div class="nav-links">
           <a href="/tutorial">Tutorial</a>
           <a href="/playground">Playground</a>
-          <a href="https://github.com/ggdaltoso/javascripto" target="_blank" rel="noopener">GitHub</a>
+          <a
+            href="https://github.com/ggdaltoso/javascripto"
+            target="_blank"
+            rel="noopener">GitHub</a
+          >
         </div>
       </nav>
 
@@ -319,15 +393,11 @@ const title = 'JavaScripto — Programe em português, pense em JavaScript';
 
           <h1>Programe em <em>português</em>,<br />pense em JavaScript</h1>
 
-          <p>Aprenda JavaScript escrevendo código em português. Cada instrução JavaScripto gera JavaScript real que você pode entender e usar no mercado.</p>
+          <p>Aprenda JavaScript escrevendo código em português</p>
 
           <div class="hero-ctas">
-            <a href="/tutorial" class="btn btn-primary">
-              Começar tutorial →
-            </a>
-            <a href="/playground" class="btn btn-secondary">
-              Playground
-            </a>
+            <a href="/tutorial" class="btn btn-primary"> Começar tutorial → </a>
+            <a href="/playground" class="btn btn-secondary"> Playground </a>
           </div>
         </section>
 
@@ -335,23 +405,35 @@ const title = 'JavaScripto — Programe em português, pense em JavaScript';
         <section>
           <div class="section-label">Motivação</div>
           <h2 class="section-title">Por que JavaScripto?</h2>
-          <p class="section-desc">Aprender a programar já é desafiador. Fazer isso em outro idioma é uma barreira a mais.</p>
+          <p class="section-desc">
+            Aprender a programar já é desafiador. Fazer isso em outro idioma é
+            uma barreira a mais.
+          </p>
 
           <div class="why-grid">
             <div class="why-card">
               <div class="why-icon">🧠</div>
               <h3>Aprenda na sua língua</h3>
-              <p>Escrever código em português reduz a carga cognitiva e permite que você foque no que importa: a lógica de programação.</p>
+              <p>
+                Escrever código em português reduz a carga cognitiva e permite
+                que você foque no que importa: a lógica de programação.
+              </p>
             </div>
             <div class="why-card">
               <div class="why-icon">🔗</div>
               <h3>JavaScript de verdade</h3>
-              <p>Cada linha em JavaScripto é transpilada para JavaScript real. Você aprende os dois ao mesmo tempo, sem atalhos.</p>
+              <p>
+                Cada linha em JavaScripto é transpilada para JavaScript real.
+                Você aprende os dois ao mesmo tempo, sem atalhos.
+              </p>
             </div>
             <div class="why-card">
               <div class="why-icon">🚀</div>
               <h3>Do zero ao mercado</h3>
-              <p>Comece com variáveis e funções, chegue até classes, promessas e módulos. O conteúdo cobre JavaScript moderno de ponta a ponta.</p>
+              <p>
+                Comece com variáveis e funções, chegue até classes, promessas e
+                módulos. O conteúdo cobre JavaScript moderno de ponta a ponta.
+              </p>
             </div>
           </div>
         </section>
@@ -360,7 +442,10 @@ const title = 'JavaScripto — Programe em português, pense em JavaScript';
         <section>
           <div class="section-label">Sintaxe</div>
           <h2 class="section-title">Exemplos de código</h2>
-          <p class="section-desc">JavaScripto usa palavras-chave em português. O restante da sintaxe é idêntico ao JavaScript.</p>
+          <p class="section-desc">
+            JavaScripto usa palavras-chave em português. O restante da sintaxe é
+            idêntico ao JavaScript.
+          </p>
 
           <div class="examples-grid">
             <div class="code-pane">
@@ -406,7 +491,9 @@ console.<span class="fn">log</span>(resultado)
         <section>
           <div class="section-label">Conteúdo</div>
           <h2 class="section-title">O que você vai aprender</h2>
-          <p class="section-desc">O tutorial cobre JavaScript moderno do início ao fim, em português.</p>
+          <p class="section-desc">
+            O tutorial cobre JavaScript moderno do início ao fim, em português.
+          </p>
 
           <div class="topics-grid">
             <div class="topic-card">
@@ -461,17 +548,41 @@ console.<span class="fn">log</span>(resultado)
       const ctx = canvas.getContext('2d')!;
 
       const SNIPPETS = [
-        'funcao', 'deixe', 'fixe', 'retorne', 'se', 'senao',
-        'para', 'enquanto', 'classe', 'novo', 'isso',
-        'assincrono', 'aguarde', 'imprima', 'tente', 'capture',
-        'exporte', 'importe', 'verdadeiro', 'falso', 'nulo',
-        'deixe x = 42', 'imprima("Olá!")',
-        'retorne verdadeiro', 'se (i > 0)',
-        'funcao soma(a, b)', 'classe Pessoa',
-        'aguarde buscar(url)', '[...lista, item]',
-        'novo Carro("Tesla")', 'fixe PI = 3.14',
-        'importe { mapa }', 'exporte funcao',
-        'enquanto (n > 0)', 'tente { ... }',
+        'funcao',
+        'deixe',
+        'fixe',
+        'retorne',
+        'se',
+        'senao',
+        'para',
+        'enquanto',
+        'classe',
+        'novo',
+        'isso',
+        'assincrono',
+        'aguarde',
+        'imprima',
+        'tente',
+        'capture',
+        'exporte',
+        'importe',
+        'verdadeiro',
+        'falso',
+        'nulo',
+        'deixe x = 42',
+        'imprima("Olá!")',
+        'retorne verdadeiro',
+        'se (i > 0)',
+        'funcao soma(a, b)',
+        'classe Pessoa',
+        'aguarde buscar(url)',
+        '[...lista, item]',
+        'novo Carro("Tesla")',
+        'fixe PI = 3.14',
+        'importe { mapa }',
+        'exporte funcao',
+        'enquanto (n > 0)',
+        'tente { ... }',
         'para (deixe i = 0; i < 10; i++)',
         'deixe { nome, idade } = pessoa',
       ];
