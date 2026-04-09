@@ -1,0 +1,435 @@
+---
+import PlaygroundApp from '../components/Playground';
+import '@tutorialkit/astro/default-theme.css';
+import '@tutorialkit/custom.css';
+---
+
+<!doctype html>
+<html lang="pt-BR" class="h-full overflow-hidden">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playground — JavaScripto</title>
+    <meta
+      name="description"
+      content="Escreva e execute JavaScripto no navegador."
+    />
+    <link rel="icon" href="/favicon.svg" />
+
+    <!-- Same theme-init script as TutorialKit's Layout.astro -->
+    <script is:inline>
+      (function () {
+        var theme = localStorage.getItem('tk_theme');
+        if (!theme) {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+
+    <style is:global>
+      /* ── Playground layout ────────────────────────────────────────────── */
+
+      .pg-root {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 56px); /* subtract nav height */
+      }
+
+      .pg-top {
+        display: flex;
+        flex: 1;
+        min-height: 0;
+        border-bottom: 2px solid
+          var(--tk-border-brighter, var(--tk-elements-app-borderColor));
+      }
+
+      /* Panels */
+      .pg-panel {
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid
+          var(--tk-border-brighter, var(--tk-elements-app-borderColor));
+        min-width: 0;
+        overflow: hidden;
+      }
+
+      .pg-panel:last-child {
+        border-right: none;
+      }
+
+      .pg-editor-panel {
+        flex: 2;
+        min-width: 280px;
+      }
+      .pg-table-panel {
+        flex: 1;
+        min-width: 200px;
+        max-width: 300px;
+      }
+      .pg-js-panel {
+        flex: 1.5;
+        min-width: 200px;
+      }
+
+      /* Panel header */
+      .pg-panel-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        min-height: 38px;
+        padding: 0.4rem 0.875rem;
+        border-bottom: 1px solid
+          var(--tk-border-brighter, var(--tk-elements-app-borderColor));
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(
+          --tk-elements-panel-headerTextColor,
+          var(--tk-elements-panel-textColor)
+        );
+        background: var(
+          --tk-elements-panel-headerBackgroundColor,
+          var(--tk-background-secondary, #f6f8f9)
+        );
+        flex-shrink: 0;
+      }
+
+      .pg-lang-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--tk-elements-terminal-color-yellow, #f7df1e);
+        flex-shrink: 0;
+      }
+
+      .pg-lang-dot-js {
+        opacity: 0.45;
+      }
+
+      .pg-status {
+        margin-left: auto;
+        font-size: 0.7rem;
+        color: var(--tk-elements-panel-textColor);
+        opacity: 0.6;
+        font-style: italic;
+      }
+
+      /* Editor body: filetree + codemirror */
+      .pg-editor-body {
+        display: flex;
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      /* File tree */
+      .pg-filetree {
+        width: 155px;
+        flex-shrink: 0;
+        border-right: 1px solid
+          var(--tk-border-brighter, var(--tk-elements-app-borderColor));
+        background: var(--tk-elements-panel-backgroundColor);
+        overflow-y: auto;
+        padding: 0.4rem 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+      }
+
+      .pg-file-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.3rem 0.6rem;
+        cursor: pointer;
+        font-size: 0.78rem;
+        font-family: var(--tk-font-mono, monospace);
+        color: var(
+          --tk-elements-fileTree-textColor,
+          var(--tk-elements-panel-textColor)
+        );
+        border-left: 2px solid transparent;
+        transition: background 0.1s;
+      }
+
+      .pg-file-item:hover {
+        background: var(
+          --tk-elements-fileTree-hover-backgroundColor,
+          rgba(128, 128, 128, 0.08)
+        );
+        color: var(
+          --tk-elements-fileTree-hover-textColor,
+          var(--tk-elements-panel-textColor)
+        );
+      }
+
+      .pg-file-item.active {
+        border-left-color: var(--tk-elements-terminal-color-yellow, #f7df1e);
+        background: var(
+          --tk-elements-fileTree-selected-backgroundColor,
+          rgba(128, 128, 128, 0.12)
+        );
+        color: var(
+          --tk-elements-fileTree-selected-textColor,
+          var(--tk-elements-panel-textColor)
+        );
+      }
+
+      .pg-file-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        flex: 1;
+      }
+
+      .pg-file-delete {
+        background: none;
+        border: none;
+        color: var(--tk-elements-panel-textColor);
+        cursor: pointer;
+        font-size: 1rem;
+        line-height: 1;
+        padding: 0 0 0 0.25rem;
+        opacity: 0;
+        transition: opacity 0.1s;
+      }
+
+      .pg-file-item:hover .pg-file-delete {
+        opacity: 0.6;
+      }
+      .pg-file-delete:hover {
+        opacity: 1 !important;
+        color: #ff6b6b;
+      }
+
+      .pg-new-file-btn {
+        margin: 0.25rem 0.4rem;
+        padding: 0.2rem 0.4rem;
+        background: none;
+        border: 1px dashed var(--tk-elements-app-borderColor);
+        border-radius: 4px;
+        color: var(--tk-elements-panel-textColor);
+        font-size: 0.72rem;
+        cursor: pointer;
+        text-align: left;
+        transition:
+          border-color 0.15s,
+          color 0.15s;
+        opacity: 0.7;
+      }
+
+      .pg-new-file-btn:hover {
+        border-color: var(--tk-elements-terminal-color-yellow, #f7df1e);
+        color: var(--tk-elements-terminal-color-yellow, #f7df1e);
+        opacity: 1;
+      }
+
+      .pg-new-file-input {
+        padding: 0.25rem 0.4rem;
+      }
+
+      .pg-new-file-input input {
+        width: 100%;
+        background: var(--tk-elements-panel-backgroundColor);
+        border: 1px solid var(--tk-elements-terminal-color-yellow, #f7df1e);
+        border-radius: 4px;
+        color: var(--tk-elements-panel-textColor);
+        font-size: 0.75rem;
+        font-family: var(--tk-font-mono, monospace);
+        padding: 0.2rem 0.4rem;
+        outline: none;
+      }
+
+      /* CodeMirror container (TutorialKit's CodeMirrorEditor fills its parent) */
+      .pg-codemirror {
+        flex: 1;
+        overflow: hidden;
+        min-height: 0;
+      }
+
+      .pg-codemirror .cm-editor {
+        height: 100%;
+      }
+
+      /* Feature table */
+      .pg-table-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0.6rem 0.75rem;
+        background: var(--tk-elements-panel-backgroundColor);
+      }
+
+      .pg-table-section {
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--tk-elements-terminal-color-yellow, #f7df1e);
+        margin: 0.75rem 0 0.35rem;
+      }
+
+      .pg-table-section:first-child {
+        margin-top: 0;
+      }
+
+      .pg-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.76rem;
+      }
+
+      .pg-table th {
+        text-align: left;
+        color: var(--tk-elements-panel-textColor);
+        font-weight: 600;
+        padding: 0.15rem 0.3rem;
+        border-bottom: 1px solid
+          var(--tk-border-brighter, var(--tk-elements-app-borderColor));
+        opacity: 0.6;
+      }
+
+      .pg-table td {
+        padding: 0.15rem 0.3rem;
+        border-bottom: 1px solid
+          var(--tk-border-brighter, var(--tk-elements-app-borderColor));
+        opacity: 0.85;
+      }
+
+      .pg-table td code {
+        font-family: var(--tk-font-mono, monospace);
+        font-size: 0.73rem;
+        color: var(--tk-elements-panel-textColor);
+      }
+
+      .pg-table tr:hover td {
+        opacity: 1;
+      }
+
+      /* Toggle buttons */
+      .pg-toggle {
+        margin-left: auto;
+        background: none;
+        border: none;
+        color: var(--tk-elements-panel-textColor);
+        cursor: pointer;
+        font-size: 0.85rem;
+        padding: 0.1rem 0.3rem;
+        border-radius: 3px;
+        opacity: 0.5;
+        transition: opacity 0.15s;
+      }
+
+      .pg-toggle:hover {
+        opacity: 1;
+      }
+
+      .pg-toggle-show {
+        margin-left: auto;
+        background: none;
+        border: 1px solid var(--tk-elements-app-borderColor);
+        border-radius: 4px;
+        color: var(--tk-elements-panel-textColor);
+        font-size: 0.7rem;
+        font-weight: 600;
+        padding: 0.15rem 0.5rem;
+        cursor: pointer;
+        transition:
+          border-color 0.15s,
+          color 0.15s;
+        opacity: 0.6;
+      }
+
+      .pg-toggle-show:hover {
+        border-color: var(--tk-elements-terminal-color-yellow, #f7df1e);
+        color: var(--tk-elements-terminal-color-yellow, #f7df1e);
+        opacity: 1;
+      }
+
+      /* JS error */
+      .pg-js-error {
+        flex: 1;
+        padding: 0.875rem 1rem;
+        font-family: var(--tk-font-mono, monospace);
+        font-size: 0.78rem;
+        line-height: 1.6;
+        color: var(--tk-elements-terminal-color-red, #ff6b6b);
+        background: var(
+          --cm-backgroundColor,
+          var(--tk-elements-panel-backgroundColor)
+        );
+        overflow: auto;
+        white-space: pre-wrap;
+      }
+
+      /* Terminal panel */
+      .pg-terminal-panel {
+        height: 200px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        background: var(--tk-elements-terminal-backgroundColor);
+      }
+
+      .pg-terminal-body {
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .pg-xterm {
+        height: 100%;
+      }
+    </style>
+  </head>
+
+  <body class="h-full text-black relative overflow-hidden">
+    <!-- Nav — uses TutorialKit's TopBar CSS classes -->
+    <nav
+      class="bg-tk-elements-topBar-backgroundColor transition-theme border-b border-tk-elements-app-borderColor flex items-center p-3 px-4 min-h-[56px] gap-4"
+    >
+      <a href="/" class="flex items-center">
+        <img src="/logo-dark.svg" alt="JavaScripto" class="h-6" />
+      </a>
+      <div class="flex gap-5 ml-2 flex-1">
+        <a
+          href="/tutorial"
+          class="text-sm text-tk-elements-topBar-iconButton-iconColor hover:text-tk-elements-topBar-iconButton-iconColorHover transition-theme"
+          >Tutorial</a
+        >
+        <a
+          href="/playground"
+          class="text-sm font-semibold text-tk-elements-topBar-iconButton-iconColorHover transition-theme"
+          >Playground</a
+        >
+      </div>
+      <!-- Theme toggle — same mechanism as TutorialKit -->
+      <button
+        id="theme-toggle"
+        class="i-ph-sun-dim-duotone text-xl text-tk-elements-topBar-iconButton-iconColor hover:text-tk-elements-topBar-iconButton-iconColorHover transition-theme"
+        aria-label="Alternar tema"></button>
+      <a
+        href="https://github.com/ggdaltoso/javascripto"
+        target="_blank"
+        rel="noopener"
+        class="i-ph-github-logo text-xl text-tk-elements-topBar-iconButton-iconColor hover:text-tk-elements-topBar-iconButton-iconColorHover transition-theme"
+        aria-label="GitHub"></a>
+    </nav>
+
+    <PlaygroundApp client:only="react" />
+
+    <script is:inline>
+      document
+        .getElementById('theme-toggle')
+        .addEventListener('click', function () {
+          var html = document.documentElement;
+          var current = html.getAttribute('data-theme') || 'dark';
+          var next = current === 'dark' ? 'light' : 'dark';
+          html.setAttribute('data-theme', next);
+          localStorage.setItem('tk_theme', next);
+        });
+    </script>
+  </body>
+</html>
