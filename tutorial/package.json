@@ -11,6 +11,7 @@
     "start": "astro dev"
   },
   "dependencies": {
+    "@javascripto/transpiler": "workspace:*",
     "@codemirror/commands": "^6.10.3",
     "@codemirror/view": "^6.41.0",
     "@tutorialkit/react": "1.6.0",

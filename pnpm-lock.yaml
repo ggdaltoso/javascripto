@@ -33,6 +33,9 @@ importers:
       '@codemirror/view':
         specifier: ^6.41.0
         version: 6.41.0
+      '@javascripto/transpiler':
+        specifier: workspace:*
+        version: link:../packages/transpiler
       '@tutorialkit/react':
         specifier: 1.6.0
         version: 1.6.0(@types/react-dom@18.3.7(@types/react@18.3.28))(@types/react@18.3.28)(postcss@8.5.8)(react-dom@18.3.1(react@18.3.1))(rollup@4.60.1)(vite@5.4.21(@types/node@20.19.37))
