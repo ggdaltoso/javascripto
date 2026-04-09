@@ -95,6 +95,11 @@ export default defineConfig({
     plugins: [tutorialNavBasePlugin(), jscriptoEditorPlugin()],
     optimizeDeps: {
       exclude: ['@tutorialkit/react'],
+      include: [
+        '@tutorialkit/react > @xterm/xterm',
+        '@tutorialkit/react > @xterm/addon-fit',
+        '@tutorialkit/react > @xterm/addon-web-links',
+      ],
     },
   },
 });
