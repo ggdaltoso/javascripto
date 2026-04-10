@@ -94,7 +94,10 @@ function getWebContainer(): Promise<WebContainer> {
 
 export default function Playground() {
   // Theme is read from the html[data-theme] attribute set by TutorialKit
-  const [theme, setTheme] = useState<Theme>('dark');
+  const [theme, setTheme] = useState<Theme>(() => {
+    const t = document.documentElement.getAttribute('data-theme');
+    return t === 'light' ? 'light' : 'dark';
+  });
 
   const [files, setFiles] = useState<FileEntry[]>([
     { name: 'programa.jscripto', content: DEFAULT_CODE },
