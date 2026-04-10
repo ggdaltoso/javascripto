@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import CodeMirrorEditor from '@tutorialkit/react/core/CodeMirrorEditor';
 import { Terminal } from '@tutorialkit/react/core/Terminal';
 import type { TerminalRef } from '@tutorialkit/react/core/Terminal';
+import { transitionTheme } from '@tutorialkit/theme/transition-theme';
 import type { Theme } from '@tutorialkit/react';
 import { WebContainer } from '@webcontainer/api';
 import { transpile } from '@javascripto/transpiler/browser';
@@ -142,7 +143,10 @@ const jscriptoHighlightCompartment = new Compartment();
 
 function jscriptoHighlightFor(theme: Theme) {
   return theme === 'dark'
-    ? [EditorView.darkTheme(true), syntaxHighlighting(vscodeDarkHighlight)]
+    ? [
+        EditorView.theme({}, { dark: true }),
+        syntaxHighlighting(vscodeDarkHighlight),
+      ]
     : [syntaxHighlighting(defaultHighlightStyle)];
 }
 
