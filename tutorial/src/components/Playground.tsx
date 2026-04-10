@@ -5,6 +5,28 @@ import type { TerminalRef } from '@tutorialkit/react/core/Terminal';
 import type { Theme } from '@tutorialkit/react';
 import { WebContainer } from '@webcontainer/api';
 import { transpile } from '@javascripto/transpiler/browser';
+import {
+  EditorView,
+  keymap,
+  lineNumbers,
+  drawSelection,
+  highlightActiveLine,
+} from '@codemirror/view';
+import { EditorState, Compartment } from '@codemirror/state';
+import { defaultKeymap, historyKeymap, history } from '@codemirror/commands';
+import {
+  LanguageSupport,
+  syntaxHighlighting,
+  defaultHighlightStyle,
+  indentOnInput,
+  bracketMatching,
+  HighlightStyle,
+} from '@codemirror/language';
+import { tags } from '@lezer/highlight';
+import {
+  javascriptoLanguage,
+  javascriptoFunctionHighlight,
+} from '../codemirror-lang-javascripto.js';
 
 // Template files — inlined at build time via Vite's ?raw import
 import runJsSrc from '../templates/default/run.js?raw';
@@ -88,6 +110,102 @@ function getWebContainer(): Promise<WebContainer> {
     });
   }
   return wcBootPromise;
+}
+
+// ── JscriptoEditor ────────────────────────────────────────────────────────────
+
+const vscodeDarkHighlight = HighlightStyle.define([
+  { tag: [tags.keyword, tags.atom, tags.bool], color: '#569cd6' },
+  { tag: tags.string, color: '#ce9178' },
+  { tag: tags.number, color: '#b5cea8' },
+  { tag: tags.comment, color: '#6a9955', fontStyle: 'italic' },
+  { tag: [tags.function(tags.variableName), tags.function(tags.propertyName)], color: '#dcdcaa' },
+  { tag: tags.variableName, color: '#9cdcfe' },
+  { tag: tags.operator, color: '#d4d4d4' },
+  { tag: tags.punctuation, color: '#d4d4d4' },
+]);
+
+const jscriptoBaseTheme = EditorView.theme({
+  '&.cm-editor': { height: '100%', background: 'var(--cm-backgroundColor)', color: 'var(--cm-textColor)' },
+  '.cm-scroller': { lineHeight: '1.5' },
+  '.cm-line': { padding: '0 0 0 4px' },
+  '.cm-gutters': { background: 'var(--cm-gutter-backgroundColor)', borderRight: '0', color: 'var(--cm-gutter-textColor)' },
+  '.cm-activeLine': { background: 'var(--cm-activeLineBackgroundColor)' },
+  '.cm-cursor': { borderLeft: 'var(--cm-cursor-width) solid var(--cm-cursor-backgroundColor)' },
+  '&.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground': {
+    backgroundColor: 'var(--cm-selection-backgroundColorFocused)',
+    opacity: 'var(--cm-selection-backgroundOpacityFocused, 0.3)',
+  },
+});
+
+const jscriptoHighlightCompartment = new Compartment();
+
+function jscriptoHighlightFor(theme: Theme) {
+  return theme === 'dark'
+    ? [EditorView.darkTheme(true), syntaxHighlighting(vscodeDarkHighlight)]
+    : [syntaxHighlighting(defaultHighlightStyle)];
+}
+
+const jscriptoExtensions = [
+  jscriptoBaseTheme,
+  new LanguageSupport(javascriptoLanguage, [javascriptoFunctionHighlight]),
+  lineNumbers(),
+  history(),
+  drawSelection(),
+  highlightActiveLine(),
+  indentOnInput(),
+  bracketMatching(),
+  keymap.of([...defaultKeymap, ...historyKeymap]),
+];
+
+interface JscriptoEditorProps {
+  theme: Theme;
+  doc: string;
+  onChange?: (value: string) => void;
+}
+
+function JscriptoEditor({ theme, doc, onChange }: JscriptoEditorProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const viewRef = useRef<EditorView | null>(null);
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const view = new EditorView({
+      state: EditorState.create({
+        doc,
+        extensions: [
+          ...jscriptoExtensions,
+          jscriptoHighlightCompartment.of(jscriptoHighlightFor(theme)),
+          EditorView.updateListener.of(update => {
+            if (update.docChanged) onChangeRef.current?.(update.state.doc.toString());
+          }),
+        ],
+      }),
+      parent: containerRef.current,
+    });
+    viewRef.current = view;
+    return () => { view.destroy(); viewRef.current = null; };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    viewRef.current?.dispatch({
+      effects: jscriptoHighlightCompartment.reconfigure(jscriptoHighlightFor(theme)),
+    });
+  }, [theme]);
+
+  useEffect(() => {
+    const view = viewRef.current;
+    if (!view) return;
+    const current = view.state.doc.toString();
+    if (current !== doc) {
+      view.dispatch({ changes: { from: 0, to: current.length, insert: doc } });
+    }
+  }, [doc]);
+
+  return <div ref={containerRef} style={{ height: '100%' }} />;
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -241,8 +359,7 @@ export default function Playground() {
 
   // ── Derived: current doc for CodeMirrorEditor ───────────────────────────────
 
-  const activeContent = files.find(f => f.name === activeFile)?.content ?? '';
-  const editorDoc = { value: activeContent, loading: false, filePath: `/${activeFile}` };
+  const activeContent = files.find((f) => f.name === activeFile)?.content ?? '';
 
   // ── Status overlay text ─────────────────────────────────────────────────────
 
@@ -258,7 +375,6 @@ export default function Playground() {
     <div className="pg-root">
       {/* Top row */}
       <div className="pg-top">
-
         {/* Left: file tree + CodeMirror editor */}
         <div className="pg-panel pg-editor-panel">
           <div className="pg-panel-header">
@@ -268,7 +384,7 @@ export default function Playground() {
           <div className="pg-editor-body">
             {/* File tree */}
             <div className="pg-filetree">
-              {files.map(f => (
+              {files.map((f) => (
                 <div
                   key={f.name}
                   className={`pg-file-item${f.name === activeFile ? ' active' : ''}`}
@@ -278,9 +394,14 @@ export default function Playground() {
                   {files.length > 1 && (
                     <button
                       className="pg-file-delete"
-                      onClick={e => { e.stopPropagation(); deleteFile(f.name); }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deleteFile(f.name);
+                      }}
                       title="Excluir arquivo"
-                    >×</button>
+                    >
+                      ×
+                    </button>
                   )}
                 </div>
               ))}
@@ -290,10 +411,13 @@ export default function Playground() {
                   <input
                     autoFocus
                     value={newFileName}
-                    onChange={e => setNewFileName(e.target.value)}
-                    onKeyDown={e => {
+                    onChange={(e) => setNewFileName(e.target.value)}
+                    onKeyDown={(e) => {
                       if (e.key === 'Enter') createFile();
-                      if (e.key === 'Escape') { setShowNewFileInput(false); setNewFileName(''); }
+                      if (e.key === 'Escape') {
+                        setShowNewFileInput(false);
+                        setNewFileName('');
+                      }
                     }}
                     placeholder="nome.jscripto"
                   />
@@ -309,14 +433,12 @@ export default function Playground() {
               )}
             </div>
 
-            {/* CodeMirrorEditor from TutorialKit — gets .jscripto highlight automatically */}
+            {/* Raw CodeMirror editor with direct javascriptoLanguage injection */}
             <div className="pg-codemirror">
-              <CodeMirrorEditor
+              <JscriptoEditor
                 theme={theme}
-                id={activeFile}
-                doc={editorDoc}
-                onChange={handleEditorChange}
-                debounceChange={0}
+                doc={activeContent}
+                onChange={(content) => handleEditorChange({ content })}
               />
             </div>
           </div>
@@ -327,29 +449,53 @@ export default function Playground() {
           <div className="pg-panel pg-table-panel">
             <div className="pg-panel-header">
               Funcionalidades
-              <button className="pg-toggle" onClick={() => setShowTable(false)} title="Ocultar">×</button>
+              <button
+                className="pg-toggle"
+                onClick={() => setShowTable(false)}
+                title="Ocultar"
+              >
+                ×
+              </button>
             </div>
             <div className="pg-table-body">
               <p className="pg-table-section">Keywords</p>
               <table className="pg-table">
-                <thead><tr><th>JavaScripto</th><th>JavaScript</th></tr></thead>
+                <thead>
+                  <tr>
+                    <th>JavaScripto</th>
+                    <th>JavaScript</th>
+                  </tr>
+                </thead>
                 <tbody>
-                  {KEYWORDS.map(k => (
+                  {KEYWORDS.map((k) => (
                     <tr key={k.pt}>
-                      <td><code>{k.pt}</code></td>
-                      <td><code>{k.js}</code></td>
+                      <td>
+                        <code>{k.pt}</code>
+                      </td>
+                      <td>
+                        <code>{k.js}</code>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
               <p className="pg-table-section">Métodos</p>
               <table className="pg-table">
-                <thead><tr><th>JavaScripto</th><th>JavaScript</th></tr></thead>
+                <thead>
+                  <tr>
+                    <th>JavaScripto</th>
+                    <th>JavaScript</th>
+                  </tr>
+                </thead>
                 <tbody>
-                  {METHODS.map(m => (
+                  {METHODS.map((m) => (
                     <tr key={m.pt}>
-                      <td><code>{m.pt}</code></td>
-                      <td><code>{m.js}</code></td>
+                      <td>
+                        <code>{m.pt}</code>
+                      </td>
+                      <td>
+                        <code>{m.js}</code>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -364,7 +510,10 @@ export default function Playground() {
             <span className="pg-lang-dot pg-lang-dot-js" />
             JavaScript
             {!showTable && (
-              <button className="pg-toggle-show" onClick={() => setShowTable(true)}>
+              <button
+                className="pg-toggle-show"
+                onClick={() => setShowTable(true)}
+              >
                 ≡ funcionalidades
               </button>
             )}
@@ -376,7 +525,11 @@ export default function Playground() {
               <CodeMirrorEditor
                 theme={theme}
                 id="js-output"
-                doc={{ value: jsOutput, loading: false, filePath: '/output.js' }}
+                doc={{
+                  value: jsOutput,
+                  loading: false,
+                  filePath: '/output.js',
+                }}
               />
             </div>
           )}
@@ -394,7 +547,9 @@ export default function Playground() {
             ref={terminalRef}
             theme={theme}
             readonly={true}
-            onTerminalReady={terminal => { xtermRef.current = terminal; }}
+            onTerminalReady={(terminal) => {
+              xtermRef.current = terminal;
+            }}
             className="pg-xterm"
           />
         </div>
