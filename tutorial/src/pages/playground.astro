@@ -493,6 +493,25 @@ import '@tutorialkit/custom.css';
         height: 100%;
       }
 
+      /* xterm internal scrollbar */
+      .pg-xterm .xterm-viewport::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .pg-xterm .xterm-viewport::-webkit-scrollbar-track {
+        background: var(--pg-scrollbar-track);
+      }
+
+      .pg-xterm .xterm-viewport::-webkit-scrollbar-thumb {
+        background: var(--pg-scrollbar-thumb);
+        border-radius: 3px;
+      }
+
+      .pg-xterm .xterm-viewport {
+        scrollbar-color: var(--pg-scrollbar-thumb) var(--pg-scrollbar-track);
+        scrollbar-width: thin;
+      }
+
       /* ── Mobile tab bar (hidden on desktop) ──────────────────────────────── */
 
       .pg-mobile-tabs {
