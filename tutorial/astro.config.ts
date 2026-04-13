@@ -11,8 +11,8 @@ const jscriptoEntry = `
         extensions: ['jscripto'],
         async load() {
             const { LanguageSupport } = await import('@codemirror/language');
-            const { javascriptoLanguage, javascriptoFunctionHighlight } = await import('${langModulePath}');
-            return new LanguageSupport(javascriptoLanguage, [javascriptoFunctionHighlight]);
+            const { javascriptoLanguage, javascriptoFunctionHighlight, javascriptoCompletion } = await import('${langModulePath}');
+            return new LanguageSupport(javascriptoLanguage, [javascriptoFunctionHighlight, javascriptoCompletion]);
         },
     }),`;
 
@@ -99,6 +99,7 @@ export default defineConfig({
         '@tutorialkit/react > @xterm/xterm',
         '@tutorialkit/react > @xterm/addon-fit',
         '@tutorialkit/react > @xterm/addon-web-links',
+        '@codemirror/autocomplete',
       ],
     },
   },

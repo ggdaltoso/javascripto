@@ -21,6 +21,7 @@ import { tags } from '@lezer/highlight';
 import {
   javascriptoLanguage,
   javascriptoFunctionHighlight,
+  javascriptoCompletion,
 } from '../../codemirror-lang-javascripto.js';
 
 const vscodeDarkHighlight = HighlightStyle.define([
@@ -141,6 +142,7 @@ function jscriptoHighlightFor(theme: Theme) {
 const jscriptoExtensions = [
   jscriptoBaseTheme,
   new LanguageSupport(javascriptoLanguage, [javascriptoFunctionHighlight]),
+  javascriptoCompletion,
   lineNumbers(),
   history(),
   drawSelection(),

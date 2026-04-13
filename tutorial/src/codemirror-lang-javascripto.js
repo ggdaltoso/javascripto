@@ -1,6 +1,7 @@
 import { StreamLanguage, HighlightStyle, syntaxHighlighting } from '@codemirror/language';
 import { tags } from '@lezer/highlight';
 import { Prec } from '@codemirror/state';
+import { autocompletion, completeFromList } from '@codemirror/autocomplete';
 
 const keywords = new Set([
   'se', 'senao', 'enquanto', 'para', 'retorne',
@@ -118,6 +119,60 @@ export const javascriptoFunctionHighlight = Prec.lowest(
     ])
   )
 );
+
+// ── Autocomplete ──────────────────────────────────────────────────────────────
+
+const keywordCompletions = [
+  { label: 'deixe',      type: 'keyword', info: 'Declara uma variável reatribuível → let' },
+  { label: 'fixe',       type: 'keyword', info: 'Declara uma constante → const' },
+  { label: 'funcao',     type: 'keyword', info: 'Declara uma função → function' },
+  { label: 'retorne',    type: 'keyword', info: 'Retorna um valor de uma função → return' },
+  { label: 'se',         type: 'keyword', info: 'Executa um bloco se a condição for verdadeira → if' },
+  { label: 'senao',      type: 'keyword', info: 'Bloco alternativo ao se → else' },
+  { label: 'enquanto',   type: 'keyword', info: 'Repete enquanto a condição for verdadeira → while' },
+  { label: 'para',       type: 'keyword', info: 'Laço com inicialização, condição e incremento → for' },
+  { label: 'quebre',     type: 'keyword', info: 'Interrompe um laço ou escolha → break' },
+  { label: 'continue',   type: 'keyword', info: 'Pula para a próxima iteração do laço → continue' },
+  { label: 'escolha',    type: 'keyword', info: 'Seleciona entre múltiplos casos → switch' },
+  { label: 'caso',       type: 'keyword', info: 'Define um caso dentro de escolha → case' },
+  { label: 'padrao',     type: 'keyword', info: 'Caso padrão dentro de escolha → default' },
+  { label: 'tente',      type: 'keyword', info: 'Tenta executar um bloco de código → try' },
+  { label: 'capture',    type: 'keyword', info: 'Captura erros lançados no bloco tente → catch' },
+  { label: 'finalmente', type: 'keyword', info: 'Executado ao fim de tente/capture → finally' },
+  { label: 'lance',      type: 'keyword', info: 'Lança um erro → throw' },
+  { label: 'classe',     type: 'keyword', info: 'Define uma classe → class' },
+  { label: 'construtor', type: 'keyword', info: 'Método especial de inicialização de uma classe → constructor' },
+  { label: 'novo',       type: 'keyword', info: 'Cria uma nova instância de uma classe → new' },
+  { label: 'isso',       type: 'keyword', info: 'Referência ao objeto atual → this' },
+  { label: 'assincrono', type: 'keyword', info: 'Marca uma função como assíncrona → async' },
+  { label: 'aguarde',    type: 'keyword', info: 'Aguarda a resolução de uma promessa → await' },
+  { label: 'importe',    type: 'keyword', info: 'Importa módulos ou valores → import' },
+  { label: 'exporte',    type: 'keyword', info: 'Exporta valores de um módulo → export' },
+  { label: 'de',         type: 'keyword', info: 'Especifica a origem de uma importação → from' },
+  { label: 'como',       type: 'keyword', info: 'Renomeia um valor importado ou exportado → as' },
+  { label: 'verdadeiro', type: 'constant', info: 'Valor booleano verdadeiro → true' },
+  { label: 'falso',      type: 'constant', info: 'Valor booleano falso → false' },
+  { label: 'nulo',       type: 'constant', info: 'Ausência intencional de valor → null' },
+  { label: 'imprima',    type: 'function', info: 'Exibe um valor no console → console.log' },
+];
+
+const methodCompletions = [
+  { label: 'tamanho',  type: 'property', info: 'Comprimento de uma lista ou string → .length' },
+  { label: 'adicione', type: 'method',   info: 'Adiciona um elemento ao fim da lista → .push()' },
+  { label: 'remova',   type: 'method',   info: 'Remove e retorna o último elemento da lista → .pop()' },
+  { label: 'mapa',     type: 'method',   info: 'Transforma cada elemento da lista → .map()' },
+  { label: 'filtre',   type: 'method',   info: 'Filtra elementos da lista por condição → .filter()' },
+  { label: 'paraCada', type: 'method',   info: 'Itera sobre cada elemento da lista → .forEach()' },
+  { label: 'reduza',   type: 'method',   info: 'Reduz a lista a um único valor → .reduce()' },
+  { label: 'encontre', type: 'method',   info: 'Retorna o primeiro elemento que satisfaz a condição → .find()' },
+  { label: 'inclui',   type: 'method',   info: 'Verifica se a lista contém o valor → .includes()' },
+];
+
+export const javascriptoCompletion = autocompletion({
+  override: [completeFromList([...keywordCompletions, ...methodCompletions])],
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 export const javascriptoLanguage = StreamLanguage.define({
   startState() {
