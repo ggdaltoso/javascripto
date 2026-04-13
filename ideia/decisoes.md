@@ -123,12 +123,19 @@ Isso mantém o projeto acessível para brasileiros enquanto segue convenções p
 | Espalhamento em objeto | `{...objeto, chave: valor}` |
 | Template strings | `` `Olá, ${nome}!` `` |
 
+### Keywords de módulos implementadas
+
+| pt-BR | JavaScript | Notas |
+|---|---|---|
+| `importe` | `import` | `importe X de './m'`, `importe { x } de './m'`, `importe * como X de './m'`, `importe './m'` |
+| `exporte` | `export` | `exporte funcao/deixe/fixe/classe`, `exporte padrao expr`, `exporte { x }` |
+| `de` | `from` | Cláusula de origem no import |
+| `como` | `as` | Renomeação (`importe * como X`, `exporte { x como y }`) |
+
 ### Keywords a considerar no futuro
 
 | pt-BR | JavaScript | Notas |
 |---|---|---|
-| `importe` | `import` | Módulos |
-| `exporte` | `export` | Módulos |
 | `tipo_de` | `typeof` | Operador |
 | `instancia_de` | `instanceof` | Operador |
 | `indefinido` | `undefined` | Literal |
@@ -160,6 +167,10 @@ Isso mantém o projeto acessível para brasileiros enquanto segue convenções p
 **Capítulo 3 — Closures:** O que é closure, Funções que retornam funções, Estado privado
 
 **Capítulo 4 — Sintaxe moderna:** Funções flecha, Desestruturação, Espalhamento, Template strings
+
+**Capítulo 5 — Módulos:** Exportando, Importando, Export default
+
+Total: 33 lições
 
 ---
 
@@ -211,8 +222,16 @@ Site institucional para apresentar o projeto, explicar a proposta e direcionar v
 
 Ambiente livre para escrever e executar código pt-BR sem seguir um currículo. Funciona como um REPL no browser — o aluno escreve, transpila e vê o resultado instantaneamente.
 
-**Escopo planejado:**
+**Status:** implementado em `/playground`
+
+**Implementado:**
 - Editor CodeMirror com syntax highlighting e autocomplete pt-BR
 - Painel lado a lado: código pt-BR → JavaScript transpilado → saída
+- Terminal xterm com execução real via WebContainer
+- BootScreen animada durante boot/instalação do WebContainer (inspirada no TutorialKit)
+- Árvore de arquivos com criação e remoção de arquivos
+- Templates de exemplos prontos (seletor no header do editor)
+- Tema claro/escuro sincronizado com o tutorial
+
+**Pendente:**
 - Compartilhamento de código via URL
-- Exemplos prontos para explorar
