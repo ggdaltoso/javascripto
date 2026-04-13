@@ -15,6 +15,9 @@ const methodMap = {
   reduza: 'reduce',
   encontre: 'find',
   inclui: 'includes',
+  divida: 'split',
+  inverta: 'reverse',
+  junta: 'join',
 };
 
 const identifierMap = {

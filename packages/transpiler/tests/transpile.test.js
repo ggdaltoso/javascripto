@@ -338,6 +338,22 @@ imprima(saudacao("Maria"))`;
     it('traduz .inclui() para .includes()', () => {
       expect(transpile('lista.inclui(5)')).toBe('lista.includes(5);');
     });
+
+    it('traduz .divida() para .split()', () => {
+      expect(transpile('palavra.divida("")')).toBe('palavra.split("");');
+    });
+
+    it('traduz .inverta() para .reverse()', () => {
+      expect(transpile('lista.inverta()')).toBe('lista.reverse();');
+    });
+
+    it('traduz .junta() para .join()', () => {
+      expect(transpile('lista.junta("-")')).toBe('lista.join("-");');
+    });
+
+    it('traduz encadeamento divida/inverta/junta', () => {
+      expect(transpile('palavra.divida("").inverta().junta("")')).toBe('palavra.split("").reverse().join("");');
+    });
   });
 
   describe('objetos', () => {

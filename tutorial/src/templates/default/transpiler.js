@@ -22,6 +22,9 @@ const methodMap = {
   reduza: 'reduce',
   encontre: 'find',
   inclui: 'includes',
+  divida: 'split',
+  inverta: 'reverse',
+  junta: 'join',
 };
 
 // Mapa de tradução: identificadores pt-BR → JavaScript (builtins)
