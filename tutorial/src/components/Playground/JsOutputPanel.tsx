@@ -1,6 +1,29 @@
 import CodeMirrorEditor from '@tutorialkit/react/core/CodeMirrorEditor';
 import type { Theme } from '@tutorialkit/react';
 
+function reindent(code: string): string {
+  let depth = 0;
+  const IND = '  ';
+  return code
+    .split('\n')
+    .map(line => {
+      const t = line.trim();
+      if (!t) return '';
+      if (t.startsWith('}')) depth = Math.max(0, depth - 1);
+      // case / default labels sit one level above their body
+      if (/^(case\b[^:]*|default):$/.test(t) && depth > 0) {
+        depth--;
+        const out = IND.repeat(depth) + t;
+        depth++;
+        return out;
+      }
+      const out = IND.repeat(depth) + t;
+      if (t.endsWith('{')) depth++;
+      return out;
+    })
+    .join('\n');
+}
+
 interface JsOutputPanelProps {
   theme: Theme;
   jsOutput: string;
@@ -16,7 +39,7 @@ export function JsOutputPanel({ theme, jsOutput, transpileError, showTable, onSh
         <span className="pg-lang-dot pg-lang-dot-js" />
         JavaScript
         {!showTable && (
-          <button className="pg-toggle-show" onClick={onShowTable}>
+          <button type="button" className="pg-toggle-show" onClick={onShowTable}>
             ≡ funcionalidades
           </button>
         )}
@@ -29,7 +52,7 @@ export function JsOutputPanel({ theme, jsOutput, transpileError, showTable, onSh
             theme={theme}
             id="js-output"
             doc={{
-              value: jsOutput,
+              value: reindent(jsOutput),
               loading: false,
               filePath: '/output.js',
             }}
