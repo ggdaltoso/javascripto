@@ -2,3 +2,98 @@
 <slot name="links" />
 <slot name="meta" />
 <script src="/coi-serviceworker.min.js" is:inline></script>
+
+<style is:global>
+  :root {
+    --tk-scrollbar-track: transparent;
+    --tk-scrollbar-thumb: #0000004d;
+  }
+
+  [data-theme="dark"] {
+    --tk-scrollbar-thumb: #ffffff33;
+  }
+
+  /* Content pane (overrides .scrollbar-transparent from UnoCSS) */
+  .scrollbar-transparent {
+    scrollbar-width: thin;
+    scrollbar-color: var(--tk-scrollbar-thumb) var(--tk-scrollbar-track);
+  }
+
+  .scrollbar-transparent::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-transparent::-webkit-scrollbar-track {
+    background: var(--tk-scrollbar-track);
+  }
+
+  .scrollbar-transparent::-webkit-scrollbar-thumb {
+    background: var(--tk-scrollbar-thumb);
+    border-radius: 3px;
+  }
+
+  /* CodeMirror editor */
+  .cm-scroller {
+    scrollbar-width: thin;
+    scrollbar-color: var(--tk-scrollbar-thumb) var(--tk-scrollbar-track);
+  }
+
+  .cm-scroller::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .cm-scroller::-webkit-scrollbar-track {
+    background: var(--tk-scrollbar-track);
+  }
+
+  .cm-scroller::-webkit-scrollbar-thumb {
+    background: var(--tk-scrollbar-thumb);
+    border-radius: 3px;
+  }
+
+  /* xterm terminal */
+  .xterm-viewport {
+    scrollbar-width: thin;
+    scrollbar-color: var(--tk-scrollbar-thumb) var(--tk-scrollbar-track);
+  }
+
+  .xterm-viewport::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .xterm-viewport::-webkit-scrollbar-track {
+    background: var(--tk-scrollbar-track);
+  }
+
+  .xterm-viewport::-webkit-scrollbar-thumb {
+    background: var(--tk-scrollbar-thumb);
+    border-radius: 3px;
+  }
+
+  /* Nav dropdown + file tree (overflow-auto/overflow-y-auto sem classe dedicada) */
+  .nav-list-container,
+  [class*="overflow-y-auto"],
+  [class*="overflow-auto"] {
+    scrollbar-width: thin;
+    scrollbar-color: var(--tk-scrollbar-thumb) var(--tk-scrollbar-track);
+  }
+
+  [class*="overflow-y-auto"]::-webkit-scrollbar,
+  [class*="overflow-auto"]::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  [class*="overflow-y-auto"]::-webkit-scrollbar-track,
+  [class*="overflow-auto"]::-webkit-scrollbar-track {
+    background: var(--tk-scrollbar-track);
+  }
+
+  [class*="overflow-y-auto"]::-webkit-scrollbar-thumb,
+  [class*="overflow-auto"]::-webkit-scrollbar-thumb {
+    background: var(--tk-scrollbar-thumb);
+    border-radius: 3px;
+  }
+</style>
