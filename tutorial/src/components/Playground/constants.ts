@@ -106,7 +106,7 @@ imprima(fatorial(10))
   {
     label: 'Palíndromo',
     code: `funcao palindromo(palavra) {
-  deixe invertida = palavra.split("").reverse().join("")
+  deixe invertida = palavra.divida("").inverta().junta("")
   retorne palavra === invertida
 }
 
@@ -194,4 +194,7 @@ export const METHODS: { pt: string; js: string }[] = [
   { pt: '.reduza()', js: '.reduce()' },
   { pt: '.encontre()', js: '.find()' },
   { pt: '.inclui()', js: '.includes()' },
+  { pt: '.divida()', js: '.split()' },
+  { pt: '.inverta()', js: '.reverse()' },
+  { pt: '.junta()', js: '.join()' },
 ];
