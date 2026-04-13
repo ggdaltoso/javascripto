@@ -119,19 +119,19 @@ para (deixe i = 1; i <= 5; i += 1) {
   describe('condicional (se/senao)', () => {
     it('transpila se para if', () => {
       const input = 'se (verdadeiro) { imprima("sim") }';
-      const expected = 'if (true) {\nconsole.log("sim");\n}';
+      const expected = 'if (true) {\n  console.log("sim");\n}';
       expect(transpile(input)).toBe(expected);
     });
 
     it('transpila se/senao para if/else', () => {
       const input = 'se (falso) { imprima("a") } senao { imprima("b") }';
-      const expected = 'if (false) {\nconsole.log("a");\n} else {\nconsole.log("b");\n}';
+      const expected = 'if (false) {\n  console.log("a");\n} else {\n  console.log("b");\n}';
       expect(transpile(input)).toBe(expected);
     });
 
     it('transpila se/senao se/senao para if/else if/else', () => {
       const input = 'se (x === 1) { imprima("um") } senao se (x === 2) { imprima("dois") } senao { imprima("outro") }';
-      const expected = 'if (x === 1) {\nconsole.log("um");\n} else if (x === 2) {\nconsole.log("dois");\n} else {\nconsole.log("outro");\n}';
+      const expected = 'if (x === 1) {\n  console.log("um");\n} else if (x === 2) {\n  console.log("dois");\n} else {\n  console.log("outro");\n}';
       expect(transpile(input)).toBe(expected);
     });
   });
@@ -139,25 +139,25 @@ para (deixe i = 1; i <= 5; i += 1) {
   describe('laços', () => {
     it('transpila enquanto para while', () => {
       const input = 'enquanto (verdadeiro) { imprima("loop") }';
-      const expected = 'while (true) {\nconsole.log("loop");\n}';
+      const expected = 'while (true) {\n  console.log("loop");\n}';
       expect(transpile(input)).toBe(expected);
     });
 
     it('transpila para para for', () => {
       const input = 'para (deixe i = 0; i < 10; i = i + 1) { imprima(i) }';
-      const expected = 'for (let i = 0; i < 10; i = i + 1) {\nconsole.log(i);\n}';
+      const expected = 'for (let i = 0; i < 10; i = i + 1) {\n  console.log(i);\n}';
       expect(transpile(input)).toBe(expected);
     });
 
     it('transpila para com i++', () => {
       const input = 'para (deixe i = 0; i < 3; i++) { imprima(i) }';
-      const expected = 'for (let i = 0; i < 3; i++) {\nconsole.log(i);\n}';
+      const expected = 'for (let i = 0; i < 3; i++) {\n  console.log(i);\n}';
       expect(transpile(input)).toBe(expected);
     });
 
     it('transpila para com i--', () => {
       const input = 'para (deixe i = 3; i > 0; i--) { imprima(i) }';
-      const expected = 'for (let i = 3; i > 0; i--) {\nconsole.log(i);\n}';
+      const expected = 'for (let i = 3; i > 0; i--) {\n  console.log(i);\n}';
       expect(transpile(input)).toBe(expected);
     });
   });
@@ -183,19 +183,19 @@ para (deixe i = 1; i <= 5; i += 1) {
   describe('funções', () => {
     it('transpila funcao para function', () => {
       const input = 'funcao saudacao() { imprima("Oi!") }';
-      const expected = 'function saudacao() {\nconsole.log("Oi!");\n}';
+      const expected = 'function saudacao() {\n  console.log("Oi!");\n}';
       expect(transpile(input)).toBe(expected);
     });
 
     it('transpila funcao com parâmetros', () => {
       const input = 'funcao soma(a, b) { retorne a + b }';
-      const expected = 'function soma(a, b) {\nreturn a + b;\n}';
+      const expected = 'function soma(a, b) {\n  return a + b;\n}';
       expect(transpile(input)).toBe(expected);
     });
 
     it('transpila retorne sem valor', () => {
       const input = 'funcao nada() { retorne }';
-      const expected = 'function nada() {\nreturn;\n}';
+      const expected = 'function nada() {\n  return;\n}';
       expect(transpile(input)).toBe(expected);
     });
   });
@@ -421,25 +421,25 @@ a.falar()`;
   describe('quebre e continue', () => {
     it('transpila quebre para break', () => {
       const input = 'enquanto (verdadeiro) { quebre }';
-      const expected = 'while (true) {\nbreak;\n}';
+      const expected = 'while (true) {\n  break;\n}';
       expect(transpile(input)).toBe(expected);
     });
 
     it('transpila continue para continue', () => {
       const input = 'enquanto (verdadeiro) { continue }';
-      const expected = 'while (true) {\ncontinue;\n}';
+      const expected = 'while (true) {\n  continue;\n}';
       expect(transpile(input)).toBe(expected);
     });
 
     it('transpila quebre dentro de para', () => {
       const input = 'para (deixe i = 0; i < 10; i = i + 1) { se (i === 5) { quebre } }';
-      const expected = 'for (let i = 0; i < 10; i = i + 1) {\nif (i === 5) {\nbreak;\n}\n}';
+      const expected = 'for (let i = 0; i < 10; i = i + 1) {\n  if (i === 5) {\n    break;\n  }\n}';
       expect(transpile(input)).toBe(expected);
     });
 
     it('transpila continue dentro de para', () => {
       const input = 'para (deixe i = 0; i < 5; i = i + 1) { se (i === 2) { continue } imprima(i) }';
-      const expected = 'for (let i = 0; i < 5; i = i + 1) {\nif (i === 2) {\ncontinue;\n}\nconsole.log(i);\n}';
+      const expected = 'for (let i = 0; i < 5; i = i + 1) {\n  if (i === 2) {\n    continue;\n  }\n  console.log(i);\n}';
       expect(transpile(input)).toBe(expected);
     });
   });
@@ -447,25 +447,25 @@ a.falar()`;
   describe('escolha/caso/padrao (switch)', () => {
     it('transpila escolha com um caso', () => {
       const input = 'escolha (x) { caso 1: imprima("um") quebre }';
-      const expected = 'switch (x) {\ncase 1:\nconsole.log("um");\nbreak;\n}';
+      const expected = 'switch (x) {\ncase 1:\n  console.log("um");\n  break;\n}';
       expect(transpile(input)).toBe(expected);
     });
 
     it('transpila escolha com múltiplos casos', () => {
       const input = 'escolha (x) { caso 1: imprima("um") quebre caso 2: imprima("dois") quebre }';
-      const expected = 'switch (x) {\ncase 1:\nconsole.log("um");\nbreak;\ncase 2:\nconsole.log("dois");\nbreak;\n}';
+      const expected = 'switch (x) {\ncase 1:\n  console.log("um");\n  break;\ncase 2:\n  console.log("dois");\n  break;\n}';
       expect(transpile(input)).toBe(expected);
     });
 
     it('transpila escolha com padrao', () => {
       const input = 'escolha (x) { caso 1: imprima("um") quebre padrao: imprima("outro") }';
-      const expected = 'switch (x) {\ncase 1:\nconsole.log("um");\nbreak;\ndefault:\nconsole.log("outro");\n}';
+      const expected = 'switch (x) {\ncase 1:\n  console.log("um");\n  break;\ndefault:\n  console.log("outro");\n}';
       expect(transpile(input)).toBe(expected);
     });
 
     it('transpila escolha com string', () => {
       const input = 'escolha (cor) { caso "azul": imprima("céu") quebre padrao: imprima("desconhecido") }';
-      const expected = 'switch (cor) {\ncase "azul":\nconsole.log("céu");\nbreak;\ndefault:\nconsole.log("desconhecido");\n}';
+      const expected = 'switch (cor) {\ncase "azul":\n  console.log("céu");\n  break;\ndefault:\n  console.log("desconhecido");\n}';
       expect(transpile(input)).toBe(expected);
     });
   });
@@ -473,19 +473,19 @@ a.falar()`;
   describe('tratamento de erros (tente/capture/finalmente/lance)', () => {
     it('transpila tente/capture', () => {
       const input = 'tente { imprima("ok") } capture (e) { imprima(e) }';
-      const expected = 'try {\nconsole.log("ok");\n} catch (e) {\nconsole.log(e);\n}';
+      const expected = 'try {\n  console.log("ok");\n} catch (e) {\n  console.log(e);\n}';
       expect(transpile(input)).toBe(expected);
     });
 
     it('transpila tente/capture/finalmente', () => {
       const input = 'tente { imprima("ok") } capture (e) { imprima(e) } finalmente { imprima("fim") }';
-      const expected = 'try {\nconsole.log("ok");\n} catch (e) {\nconsole.log(e);\n} finally {\nconsole.log("fim");\n}';
+      const expected = 'try {\n  console.log("ok");\n} catch (e) {\n  console.log(e);\n} finally {\n  console.log("fim");\n}';
       expect(transpile(input)).toBe(expected);
     });
 
     it('transpila tente/finalmente sem capture', () => {
       const input = 'tente { imprima("ok") } finalmente { imprima("fim") }';
-      const expected = 'try {\nconsole.log("ok");\n} finally {\nconsole.log("fim");\n}';
+      const expected = 'try {\n  console.log("ok");\n} finally {\n  console.log("fim");\n}';
       expect(transpile(input)).toBe(expected);
     });
 
@@ -617,7 +617,7 @@ saudar()`;
 
     it('transpila arrow function com bloco', () => {
       const input = 'deixe dobrar = (x) => { retorne x * 2 }';
-      expect(transpile(input)).toBe('let dobrar = (x) => {\nreturn x * 2;\n};');
+      expect(transpile(input)).toBe('let dobrar = (x) => {\n  return x * 2;\n};');
     });
 
     it('transpila arrow function como argumento de método', () => {
@@ -770,13 +770,13 @@ saudar()`;
 
     it('transpila exporte de função', () => {
       expect(transpile('exporte funcao soma(a, b) { retorne a + b }')).toBe(
-        'export function soma(a, b) {\nreturn a + b;\n}'
+        'export function soma(a, b) {\n  return a + b;\n}'
       );
     });
 
     it('transpila exporte de classe', () => {
       expect(transpile('exporte classe Animal { construtor(nome) { isso.nome = nome } }')).toBe(
-        'export class Animal {\nconstructor(nome) {\nthis.nome = nome;\n}\n}'
+        'export class Animal {\n  constructor(nome) {\n    this.nome = nome;\n  }\n}'
       );
     });
 
@@ -803,7 +803,7 @@ saudar()`;
       ].join('\n');
       const expected = [
         'import { readFile } from "fs";',
-        'export function lerArquivo(caminho) {\nreturn readFile(caminho);\n}',
+        'export function lerArquivo(caminho) {\n  return readFile(caminho);\n}',
       ].join('\n');
       expect(transpile(input)).toBe(expected);
     });

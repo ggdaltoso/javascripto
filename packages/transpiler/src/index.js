@@ -541,6 +541,37 @@ semantics.addOperation('toJS()', {
 });
 
 /**
+ * Adiciona indentação ao código JavaScript gerado pelo transpilador.
+ * Regras: `{` aumenta nível, `}` diminui, `case`/`default` ficam um nível
+ * acima do corpo.
+ *
+ * @param {string} code
+ * @returns {string}
+ */
+function reindent(code) {
+  let depth = 0;
+  const IND = '  ';
+  return code
+    .split('\n')
+    .map(line => {
+      const t = line.trim();
+      if (!t) return '';
+      if (t.startsWith('}')) depth = Math.max(0, depth - 1);
+      // case / default labels ficam um nível acima do corpo
+      if (/^(case\b[^:]*|default):$/.test(t) && depth > 0) {
+        depth--;
+        const out = IND.repeat(depth) + t;
+        depth++;
+        return out;
+      }
+      const out = IND.repeat(depth) + t;
+      if (t.endsWith('{')) depth++;
+      return out;
+    })
+    .join('\n');
+}
+
+/**
  * Transpila código JavaScripto (pt-BR) para JavaScript válido.
  *
  * @param {string} source — código em sintaxe pt-BR
@@ -556,7 +587,7 @@ export function transpile(source) {
     throw error;
   }
 
-  return semantics(matchResult).toJS();
+  return reindent(semantics(matchResult).toJS());
 }
 
 export { grammar };

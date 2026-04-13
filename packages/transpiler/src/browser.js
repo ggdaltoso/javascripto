@@ -521,6 +521,28 @@ semantics.addOperation('toJS()', {
   },
 });
 
+function reindent(code) {
+  let depth = 0;
+  const IND = '  ';
+  return code
+    .split('\n')
+    .map(line => {
+      const t = line.trim();
+      if (!t) return '';
+      if (t.startsWith('}')) depth = Math.max(0, depth - 1);
+      if (/^(case\b[^:]*|default):$/.test(t) && depth > 0) {
+        depth--;
+        const out = IND.repeat(depth) + t;
+        depth++;
+        return out;
+      }
+      const out = IND.repeat(depth) + t;
+      if (t.endsWith('{')) depth++;
+      return out;
+    })
+    .join('\n');
+}
+
 export function transpile(source) {
   const matchResult = grammar.match(source);
 
@@ -530,5 +552,5 @@ export function transpile(source) {
     throw error;
   }
 
-  return semantics(matchResult).toJS();
+  return reindent(semantics(matchResult).toJS());
 }
