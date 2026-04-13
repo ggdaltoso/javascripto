@@ -1,7 +1,13 @@
 ---
 const siteUrl = 'https://javascripto.ggdaltoso.dev';
-const ogImage = `${siteUrl}/og.png`;
 const description = 'Aprenda JavaScript escrevendo código em português. Tutorial interativo com transpilador em tempo real.';
+
+// Derive the lesson-specific OG image from the current URL.
+// e.g. /tutorial/1-fundamentos/1-primeiros-passos/1-ola-mundo → /og/1-fundamentos/1-primeiros-passos/1-ola-mundo.png
+const lessonPath = Astro.url.pathname.replace(/^\/tutorial/, '');
+const ogImage = lessonPath
+  ? `${siteUrl}/og${lessonPath}.png`
+  : `${siteUrl}/og.png`;
 ---
 <slot name="title" />
 <slot name="links" />
