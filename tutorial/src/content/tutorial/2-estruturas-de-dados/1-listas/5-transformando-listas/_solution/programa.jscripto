@@ -1,0 +1,7 @@
+funcao palindromo(palavra) {
+  deixe invertida = palavra.divida("").inverta().junta("")
+  retorne palavra === invertida
+}
+
+imprima(palindromo("arara"))   // verdadeiro
+imprima(palindromo("banana"))  // falso
