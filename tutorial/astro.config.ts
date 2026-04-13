@@ -91,7 +91,7 @@ export default defineConfig({
     tutorialkit({
       defaultRoutes: false,
       components: {
-        TopBar: '@tutorialkit/astro/default/components/TopBar.astro',
+        TopBar: './src/CustomTopBar.astro',
         HeadTags: './src/CustomHeadTags.astro',
       },
     }),
