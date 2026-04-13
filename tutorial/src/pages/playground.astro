@@ -332,9 +332,30 @@ import '@tutorialkit/custom.css';
         opacity: 1;
       }
 
+      /* Template selector */
+      .pg-template-select {
+        margin-left: auto;
+        background: var(--tk-elements-panel-headerBackgroundColor, var(--tk-background-secondary));
+        border: 1px solid var(--tk-elements-app-borderColor);
+        border-radius: 4px;
+        color: var(--tk-elements-panel-textColor);
+        font-size: 0.7rem;
+        padding: 0.15rem 0.4rem;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.15s, border-color 0.15s;
+        max-width: 130px;
+      }
+
+      .pg-template-select:hover,
+      .pg-template-select:focus {
+        opacity: 1;
+        border-color: var(--tk-elements-terminal-color-yellow, #f7df1e);
+        outline: none;
+      }
+
       /* File tree collapse toggle */
       .pg-filetree-toggle {
-        margin-left: auto;
         background: none;
         border: none;
         color: var(--tk-elements-panel-textColor);

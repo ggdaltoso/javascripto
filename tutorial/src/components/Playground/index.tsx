@@ -11,6 +11,7 @@ import { FileTree } from './FileTree';
 import { FeatureTable } from './FeatureTable';
 import { JsOutputPanel } from './JsOutputPanel';
 import { TerminalPanel } from './TerminalPanel';
+import { TemplateSelector } from './TemplateSelector';
 
 // Template files — inlined at build time via Vite's ?raw import
 import runJsSrc from '../../templates/default/run.js?raw';
@@ -206,6 +207,10 @@ export default function Playground() {
             >
               {fileTreeCollapsed ? '›' : '‹'}
             </button>
+            <TemplateSelector onSelect={(code) => {
+              setFiles(prev => prev.map(f => f.name === activeFile ? { ...f, content: code } : f));
+              handleEditorChange(code);
+            }} />
           </div>
           <div className="pg-editor-body">
             {!fileTreeCollapsed && (
