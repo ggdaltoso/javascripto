@@ -157,12 +157,6 @@ export default function Playground() {
 
   const activeContent = files.find((f) => f.name === activeFile)?.content ?? '';
 
-  const statusText =
-    wcStatus === 'booting' ? 'Iniciando WebContainer...' :
-    wcStatus === 'installing' ? 'Instalando dependências...' :
-    wcStatus === 'error' ? 'Erro ao inicializar o WebContainer.' :
-    null;
-
   // ── Render ──────────────────────────────────────────────────────────────────
 
   return (
@@ -249,7 +243,7 @@ export default function Playground() {
       {/* Bottom: terminal */}
       <TerminalPanel
         theme={theme}
-        statusText={statusText}
+        wcStatus={wcStatus}
         onTerminalReady={(terminal) => { xtermRef.current = terminal; }}
       />
     </div>

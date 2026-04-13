@@ -447,6 +447,32 @@ import '@tutorialkit/custom.css';
         white-space: pre-wrap;
       }
 
+      /* Boot screen overlay */
+      .pg-boot-screen {
+        position: absolute;
+        inset: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--tk-elements-terminal-backgroundColor);
+      }
+
+      .pg-boot-steps {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .pg-boot-step {
+        display: flex;
+        align-items: center;
+        font-size: 0.8rem;
+      }
+
       /* Terminal panel */
       .pg-terminal-panel {
         height: 200px;
