@@ -33,6 +33,8 @@ export default function Playground() {
   const [transpileError, setTranspileError] = useState<string | null>(null);
   const [wcStatus, setWcStatus] = useState<'booting' | 'installing' | 'ready' | 'error'>('booting');
   const [showTable, setShowTable] = useState(true);
+  const [fileTreeCollapsed, setFileTreeCollapsed] = useState(false);
+  const [mobileTab, setMobileTab] = useState<'editor' | 'output' | 'table'>('editor');
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const xtermRef = useRef<any>(null);
@@ -163,7 +165,32 @@ export default function Playground() {
   // ── Render ──────────────────────────────────────────────────────────────────
 
   return (
-    <div className="pg-root">
+    <div className="pg-root" data-mobile-tab={mobileTab}>
+      {/* Mobile tab bar — hidden on desktop via CSS */}
+      <div className="pg-mobile-tabs">
+        <button
+          type="button"
+          className={`pg-mobile-tab${mobileTab === 'editor' ? ' active' : ''}`}
+          onClick={() => setMobileTab('editor')}
+        >
+          Editor
+        </button>
+        <button
+          type="button"
+          className={`pg-mobile-tab${mobileTab === 'output' ? ' active' : ''}`}
+          onClick={() => setMobileTab('output')}
+        >
+          JavaScript
+        </button>
+        <button
+          type="button"
+          className={`pg-mobile-tab${mobileTab === 'table' ? ' active' : ''}`}
+          onClick={() => setMobileTab('table')}
+        >
+          Funcionalidades
+        </button>
+      </div>
+
       {/* Top row */}
       <div className="pg-top">
         {/* Left: file tree + CodeMirror editor */}
@@ -171,15 +198,25 @@ export default function Playground() {
           <div className="pg-panel-header">
             <span className="pg-lang-dot" />
             JavaScripto
+            <button
+              type="button"
+              className="pg-filetree-toggle"
+              onClick={() => setFileTreeCollapsed(c => !c)}
+              title={fileTreeCollapsed ? 'Mostrar arquivos' : 'Ocultar arquivos'}
+            >
+              {fileTreeCollapsed ? '›' : '‹'}
+            </button>
           </div>
           <div className="pg-editor-body">
-            <FileTree
-              files={files}
-              activeFile={activeFile}
-              onSwitchFile={handleSwitchFile}
-              onCreateFile={handleCreateFile}
-              onDeleteFile={handleDeleteFile}
-            />
+            {!fileTreeCollapsed && (
+              <FileTree
+                files={files}
+                activeFile={activeFile}
+                onSwitchFile={handleSwitchFile}
+                onCreateFile={handleCreateFile}
+                onDeleteFile={handleDeleteFile}
+              />
+            )}
             <div className="pg-codemirror">
               <JscriptoEditor
                 theme={theme}
@@ -190,8 +227,9 @@ export default function Playground() {
           </div>
         </div>
 
-        {/* Middle: feature table (toggleable) */}
+        {/* Middle: feature table (toggleable on desktop, tab on mobile) */}
         {showTable && <FeatureTable onHide={() => setShowTable(false)} />}
+        {mobileTab === 'table' && <FeatureTable className="pg-mobile-table-panel" onHide={() => setMobileTab('editor')} />}
 
         {/* Right: JS output */}
         <JsOutputPanel

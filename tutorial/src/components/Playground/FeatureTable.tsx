@@ -2,11 +2,12 @@ import { KEYWORDS, METHODS } from './constants';
 
 interface FeatureTableProps {
   onHide: () => void;
+  className?: string;
 }
 
-export function FeatureTable({ onHide }: FeatureTableProps) {
+export function FeatureTable({ onHide, className }: FeatureTableProps) {
   return (
-    <div className="pg-panel pg-table-panel">
+    <div className={`pg-panel pg-table-panel${className ? ` ${className}` : ''}`}>
       <div className="pg-panel-header">
         Funcionalidades
         <button className="pg-toggle" onClick={onHide} title="Ocultar">

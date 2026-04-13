@@ -332,6 +332,25 @@ import '@tutorialkit/custom.css';
         opacity: 1;
       }
 
+      /* File tree collapse toggle */
+      .pg-filetree-toggle {
+        margin-left: auto;
+        background: none;
+        border: none;
+        color: var(--tk-elements-panel-textColor);
+        cursor: pointer;
+        font-size: 1rem;
+        line-height: 1;
+        padding: 0.1rem 0.3rem;
+        border-radius: 3px;
+        opacity: 0.45;
+        transition: opacity 0.15s;
+      }
+
+      .pg-filetree-toggle:hover {
+        opacity: 1;
+      }
+
       /* Toggle buttons */
       .pg-toggle {
         margin-left: auto;
@@ -406,6 +425,75 @@ import '@tutorialkit/custom.css';
 
       .pg-xterm {
         height: 100%;
+      }
+
+      /* ── Mobile tab bar (hidden on desktop) ──────────────────────────────── */
+
+      .pg-mobile-tabs {
+        display: none;
+      }
+
+      @media (max-width: 767px) {
+        .pg-mobile-tabs {
+          display: flex;
+          flex-shrink: 0;
+          border-bottom: 1px solid var(--tk-border-brighter, var(--tk-elements-app-borderColor));
+          background: var(--tk-elements-panel-headerBackgroundColor, var(--tk-background-secondary, #f6f8f9));
+        }
+
+        .pg-mobile-tab {
+          flex: 1;
+          padding: 0.55rem 0;
+          font-size: 0.78rem;
+          font-weight: 600;
+          background: none;
+          border: none;
+          border-bottom: 2px solid transparent;
+          color: var(--tk-elements-panel-textColor);
+          cursor: pointer;
+          opacity: 0.55;
+          transition: opacity 0.15s, border-color 0.15s;
+        }
+
+        .pg-mobile-tab.active {
+          opacity: 1;
+          border-bottom-color: var(--tk-elements-terminal-color-yellow, #f7df1e);
+        }
+
+        /* Hide the desktop table panel on mobile — it's replaced by the tab */
+        .pg-table-panel:not(.pg-mobile-table-panel) {
+          display: none !important;
+        }
+
+        /* Show only the active panel in pg-top */
+        .pg-root[data-mobile-tab="editor"] .pg-js-panel,
+        .pg-root[data-mobile-tab="editor"] .pg-mobile-table-panel {
+          display: none;
+        }
+
+        .pg-root[data-mobile-tab="output"] .pg-editor-panel,
+        .pg-root[data-mobile-tab="output"] .pg-mobile-table-panel {
+          display: none;
+        }
+
+        .pg-root[data-mobile-tab="table"] .pg-editor-panel,
+        .pg-root[data-mobile-tab="table"] .pg-js-panel {
+          display: none;
+        }
+
+        /* Active panel fills the full width */
+        .pg-editor-panel,
+        .pg-js-panel,
+        .pg-mobile-table-panel {
+          flex: 1;
+          min-width: 0;
+          max-width: none;
+        }
+
+        /* Shorter terminal on mobile */
+        .pg-terminal-panel {
+          height: 160px;
+        }
       }
     </style>
   </head>
