@@ -1,5 +1,8 @@
 ---
 const title = 'JavaScripto — Programe em português, pense em JavaScript';
+const description = 'Aprenda JavaScript escrevendo código em português. Tutorial interativo com transpilador em tempo real.';
+const siteUrl = 'https://javascripto.ggdaltoso.dev';
+const ogImage = `${siteUrl}/og.png`;
 ---
 
 <!doctype html>
@@ -8,11 +11,27 @@ const title = 'JavaScripto — Programe em português, pense em JavaScript';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
-    <meta
-      name="description"
-      content="Aprenda JavaScript escrevendo em português."
-    />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={siteUrl} />
     <link rel="icon" href="/favicon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="JavaScripto" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="JavaScripto — Programe em português, pense em JavaScript" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <style>
       *,
       *::before,

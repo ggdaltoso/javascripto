@@ -1,7 +1,30 @@
+---
+const siteUrl = 'https://javascripto.ggdaltoso.dev';
+const ogImage = `${siteUrl}/og.png`;
+const description = 'Aprenda JavaScript escrevendo código em português. Tutorial interativo com transpilador em tempo real.';
+---
 <slot name="title" />
 <slot name="links" />
 <slot name="meta" />
 <script src="/coi-serviceworker.min.js" is:inline></script>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="JavaScripto" />
+<meta property="og:title" content="JavaScripto — Aprenda JavaScript em português" />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={Astro.url.href} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="JavaScripto — Programe em português, pense em JavaScript" />
+<meta property="og:locale" content="pt_BR" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="JavaScripto — Aprenda JavaScript em português" />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
 
 <style is:global>
   :root {
