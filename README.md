@@ -105,9 +105,20 @@ javascripto/
 │   │           ├── 1-classes/           # Criando, Métodos, Classes e listas
 │   │           ├── 2-promessas/         # Funções assíncronas, Sequência, Erros
 │   │           ├── 3-closures/          # O que é, Funções que retornam funções, Estado privado
-│   │           └── 4-sintaxe-moderna/   # Funções flecha, Desestruturação,
-│   │                                    # Espalhamento, Template strings
-│   └── javascripto.tmLanguage.json  # Syntax highlighting
+│   │           ├── 4-sintaxe-moderna/   # Funções flecha, Desestruturação,
+│   │           │                        # Espalhamento, Template strings
+│   │           └── 5-modulos/           # Exportando, Importando, Export default
+│   ├── components/
+│   │   └── Playground/             # Editor livre (React)
+│   │       ├── index.tsx           # Componente raiz
+│   │       ├── JscriptoEditor.tsx  # Editor CodeMirror pt-BR
+│   │       ├── JsOutputPanel.tsx   # Painel JS transpilado
+│   │       ├── TerminalPanel.tsx   # Terminal xterm + BootScreen
+│   │       ├── BootScreen.tsx      # Overlay de loading do WebContainer
+│   │       ├── FileTree.tsx        # Árvore de arquivos
+│   │       └── TemplateSelector.tsx
+│   └── pages/
+│       └── playground.astro        # Rota /playground
 ├── ideia/
 │   └── decisoes.md             # Registro de decisões técnicas
 └── package.json                # Scripts: dev, build, test, deploy
@@ -144,6 +155,10 @@ javascripto/
 | `isso` | `this` | Referência |
 | `assincrono` | `async` | Assíncrono |
 | `aguarde` | `await` | Assíncrono |
+| `importe` | `import` | Módulos |
+| `exporte` | `export` | Módulos |
+| `de` | `from` | Módulos |
+| `como` | `as` | Módulos |
 | `verdadeiro` | `true` | Literal |
 | `falso` | `false` | Literal |
 | `nulo` | `null` | Literal |
