@@ -263,6 +263,25 @@ import '@tutorialkit/custom.css';
         height: 100%;
       }
 
+      .pg-codemirror .cm-scroller {
+        scrollbar-color: var(--pg-scrollbar-thumb) var(--pg-scrollbar-track);
+        scrollbar-width: thin;
+      }
+
+      .pg-codemirror .cm-scroller::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+
+      .pg-codemirror .cm-scroller::-webkit-scrollbar-track {
+        background: var(--pg-scrollbar-track);
+      }
+
+      .pg-codemirror .cm-scroller::-webkit-scrollbar-thumb {
+        background: var(--pg-scrollbar-thumb);
+        border-radius: 3px;
+      }
+
       /* Feature table */
       .pg-table-body {
         flex: 1;
