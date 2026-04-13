@@ -1,6 +1,6 @@
 ---
 type: tutorial
-editPageLink: 'https://github.com/ggdaltoso/javascripto/edit/main/tutorial/src/content/tutorial/{path}'
+editPageLink: 'https://github.com/ggdaltoso/javascripto/edit/main/tutorial/src/content/tutorial/${path}'
 prepareCommands:
   - ["npm install", "Instalando dependências..."]
 previews: false
