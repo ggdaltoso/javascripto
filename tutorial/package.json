@@ -13,6 +13,7 @@
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.1",
     "@codemirror/commands": "^6.10.3",
+    "@codemirror/search": "^6.6.0",
     "@codemirror/view": "^6.41.0",
     "@javascripto/transpiler": "workspace:*",
     "@tutorialkit/react": "1.6.0",
