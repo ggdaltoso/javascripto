@@ -50,6 +50,12 @@ function tutorialNavBasePlugin() {
           "generateNavigationList(tutorial, '/tutorial')",
         );
       }
+      if (id.includes('@tutorialkit') && id.includes('utils/content') && code.includes('import.meta.env.BASE_URL')) {
+        return code.replace(
+          'const baseURL = import.meta.env.BASE_URL;',
+          "const baseURL = '/tutorial';",
+        );
+      }
     },
   };
 }
