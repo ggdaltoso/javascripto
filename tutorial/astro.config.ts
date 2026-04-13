@@ -106,6 +106,7 @@ export default defineConfig({
         '@tutorialkit/react > @xterm/addon-fit',
         '@tutorialkit/react > @xterm/addon-web-links',
         '@codemirror/autocomplete',
+        '@codemirror/search',
       ],
     },
   },
