@@ -1,0 +1,1 @@
+{"/programa.jscripto":"deixe frutas = [\"maca\", \"banana\", \"uva\"]\n\nimprima(frutas[0])\nimprima(frutas[2])\nimprima(frutas.tamanho)\n"}

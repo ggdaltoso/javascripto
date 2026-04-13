@@ -1,0 +1,1 @@
+{"/programa.jscripto":"// Crie criarPlacar() que retorna uma função marcarPonto\n// Cada chamada incrementa e imprime a pontuação\n\ndeixe placarTime1 = criarPlacar()\ndeixe placarTime2 = criarPlacar()\n\nplacarTime1()\nplacarTime1()\nplacarTime2()\nplacarTime1()\n"}

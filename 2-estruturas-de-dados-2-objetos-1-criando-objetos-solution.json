@@ -1,0 +1,1 @@
+{"/programa.jscripto":"deixe pessoa = { nome: \"Ana\", idade: 25, cidade: \"Recife\" }\n\nimprima(pessoa.nome)\nimprima(pessoa.idade)\nimprima(pessoa.cidade)\n"}

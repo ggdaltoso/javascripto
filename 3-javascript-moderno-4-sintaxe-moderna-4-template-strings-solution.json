@@ -1,0 +1,1 @@
+{"/programa.jscripto":"deixe nome = \"Ana\"\ndeixe idade = 25\ndeixe cidade = \"Recife\"\nimprima(`${nome} tem ${idade} anos e mora em ${cidade}.`)\n"}

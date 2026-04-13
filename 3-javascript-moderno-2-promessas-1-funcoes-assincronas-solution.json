@@ -1,0 +1,1 @@
+{"/programa.jscripto":"assincrono funcao buscarProduto() {\n  retorne \"Notebook\"\n}\n\nassincrono funcao mostrarProduto() {\n  deixe produto = aguarde buscarProduto()\n  imprima(produto)\n}\n\nmostrarProduto()\n"}

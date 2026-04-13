@@ -1,0 +1,1 @@
+{"/programa.jscripto":"funcao dobrar(n) {\n  retorne n * 2\n}\n\n// Exporte dobrar como export default\n// Em seguida, imprima dobrar(7) e dobrar(15)\n"}

@@ -1,0 +1,1 @@
+{"/matematica.jscripto":"exporte funcao soma(a, b) {\n  retorne a + b\n}\n\nexporte funcao subtrai(a, b) {\n  retorne a - b\n}\n\nexporte funcao multiplica(a, b) {\n  retorne a * b\n}\n","/programa.jscripto":"// Importe as funções soma e multiplica de './matematica.jscripto'\n\nimprima(soma(10, 5))\nimprima(multiplica(4, 3))\n"}

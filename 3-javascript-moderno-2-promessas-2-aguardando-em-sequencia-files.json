@@ -1,0 +1,1 @@
+{"/programa.jscripto":"assincrono funcao buscarCliente() {\n  retorne \"Ana\"\n}\n\nassincrono funcao buscarItem() {\n  retorne \"Pizza\"\n}\n\nassincrono funcao prepararPedido() {\n  // aguarde buscarCliente() e buscarItem(), depois imprima o pedido\n}\n\nprepararPedido()\n"}

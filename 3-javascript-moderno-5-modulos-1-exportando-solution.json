@@ -1,0 +1,1 @@
+{"/programa.jscripto":"exporte funcao quadrado(n) {\n  retorne n * n\n}\n\nimprima(quadrado(5))\nimprima(quadrado(8))\n"}

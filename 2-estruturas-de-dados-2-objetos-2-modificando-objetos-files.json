@@ -1,0 +1,1 @@
+{"/programa.jscripto":"deixe filme = { titulo: \"Matrix\", ano: 1999 }\n\n// Adicione nota (número de 0 a 10)\n// Adicione recomendado com se/senao (nota >= 7)\n\nimprima(filme.titulo)\nimprima(filme.recomendado)\n"}

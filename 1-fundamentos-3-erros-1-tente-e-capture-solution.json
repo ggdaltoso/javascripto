@@ -1,0 +1,1 @@
+{"/programa.jscripto":"deixe usuario = nulo\n\ntente {\n  imprima(usuario.nome)\n} capture (e) {\n  imprima(e.mensagem)\n}\n"}

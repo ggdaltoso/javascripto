@@ -1,0 +1,1 @@
+{"/programa.jscripto":"funcao maiorDeDois(a, b) {\n  // retorne o maior entre a e b\n}\n\nimprima(maiorDeDois(10, 20))\nimprima(maiorDeDois(42, 7))\n"}

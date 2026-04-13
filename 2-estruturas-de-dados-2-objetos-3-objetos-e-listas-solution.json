@@ -1,0 +1,1 @@
+{"/programa.jscripto":"deixe produtos = [\n  { nome: \"Caderno\", preco: 15 },\n  { nome: \"Caneta\", preco: 3 },\n  { nome: \"Mochila\", preco: 80 }\n]\n\npara (deixe i = 0; i < produtos.tamanho; i = i + 1) {\n  imprima(produtos[i].nome + \": R$\" + produtos[i].preco)\n}\n"}

@@ -1,0 +1,1 @@
+{"/programa.jscripto":"deixe endereco = { rua: \"Rua das Flores\", cidade: \"Recife\" }\ndeixe pessoa = { nome: \"Ana\", idade: 25 }\n// Combine os dois objetos em ficha usando espalhamento\n"}

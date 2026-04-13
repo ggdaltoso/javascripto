@@ -1,0 +1,1 @@
+{"/programa.jscripto":"deixe quadrado = n => n * n\ndeixe numeros = [1, 2, 3, 4, 5]\ndeixe quadrados = numeros.mapa(quadrado)\nimprima(quadrados)\n"}

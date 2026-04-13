@@ -1,0 +1,1 @@
+{"/programa.jscripto":"// Capture o erro e imprima e.mensagem\ndeixe usuario = nulo\nimprima(usuario.nome)\n"}

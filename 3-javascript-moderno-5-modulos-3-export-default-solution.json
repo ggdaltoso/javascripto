@@ -1,0 +1,1 @@
+{"/programa.jscripto":"funcao dobrar(n) {\n  retorne n * 2\n}\n\nexporte padrao dobrar\n\nimprima(dobrar(7))\nimprima(dobrar(15))\n"}

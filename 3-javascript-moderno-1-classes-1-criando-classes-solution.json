@@ -1,0 +1,1 @@
+{"/programa.jscripto":"classe Carro {\n  construtor(marca, ano) {\n    isso.marca = marca\n    isso.ano = ano\n  }\n}\n\ndeixe carro1 = novo Carro(\"Fiat\", 2020)\ndeixe carro2 = novo Carro(\"Honda\", 2023)\n\nimprima(carro1.marca + \" - \" + carro1.ano)\nimprima(carro2.marca + \" - \" + carro2.ano)\n"}

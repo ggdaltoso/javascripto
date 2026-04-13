@@ -1,0 +1,1 @@
+{"/programa.jscripto":"// Crie criarMultiplicador(fator) que retorna uma função\n// A função retornada multiplica qualquer número pelo fator\n\ndeixe duplicar = criarMultiplicador(2)\ndeixe triplicar = criarMultiplicador(3)\n\nimprima(duplicar(4))\nimprima(triplicar(4))\n"}

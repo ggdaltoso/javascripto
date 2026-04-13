@@ -1,0 +1,1 @@
+{"/_expected.txt":"Ana: 8\nCarla: 7\nElena: 9\nFabio: 6","/programa.jscripto":"fixe alunos = [\n  { nome: \"Ana\", nota: 8 },\n  { nome: \"Bruno\", nota: 5 },\n  { nome: \"Carla\", nota: 7 },\n  { nome: \"Diego\", nota: 4 },\n  { nome: \"Elena\", nota: 9 },\n  { nome: \"Fabio\", nota: 6 }\n]\n\n// Imprima o nome e a nota dos alunos aprovados (nota >= 6)\n"}

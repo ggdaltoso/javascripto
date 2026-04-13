@@ -1,0 +1,1 @@
+{"/programa.jscripto":"deixe hora = 10\n\nse (hora < 12) {\n  imprima(\"Bom dia!\")\n} senao se (hora <= 17) {\n  imprima(\"Boa tarde!\")\n} senao {\n  imprima(\"Boa noite!\")\n}\n"}

@@ -1,0 +1,1 @@
+{"/programa.jscripto":"funcao sacar(saldo, valor) {\n  // lance um erro se valor > saldo\n  retorne saldo - valor\n}\n\ntente {\n  imprima(sacar(100, 30))\n  imprima(sacar(100, 200))\n} capture (e) {\n  imprima(\"Erro: \" + e.mensagem)\n}\n"}

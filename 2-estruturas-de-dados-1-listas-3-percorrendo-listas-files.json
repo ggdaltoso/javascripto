@@ -1,0 +1,1 @@
+{"/programa.jscripto":"deixe numeros = [10, 20, 30, 40, 50]\ndeixe soma = 0\n\npara (deixe i = 0; i < numeros.tamanho; i = i + 1) {\n  // some numeros[i] à soma\n}\n\nimprima(\"Soma: \" + soma)\n"}

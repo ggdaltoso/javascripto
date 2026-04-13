@@ -1,0 +1,1 @@
+{"/programa.jscripto":"deixe produto = { nome: \"Notebook\", preco: 2500, estoque: 10 }\ndeixe {nome, preco} = produto\nimprima(nome)\nimprima(preco)\n"}

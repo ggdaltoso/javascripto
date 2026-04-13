@@ -1,0 +1,1 @@
+{"/programa.jscripto":"deixe titulo = \"JavaScripto\"\n\nfuncao exibirTitulo() {\n  funcao mostrar() {\n    imprima(\"Bem-vindo ao \" + titulo)\n  }\n  mostrar()\n}\n\nexibirTitulo()\n"}

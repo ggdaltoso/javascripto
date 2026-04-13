@@ -1,0 +1,1 @@
+{"/programa.jscripto":"funcao aprovado(nota) {\n  retorne nota >= 6\n}\n\ndeixe notas = [4, 7, 9, 5, 8, 3, 10]\ndeixe aprovadas = notas.filtre(aprovado)\nimprima(aprovadas)\n"}

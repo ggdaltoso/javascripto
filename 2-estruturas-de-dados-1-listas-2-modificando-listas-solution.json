@@ -1,0 +1,1 @@
+{"/programa.jscripto":"deixe tarefas = [\"estudar\", \"almocar\"]\ntarefas.adicione(\"exercitar\")\ntarefas[0] = \"revisar\"\nimprima(tarefas)\n"}

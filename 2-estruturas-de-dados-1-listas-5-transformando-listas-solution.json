@@ -1,0 +1,1 @@
+{"/programa.jscripto":"funcao palindromo(palavra) {\n  deixe invertida = palavra.divida(\"\").inverta().junta(\"\")\n  retorne palavra === invertida\n}\n\nimprima(palindromo(\"arara\"))   // verdadeiro\nimprima(palindromo(\"banana\"))  // falso\n"}

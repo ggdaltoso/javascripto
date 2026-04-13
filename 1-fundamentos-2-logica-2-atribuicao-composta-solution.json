@@ -1,0 +1,1 @@
+{"/programa.jscripto":"deixe saldo = 1000\n\nsaldo += 300\nsaldo += 150\nsaldo -= 200\n\nimprima(saldo)\n"}

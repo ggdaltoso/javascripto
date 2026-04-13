@@ -1,0 +1,1 @@
+{"/programa.jscripto":"funcao processar(valor) {\n  se (valor < 0) {\n    lance novo Erro(\"Valor negativo não permitido\")\n  }\n  imprima(\"Processando: \" + valor)\n}\n\ntente {\n  processar(10)\n  processar(-5)\n} capture (e) {\n  imprima(\"Erro: \" + e.mensagem)\n} finalmente {\n  imprima(\"Processamento finalizado.\")\n}\n"}

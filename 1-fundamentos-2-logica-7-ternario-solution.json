@@ -1,0 +1,1 @@
+{"/programa.jscripto":"deixe temperatura = 32\ndeixe clima = temperatura > 30 ? \"quente\" : \"agradavel\"\nimprima(clima)\n"}

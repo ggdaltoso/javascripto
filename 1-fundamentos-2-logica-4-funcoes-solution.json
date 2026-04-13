@@ -1,0 +1,1 @@
+{"/programa.jscripto":"funcao maiorDeDois(a, b) {\n  se (a > b) {\n    retorne a\n  } senao {\n    retorne b\n  }\n}\n\nimprima(maiorDeDois(10, 20))\nimprima(maiorDeDois(42, 7))\n"}

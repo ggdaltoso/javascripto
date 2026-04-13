@@ -1,0 +1,1 @@
+{"/programa.jscripto":"classe ContaBancaria {\n  construtor(titular) {\n    isso.titular = titular\n    isso.saldo = 0\n  }\n\n  depositar(valor) {\n    // aumente o saldo\n  }\n\n  mostrarSaldo() {\n    // imprima titular e saldo\n  }\n}\n\ndeixe conta = novo ContaBancaria(\"Maria\")\nconta.depositar(500)\nconta.depositar(250)\nconta.mostrarSaldo()\n"}

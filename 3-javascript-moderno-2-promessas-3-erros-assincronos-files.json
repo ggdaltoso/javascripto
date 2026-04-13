@@ -1,0 +1,1 @@
+{"/programa.jscripto":"assincrono funcao autenticar(senha) {\n  se (senha !== \"secreta\") {\n    lance novo Erro(\"Senha incorreta\")\n  }\n  retorne \"Bem-vindo!\"\n}\n\nassincrono funcao principal() {\n  // Use tente/capture para chamar autenticar(\"errada\")\n}\n\nprincipal()\n"}

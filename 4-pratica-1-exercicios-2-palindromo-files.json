@@ -1,0 +1,1 @@
+{"/_expected.txt":"true\nfalse\ntrue","/programa.jscripto":"// Escreva a função palindromo(palavra) e teste com os três casos abaixo\n\nimprima(palindromo(\"arara\"))   // true\nimprima(palindromo(\"banana\"))  // false\nimprima(palindromo(\"civic\"))   // true\n"}

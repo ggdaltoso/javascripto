@@ -1,0 +1,1 @@
+{"/programa.jscripto":"// Declare titulo com o valor \"JavaScripto\"\n// Crie exibirTitulo() com uma função interna mostrar\n// mostrar deve imprimir \"Bem-vindo ao \" + titulo\n\nexibirTitulo()\n"}

@@ -1,1 +1,1 @@
-{"/programa.jscripto":"deixe nome = \"JavaScripto\"\ndeixe versao = 1\ndeixe legal = verdadeiro\ndeixe bug = nulo\n\nimprima(nome)\nimprima(versao)\nimprima(legal)\nimprima(bug)\n"}
+{"/programa.jscripto":"deixe nome = \"Ana\"\ndeixe idade = 25\nimprima(\"Meu nome é \" + nome + \" e tenho \" + idade + \" anos.\")\n"}
