@@ -386,6 +386,19 @@ const ogImage = `${siteUrl}/og.png`;
         }
       }
     </style>
+
+    <!-- Google Analytics -->
+    {import.meta.env.PROD && (
+      <>
+        <script async is:inline src="https://www.googletagmanager.com/gtag/js?id=G-2N3Y6EH8B7"></script>
+        <script is:inline>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-2N3Y6EH8B7');
+        </script>
+      </>
+    )}
   </head>
   <body>
     <canvas id="bg-canvas"></canvas>
