@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "NODE_ENV=development pnpm --filter javascripto-tutorial dev",
     "build": "pnpm --filter javascripto-tutorial build",
-    "deploy": "pnpm build && gh-pages -d tutorial/dist",
+    "deploy": "pnpm build && gh-pages -d tutorial/dist --dotfiles",
     "test": "pnpm --filter @javascripto/transpiler test"
   },
   "devDependencies": {
