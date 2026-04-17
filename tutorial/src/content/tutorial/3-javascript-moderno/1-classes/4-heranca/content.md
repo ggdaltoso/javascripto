@@ -9,9 +9,7 @@ mainCommand: ['node run.js programa.jscripto', 'JavaScripto']
 
 # Herança
 
-Herança permite criar uma classe baseada em outra, reaproveitando seus métodos e propriedades. Use a palavra `estende` (equivalente a `extends`).
-
-## Estendendo uma classe
+Com herança, uma classe aproveita o que outra já tem. Use `estende`:
 
 ```jscripto
 classe Animal {
@@ -30,15 +28,15 @@ classe Cachorro estende Animal {
   }
 }
 
-deixe d = novo Cachorro("Rex")
-d.falar()
+deixe rex = novo Cachorro("Rex")
+rex.falar()
 ```
 
-`Cachorro` herda tudo de `Animal`, mas substitui o método `falar()`.
+`Cachorro` não precisou de construtor próprio porque herdou o de `Animal`. Só o `falar()` foi trocado.
 
 ## super
 
-Use `super` para acessar o construtor ou métodos da classe pai:
+Quando a subclasse tem seu próprio construtor, você precisa chamar `super()` antes de usar `isso`. Para chamar um método do pai, use `super.metodo()`:
 
 ```jscripto
 classe Animal {
@@ -62,21 +60,20 @@ classe Gato estende Animal {
   }
 }
 
-deixe g = novo Gato("Mimi", "laranja")
-imprima(g.descricao())
+deixe mimi = novo Gato("Mimi", "laranja")
+imprima(mimi.descricao())
 ```
 
-- `super(nome)` chama o construtor de `Animal`
-- `super.descricao()` chama o método `descricao()` de `Animal`
+`super(nome)` passa o nome pro construtor de `Animal`. `super.descricao()` chama o método do pai antes de acrescentar a cor.
 
 ## Sua vez!
 
-Crie uma classe `Veiculo` com `construtor(marca)` que guarda a marca em `isso.marca`, e um método `descricao()` que retorna `"Veículo: " + isso.marca`.
+Crie `Veiculo` com `construtor(marca)` e um método `descricao()` que retorna `"Veículo: " + isso.marca`.
 
-Depois crie uma classe `Carro estende Veiculo` com `construtor(marca, modelo)` que chama `super(marca)` e guarda o modelo em `isso.modelo`. Adicione um método `descricao()` que retorna `super.descricao() + ", modelo: " + isso.modelo`.
+Depois crie `Carro estende Veiculo` com `construtor(marca, modelo)`. Não esqueça o `super(marca)`. O método `descricao()` deve retornar `super.descricao() + ", modelo: " + isso.modelo`.
 
-Crie um `novo Carro("Toyota", "Corolla")` e imprima sua descrição.
+Crie `novo Carro("Toyota", "Corolla")` e imprima a descrição.
 
 :::tip
-`estende` equivale a `extends` e `super` equivale a `super` em JavaScript.
+`estende` equivale a `extends` em JavaScript.
 :::
