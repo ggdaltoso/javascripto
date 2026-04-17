@@ -238,8 +238,15 @@ semantics.addOperation('toJS()', {
   },
 
   // Classes
-  ClassDeclaration(_classe, name, body) {
-    return `class ${name.toJS()} ${body.toJS()}`;
+  ClassDeclaration(_classe, name, extendsClause, body) {
+    const ext = extendsClause.children.length > 0
+      ? ` ${extendsClause.children[0].toJS()}`
+      : '';
+    return `class ${name.toJS()}${ext} ${body.toJS()}`;
+  },
+
+  ClassExtends(_estende, name) {
+    return `extends ${name.toJS()}`;
   },
 
   ClassBody(_lb, methods, _rb) {
@@ -446,6 +453,10 @@ semantics.addOperation('toJS()', {
 
   PrimaryExpression_this(_) {
     return 'this';
+  },
+
+  PrimaryExpression_super(_) {
+    return 'super';
   },
 
   PrimaryExpression_object(node) {

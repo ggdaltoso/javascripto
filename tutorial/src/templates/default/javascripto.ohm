@@ -85,7 +85,8 @@ JavaScripto {
   ReturnStatement = "retorne" Expression? ";"?
 
   // Classes
-  ClassDeclaration = "classe" identifier ClassBody
+  ClassDeclaration = "classe" identifier ClassExtends? ClassBody
+  ClassExtends = "estende" identifier
   ClassBody = "{" MethodDefinition* "}"
   MethodDefinition = "construtor" "(" Params ")" Block               -- constructor
                    | "assincrono" identifier "(" Params ")" Block   -- asyncMethod
@@ -165,6 +166,7 @@ JavaScripto {
                     | "falso"              -- false
                     | "nulo"               -- null
                     | "isso"               -- this
+                    | "super"              -- super
                     | ObjectLiteral        -- object
                     | ArrayLiteral         -- array
                     | templateLiteral      -- template
@@ -206,7 +208,8 @@ JavaScripto {
            | "quebre" | "continue" | "escolha" | "caso" | "padrao"
            | "tente" | "capture" | "finalmente" | "lance"
            | "assincrono" | "aguarde"
-           | "importe" | "exporte" | "de" | "como") ~identPart
+           | "importe" | "exporte" | "de" | "como"
+           | "estende" | "super") ~identPart
 
   // Espaços e comentários
   space += comment
