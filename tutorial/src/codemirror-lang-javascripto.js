@@ -5,9 +5,11 @@ import { autocompletion, completeFromList } from '@codemirror/autocomplete';
 
 const keywords = new Set([
   'se', 'senao', 'enquanto', 'para', 'retorne',
-  'deixe', 'fixe', 'funcao', 'classe', 'novo', 'construtor',
+  'deixe', 'fixe', 'funcao', 'classe', 'novo', 'construtor', 'estende', 'super',
   'quebre', 'continue', 'escolha', 'caso', 'padrao',
   'tente', 'capture', 'finalmente', 'lance',
+  'assincrono', 'aguarde',
+  'importe', 'exporte', 'de', 'como',
 ]);
 
 const builtins = new Set(['imprima']);
@@ -141,6 +143,8 @@ const keywordCompletions = [
   { label: 'finalmente', type: 'keyword', info: 'Executado ao fim de tente/capture → finally' },
   { label: 'lance',      type: 'keyword', info: 'Lança um erro → throw' },
   { label: 'classe',     type: 'keyword', info: 'Define uma classe → class' },
+  { label: 'estende',    type: 'keyword', info: 'Herda de outra classe → extends' },
+  { label: 'super',      type: 'keyword', info: 'Acessa o construtor ou métodos da classe pai → super' },
   { label: 'construtor', type: 'keyword', info: 'Método especial de inicialização de uma classe → constructor' },
   { label: 'novo',       type: 'keyword', info: 'Cria uma nova instância de uma classe → new' },
   { label: 'isso',       type: 'keyword', info: 'Referência ao objeto atual → this' },
