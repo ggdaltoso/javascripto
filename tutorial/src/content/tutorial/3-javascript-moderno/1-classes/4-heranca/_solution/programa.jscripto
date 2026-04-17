@@ -1,0 +1,23 @@
+classe Veiculo {
+  construtor(marca) {
+    isso.marca = marca
+  }
+
+  descricao() {
+    retorne "Veículo: " + isso.marca
+  }
+}
+
+classe Carro estende Veiculo {
+  construtor(marca, modelo) {
+    super(marca)
+    isso.modelo = modelo
+  }
+
+  descricao() {
+    retorne super.descricao() + ", modelo: " + isso.modelo
+  }
+}
+
+deixe c = novo Carro("Toyota", "Corolla")
+imprima(c.descricao())
