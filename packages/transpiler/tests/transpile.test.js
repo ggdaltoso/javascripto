@@ -432,6 +432,60 @@ a.falar()`;
       expect(result).toContain('new Animal("Gato")');
       expect(result).toContain('a.falar()');
     });
+
+    it('transpila herança com estende', () => {
+      const input = 'classe Cachorro estende Animal {}';
+      expect(transpile(input)).toBe('class Cachorro extends Animal {\n\n}');
+    });
+
+    it('transpila super() no construtor', () => {
+      const input = `classe Cachorro estende Animal {
+  construtor(nome) {
+    super(nome)
+  }
+}`;
+      const result = transpile(input);
+      expect(result).toContain('class Cachorro extends Animal');
+      expect(result).toContain('super(nome)');
+    });
+
+    it('transpila super.metodo()', () => {
+      const input = `classe Cachorro estende Animal {
+  falar() {
+    super.falar()
+    imprima("Au!")
+  }
+}`;
+      const result = transpile(input);
+      expect(result).toContain('class Cachorro extends Animal');
+      expect(result).toContain('super.falar()');
+    });
+
+    it('transpila herança completa', () => {
+      const input = `classe Animal {
+  construtor(nome) {
+    isso.nome = nome
+  }
+  falar() {
+    imprima(isso.nome + " faz um barulho.")
+  }
+}
+classe Cachorro estende Animal {
+  construtor(nome) {
+    super(nome)
+  }
+  falar() {
+    imprima(isso.nome + " late: Au!")
+  }
+}
+deixe d = novo Cachorro("Rex")
+d.falar()`;
+      const result = transpile(input);
+      expect(result).toContain('class Animal');
+      expect(result).toContain('class Cachorro extends Animal');
+      expect(result).toContain('super(nome)');
+      expect(result).toContain('new Cachorro("Rex")');
+    });
   });
 
   describe('quebre e continue', () => {
@@ -835,6 +889,7 @@ saudar()`;
       'tente', 'capture', 'finalmente', 'lance',
       'assincrono', 'aguarde',
       'importe', 'exporte', 'de', 'como',
+      'estende', 'super',
     ];
 
     it.each(keywords.map(k => [k]))(
