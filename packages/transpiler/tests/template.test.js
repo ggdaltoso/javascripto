@@ -75,6 +75,17 @@ describe('template runner', () => {
     expect(templateTranspiler).toBe(packageTranspiler);
   });
 
+  it('semantics.js existe no template', () => {
+    const semanticsPath = join(templateRoot, 'semantics.js');
+    expect(statSync(semanticsPath).isFile()).toBe(true);
+  });
+
+  it('semantics.js do template é idêntico ao do pacote', () => {
+    const packageSemantics = readFileSync(join(__dirname, '..', 'src', 'semantics.js'), 'utf-8');
+    const templateSemantics = readFileSync(join(templateRoot, 'semantics.js'), 'utf-8');
+    expect(templateSemantics).toBe(packageSemantics);
+  });
+
   it('javascripto.ohm existe no template', () => {
     const grammarPath = join(templateRoot, 'javascripto.ohm');
     expect(statSync(grammarPath).isFile()).toBe(true);
