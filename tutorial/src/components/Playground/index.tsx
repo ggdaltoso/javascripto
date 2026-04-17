@@ -16,6 +16,7 @@ import { TemplateSelector } from './TemplateSelector';
 // Template files — inlined at build time via Vite's ?raw import
 import runJsSrc from '../../templates/default/run.js?raw';
 import transpilerSrc from '../../templates/default/transpiler.js?raw';
+import semanticsSrc from '../../templates/default/semantics.js?raw';
 import ohmSrc from '../../templates/default/javascripto.ohm?raw';
 import packageSrc from '../../templates/default/package.json?raw';
 
@@ -70,6 +71,7 @@ export default function Playground() {
         await wc.mount({
           'run.js': { file: { contents: runJsSrc } },
           'transpiler.js': { file: { contents: transpilerSrc } },
+          'semantics.js': { file: { contents: semanticsSrc } },
           'javascripto.ohm': { file: { contents: ohmSrc } },
           'package.json': { file: { contents: packageSrc } },
           'programa.jscripto': { file: { contents: DEFAULT_CODE } },
